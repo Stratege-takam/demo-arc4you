@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Arc4u.Data;
 
 namespace EG.DemoPCBE99925.ManageCourseService.Domain;
@@ -5,6 +6,7 @@ namespace EG.DemoPCBE99925.ManageCourseService.Domain;
 /// <summary>
 /// Person
 /// </summary>
+[Table("Peoples")]
 public class Person : IPersistEntity
 {
     #region Audi Properties
@@ -19,6 +21,10 @@ public class Person : IPersistEntity
 
     public string LastName { get; set; }
 
+    #endregion
+
+    #region Navigations
+    public ICollection<Course> Courses { get; set; }
     #endregion
 
 }

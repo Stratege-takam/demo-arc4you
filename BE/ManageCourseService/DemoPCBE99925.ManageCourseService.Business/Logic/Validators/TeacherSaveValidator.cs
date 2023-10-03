@@ -6,9 +6,9 @@ using FluentValidation;
 
 namespace EG.DemoPCBE99925.ManageCourseService.Business.Logic.Validators;
 
-internal class CourseSaveValidator : ValidatorBase<Course>
+internal class TeacherSaveValidator : ValidatorBase<Teacher>
 {
-	public CourseSaveValidator(Messages messages, Course entity)
+	public TeacherSaveValidator(Messages messages, Teacher entity)
 		: base(messages, entity)
 	{
 		RuleFor(e => e.Id).NotEmpty();

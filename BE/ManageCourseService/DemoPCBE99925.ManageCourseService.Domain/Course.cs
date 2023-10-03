@@ -20,7 +20,7 @@ public class Course : IPersistEntity
     public string Description { get; set; }
     public string Unity { get; set; }
 
-    #region Properties
+    #endregion Properties
 
     #region Navigations
 

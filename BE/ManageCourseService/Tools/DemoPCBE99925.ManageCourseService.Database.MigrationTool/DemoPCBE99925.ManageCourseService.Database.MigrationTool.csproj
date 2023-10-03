@@ -32,4 +32,8 @@
     <ProjectReference Include="..\..\DemoPCBE99925.ManageCourseService.Database\DemoPCBE99925.ManageCourseService.Database.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

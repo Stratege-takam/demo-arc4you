@@ -15,6 +15,11 @@ public class Participant : IPersistEntity
 	public DateTime AuditedOn { get; set; }
     #endregion Audi Properties
 
+    #region Properties
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
+    #endregion
+
     #region Navigations
     public Guid StudentId { get; set; }
     public Student Student { get; set; }
