@@ -28,5 +28,7 @@ public class Course : IPersistEntity
 
     public Guid OwnerId { get; set; }
 
+    public ICollection<CoursePerson> CoursePeople { get; set; }
+
     #endregion Navigation
 }

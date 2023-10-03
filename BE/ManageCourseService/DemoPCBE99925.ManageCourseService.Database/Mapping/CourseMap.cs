@@ -25,5 +25,11 @@ public class CourseConfiguration : IEntityTypeConfiguration<Course>
 		modelBuilder.Property(p => p.OwnerId).IsRequired();
 		modelBuilder.Property(p => p.Description).IsRequired(false);
         #endregion Properties
+
+        #region Foreign keys
+        modelBuilder.HasMany(p => p.CoursePeople)
+                   .WithOne(p => p.Course)
+                   .HasForeignKey(p => p.CourseId);
+        #endregion Foreign keys
     }
 }

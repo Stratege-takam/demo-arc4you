@@ -24,5 +24,8 @@ public class CoursePerson : IPersistEntity
     public Guid LeadId { get; set; }
     public Teacher Lead { get; set; }
 
+    public Guid CourseId { get; set; }
+    public Course Course { get; set; }
+
     #endregion Navigation
 }

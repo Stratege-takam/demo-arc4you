@@ -1,5 +1,6 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
+using Arc4u.Data;
 
 namespace EG.DemoPCBE99925.ManageCourseService.Domain;
 
@@ -7,7 +8,7 @@ namespace EG.DemoPCBE99925.ManageCourseService.Domain;
 /// Teacher
 /// </summary>
 [Table("Teachers")]
-public class Teacher : Person
+public class Teacher : Person, IPersistEntity
 {
     #region Properties
     public double Salary { get; set; }

@@ -24,6 +24,7 @@ public class CoursePersonConfiguration : IEntityTypeConfiguration<CoursePerson>
         modelBuilder.Property(p => p.StartDate).IsRequired();
         modelBuilder.Property(p => p.EndDate).IsRequired();
         modelBuilder.Property(p => p.LeadId).IsRequired();
+        modelBuilder.Property(p => p.CourseId).IsRequired();
         #endregion Properties
 
         #region Foreign keys
