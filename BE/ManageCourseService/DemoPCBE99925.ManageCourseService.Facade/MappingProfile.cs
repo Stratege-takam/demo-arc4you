@@ -1,4 +1,5 @@
 using AutoMapper;
+using EG.DemoPCBE99925.ManageCourseService.Facade.Dtos;
 
 namespace EG.DemoPCBE99925.ManageCourseService.Facade;
 
@@ -7,10 +8,14 @@ namespace EG.DemoPCBE99925.ManageCourseService.Facade;
 /// </summary>
 public class MappingProfile : Profile
 {
-    /// <summary>
-    /// Create the mapping.
-    /// </summary>
-    public MappingProfile()
-    {
-    }
+	/// <summary>
+	/// Create the mapping.
+	/// </summary>
+	public MappingProfile()
+	{
+		CreateMap<Domain.Participant, ParticipantDto>().ReverseMap();
+		CreateMap<Domain.Student, StudentDto>().ReverseMap();
+		CreateMap<Domain.Course, CourseDto>().ReverseMap();
+		CreateMap<Domain.Teacher, TeacherDto>().ReverseMap();
+	}
 }

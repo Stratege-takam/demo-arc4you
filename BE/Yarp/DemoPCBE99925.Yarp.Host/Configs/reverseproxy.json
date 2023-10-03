@@ -103,6 +103,126 @@
             "PathPattern": "/managecourseservice/facade/environment/{**remainder}"
           }
         ]
+      },
+      "managecourseservice/participant": {
+        "ClusterId": "managecourseservice",
+        "AuthorizationPolicy": "AccessApplication",
+        "Match": {
+          "Path": "/managecourseservice/facade/participant/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/managecourseservice/facade/participant/{**remainder}"
+          }
+        ]
+      },
+      "managecourseservice/participants": {
+        "ClusterId": "managecourseservice",
+        "AuthorizationPolicy": "AccessApplication",
+        "Match": {
+          "Path": "/managecourseservice/facade/participants/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/managecourseservice/facade/participants/{**remainder}"
+          }
+        ]
+      },
+      "managecourseservice/student": {
+        "ClusterId": "managecourseservice",
+        "AuthorizationPolicy": "AccessApplication",
+        "Match": {
+          "Path": "/managecourseservice/facade/student/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/managecourseservice/facade/student/{**remainder}"
+          }
+        ]
+      },
+      "managecourseservice/students": {
+        "ClusterId": "managecourseservice",
+        "AuthorizationPolicy": "AccessApplication",
+        "Match": {
+          "Path": "/managecourseservice/facade/students/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/managecourseservice/facade/students/{**remainder}"
+          }
+        ]
+      },
+      "managecourseservice/course": {
+        "ClusterId": "managecourseservice",
+        "AuthorizationPolicy": "AccessApplication",
+        "Match": {
+          "Path": "/managecourseservice/facade/course/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/managecourseservice/facade/course/{**remainder}"
+          }
+        ]
+      },
+      "managecourseservice/courses": {
+        "ClusterId": "managecourseservice",
+        "AuthorizationPolicy": "AccessApplication",
+        "Match": {
+          "Path": "/managecourseservice/facade/courses/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/managecourseservice/facade/courses/{**remainder}"
+          }
+        ]
+      },
+      "managecourseservice/courseperson": {
+        "ClusterId": "managecourseservice",
+        "AuthorizationPolicy": "AccessApplication",
+        "Match": {
+          "Path": "/managecourseservice/facade/courseperson/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/managecourseservice/facade/courseperson/{**remainder}"
+          }
+        ]
+      },
+      "managecourseservice/coursepeople": {
+        "ClusterId": "managecourseservice",
+        "AuthorizationPolicy": "AccessApplication",
+        "Match": {
+          "Path": "/managecourseservice/facade/coursepeople/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/managecourseservice/facade/coursepeople/{**remainder}"
+          }
+        ]
+      },
+      "managecourseservice/teacher": {
+        "ClusterId": "managecourseservice",
+        "AuthorizationPolicy": "AccessApplication",
+        "Match": {
+          "Path": "/managecourseservice/facade/teacher/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/managecourseservice/facade/teacher/{**remainder}"
+          }
+        ]
+      },
+      "managecourseservice/teachers": {
+        "ClusterId": "managecourseservice",
+        "AuthorizationPolicy": "AccessApplication",
+        "Match": {
+          "Path": "/managecourseservice/facade/teachers/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/managecourseservice/facade/teachers/{**remainder}"
+          }
+        ]
       }
     },
     "Clusters": {}
