@@ -11,6 +11,98 @@
             "PathPattern": "/healthz/{**remainder}"
           }
         ]
+      },
+      "core/healthz": {
+        "ClusterId": "core",
+        "Match": {
+          "Path": "/core/healthz/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/healthz/{**remainder}"
+          }
+        ]
+      },
+      "core/swagger": {
+        "ClusterId": "Core",
+        "AuthorizationPolicy": "AccessApplication",
+        "Match": {
+          "Path": "/core/swagger/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/swagger/{**remainder}"
+          }
+        ]
+      },
+      "core/gRPC/reflection": {
+        "ClusterId": "core",
+        "Match": {
+          "Path": "/core/grpc.reflection.v1alpha.ServerReflection/ServerReflectionInfo/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/grpc.reflection.v1alpha.ServerReflection/ServerReflectionInfo/{**remainder}"
+          }
+        ]
+      },
+      "core/environment": {
+        "ClusterId": "core",
+        "AuthorizationPolicy": "AccessApplication",
+        "Match": {
+          "Path": "/core/facade/environment/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/core/facade/environment/{**remainder}"
+          }
+        ]
+      },
+      "managecourseservice/healthz": {
+        "ClusterId": "managecourseservice",
+        "Match": {
+          "Path": "/managecourseservice/healthz/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/healthz/{**remainder}"
+          }
+        ]
+      },
+      "managecourseservice/swagger": {
+        "ClusterId": "ManageCourseService",
+        "AuthorizationPolicy": "AccessApplication",
+        "Match": {
+          "Path": "/managecourseservice/swagger/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/swagger/{**remainder}"
+          }
+        ]
+      },
+      "managecourseservice/gRPC/reflection": {
+        "ClusterId": "managecourseservice",
+        "Match": {
+          "Path": "/managecourseservice/grpc.reflection.v1alpha.ServerReflection/ServerReflectionInfo/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/grpc.reflection.v1alpha.ServerReflection/ServerReflectionInfo/{**remainder}"
+          }
+        ]
+      },
+      "managecourseservice/environment": {
+        "ClusterId": "managecourseservice",
+        "AuthorizationPolicy": "AccessApplication",
+        "Match": {
+          "Path": "/managecourseservice/facade/environment/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/managecourseservice/facade/environment/{**remainder}"
+          }
+        ]
       }
     },
     "Clusters": {}

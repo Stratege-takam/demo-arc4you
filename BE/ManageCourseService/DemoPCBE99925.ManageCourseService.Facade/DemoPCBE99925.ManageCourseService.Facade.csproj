@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <WebSdkAnalyzersPath>$(NetCoreRoot)\sdk\$(NETCoreSdkVersion)\Sdks\Microsoft.NET.Sdk.Web\analyzers\cs</WebSdkAnalyzersPath>
+    <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+
+    <PackageReference Include="Arc4u.Standard.gRPC" Version="6.1.18.1" />
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="Google.Protobuf" Version="3.23.4" />
+    <PackageReference Include="Grpc" Version="2.46.6" />
+    <PackageReference Include="Grpc.Tools" Version="2.56.2" PrivateAssets="All" />
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="**/*.proto" GrpcServices="Server" ProtoRoot="Protos" />
+    <None Remove="Protos\Environment.proto" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='DEBUG'">
+    <Analyzer Include="$([System.IO.Path]::GetFullPath($(WebSdkAnalyzersPath)..))\Microsoft.AspNetCore.Analyzers.dll" Condition="'$(Language)'=='C#'" />
+    <Analyzer Include="$([System.IO.Path]::GetFullPath($(WebSdkAnalyzersPath)..))\Microsoft.AspNetCore.Mvc.Analyzers.dll" Condition="'$(Language)'=='C#'" />
+    <Analyzer Include="$([System.IO.Path]::GetFullPath($(WebSdkAnalyzersPath)..))\Microsoft.AspNetCore.Mvc.Api.Analyzers.dll" Condition="'$(Language)'=='C#' AND '$(IncludeOpenAPIAnalyzers)' == 'true'" />
+    <Analyzer Include="$([System.IO.Path]::GetFullPath($(WebSdkAnalyzersPath)..))\Microsoft.AspNetCore.Components.Analyzers.dll" Condition="'$(Language)'=='C#'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Dto\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\DemoPCBE99925.Shared.Domain\DemoPCBE99925.Shared.Domain.csproj" />
+    <ProjectReference Include="..\DemoPCBE99925.ManageCourseService.Domain\DemoPCBE99925.ManageCourseService.Domain.csproj" />
+    <ProjectReference Include="..\DemoPCBE99925.ManageCourseService.IBusiness\DemoPCBE99925.ManageCourseService.IBusiness.csproj" />
+  </ItemGroup>
+</Project>

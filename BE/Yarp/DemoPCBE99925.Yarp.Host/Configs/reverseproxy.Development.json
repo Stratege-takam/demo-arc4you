@@ -16,6 +16,36 @@
             "Address": "https://localhost:7206/"
           }
         }
+      },
+      "core": {
+        "HttpClient": {
+          "MaxConnectionsPerServer": 16
+        },
+        "HttpRequest": {
+          "Version": "2.0",
+          "VersionPolicy": "RequestVersionOrHigher",
+          "ActivityTimeout": "00:10:00"
+        },
+        "Destinations": {
+          "core/destination1": {
+            "Address": "https://localhost:7028/"
+          }
+        }
+      },
+      "managecourseservice": {
+        "HttpClient": {
+          "MaxConnectionsPerServer": 16
+        },
+        "HttpRequest": {
+          "Version": "2.0",
+          "VersionPolicy": "RequestVersionOrHigher",
+          "ActivityTimeout": "00:10:00"
+        },
+        "Destinations": {
+          "managecourseservice/destination1": {
+            "Address": "https://localhost:7144/"
+          }
+        }
       }
     }
   }

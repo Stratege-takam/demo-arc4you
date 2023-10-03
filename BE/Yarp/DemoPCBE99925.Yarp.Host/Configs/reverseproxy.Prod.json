@@ -16,6 +16,36 @@
             "Address": "https://demopcbe99925.belgrid.net/"
           }
         }
+      },
+      "core": {
+        "HttpClient": {
+          "MaxConnectionsPerServer": 16
+        },
+        "HttpRequest": {
+          "Version": "2.0",
+          "VersionPolicy": "RequestVersionOrHigher",
+          "ActivityTimeout": "00:10:00"
+        },
+        "Destinations": {
+          "core/destination1": {
+            "Address": "https://demopcbe99925.belgrid.net/"
+          }
+        }
+      },
+      "managecourseservice": {
+        "HttpClient": {
+          "MaxConnectionsPerServer": 16
+        },
+        "HttpRequest": {
+          "Version": "2.0",
+          "VersionPolicy": "RequestVersionOrHigher",
+          "ActivityTimeout": "00:10:00"
+        },
+        "Destinations": {
+          "managecourseservice/destination1": {
+            "Address": "https://demopcbe99925.belgrid.net/"
+          }
+        }
       }
     }
   }

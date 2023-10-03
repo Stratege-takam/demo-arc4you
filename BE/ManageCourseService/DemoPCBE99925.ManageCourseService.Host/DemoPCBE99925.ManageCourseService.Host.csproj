@@ -1,0 +1,105 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <_WebToolingArtifacts Remove="Properties\launchSettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Properties\launchSettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Arc4u.Standard.AspNetCore.gRpc" Version="6.1.18.1" />
+    <PackageReference Include="Arc4u.Standard.Configuration.Decryptor" Version="6.1.18.1" />
+    <PackageReference Include="Arc4u.Standard.gRPC" Version="6.1.18.1" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.55.0" />
+    <PackageReference Include="Dapr.AspNetCore" Version="1.11.0" />
+    <PackageReference Include="Arc4u.Standard" Version="6.1.18.1" />
+    <PackageReference Include="Arc4u.Standard.Authorization" Version="6.1.18.1" />
+    <PackageReference Include="Arc4u.Standard.Caching.Memory" Version="6.1.18.1" />
+    <PackageReference Include="Arc4u.Standard.Configuration" Version="6.1.18.1" />
+    <PackageReference Include="Arc4u.Standard.Dependency.ComponentModel" Version="6.1.18.1" />
+    <PackageReference Include="Arc4u.Standard.Diagnostics.Serilog" Version="6.1.18.1" />
+    <PackageReference Include="Arc4u.Standard.OAuth2.AspNetCore.Authentication" Version="6.1.18.1" />
+    <PackageReference Include="Arc4u.Standard.OAuth2.AspNetCore" Version="6.1.18.1" />
+    <PackageReference Include="Arc4u.Standard.OAuth2.AspNetCore.Api" Version="6.1.18.1" />
+    <PackageReference Include="Arc4u.Standard.Serializer.JSon" Version="6.1.18.1" />
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.55.0" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.0.18" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="NSwag.AspNetCore" Version="13.18.5" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="6.0.0" />
+    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.5.1" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.5.1" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.0.0-rc9.13" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.0.0-rc9.13" />
+    <PackageReference Include="Serilog" Version="3.0.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
+    <PackageReference Include="Serilog.Expressions" Version="3.4.1" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.Seq" Version="5.2.2" />
+    <PackageReference Include="Serilog.Sinks.Splunk" Version="3.7.0" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.5" />
+    <PackageReference Include="AspNetCore.HealthChecks.Publisher.Seq" Version="6.0.2" />
+    <PackageReference Include="AspNetCore.HealthChecks.Uris" Version="6.0.3" />
+    <PackageReference Include="Man.Dapr.Sidekick.AspNetCore" Version="1.2.1" />
+    <PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" Version="0.18.0" />
+    <PackageReference Include="NSwag.MSBuild" Version="13.18.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\DemoPCBE99925.Shared.Domain\DemoPCBE99925.Shared.Domain.csproj" />
+    <ProjectReference Include="..\DemoPCBE99925.ManageCourseService.Business\DemoPCBE99925.ManageCourseService.Business.csproj" />
+    <ProjectReference Include="..\DemoPCBE99925.ManageCourseService.Domain\DemoPCBE99925.ManageCourseService.Domain.csproj" />
+    <ProjectReference Include="..\DemoPCBE99925.ManageCourseService.Facade\DemoPCBE99925.ManageCourseService.Facade.csproj" />
+    <ProjectReference Include="..\DemoPCBE99925.ManageCourseService.IBusiness\DemoPCBE99925.ManageCourseService.IBusiness.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\Acc\" />
+    <Folder Include="Components\Dev\" />
+    <Folder Include="Components\Prod\" />
+    <Folder Include="Components\Test\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Configs\appsettings.Acc.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+    </Content>
+    <Content Update="Configs\appsettings.Dev.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+    </Content>
+    <Content Update="Configs\appsettings.Development.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+    </Content>
+    <Content Update="Configs\appsettings.Prod.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+    </Content>
+    <Content Update="Configs\appsettings.Test.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+    </Content>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+  </PropertyGroup>
+
+  <Target Name="NSwagFacade" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Debug' ">
+    <Exec WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development;NSwag=true" Command="$(NSwagExe_Net60) run ..\Sdks\DemoPCBE99925.ManageCourseService.Facade.Sdk\Generator\facade.nswag  /variables:Configuration=$(Configuration)" />
+  </Target>
+</Project>

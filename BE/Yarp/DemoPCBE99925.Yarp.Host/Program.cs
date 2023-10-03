@@ -207,6 +207,8 @@ try
 		configure.TagsSorter = "alpha";
 		configure.OperationsSorter = "alpha";
 		configure.SwaggerRoutes.Add(new NSwag.AspNetCore.SwaggerUi3Route("Gateway", "/swagger/facade/swagger.json"));
+		configure.SwaggerRoutes.Add(new NSwag.AspNetCore.SwaggerUi3Route("Core", "/core/swagger/facade/swagger.json"));
+		configure.SwaggerRoutes.Add(new NSwag.AspNetCore.SwaggerUi3Route("ManageCourseService", "/managecourseservice/swagger/facade/swagger.json"));
 	})
 	.UseSwaggerUi3(configure =>
 	{
