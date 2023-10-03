@@ -1,0 +1,18 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "yarp/healthz": {
+        "ClusterId": "yarp",
+        "Match": {
+          "Path": "/yarp/healthz/{**remainder}"
+        },
+        "Transforms": [
+          {
+            "PathPattern": "/healthz/{**remainder}"
+          }
+        ]
+      }
+    },
+    "Clusters": {}
+  }
+}

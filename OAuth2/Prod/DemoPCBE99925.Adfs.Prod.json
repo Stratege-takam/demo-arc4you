@@ -1,0 +1,30 @@
+{
+  "Globals": {
+    "applicationGroupName": "DemoPCBE99925 Prod",
+    "authority": "https://adfs.belgrid.net/adfs",
+    "webApiResourceId": "https://demopcbe99925.prod.host",
+    "serviceDisplayName": "DemoPCBE99925 Prod Service"
+  },
+  "Scripts": {
+    "CreateGroup": {},
+    "RegisterBE": {
+      "rootUrl": "https://demopcbe99925.belgrid.net/",
+      "ttl": "600",
+      "applicationName": "DemoPCBE99925",
+      "serviceAccount": "Belgrid\\SVC_DemoPCBE99925_Prod"
+    },
+    "RegisterWebApp": {
+      "webAppDisplayName": "DemoPCBE99925 WebHost Prod Client",
+      "rootUrl": "https://demopcbe99925.belgrid.net/signin-oidc",
+      "identifier": "1bdc5a7e-e02c-423d-936e-8fd237dba850"
+    },
+    "RegisterNativeApplication": [
+      {
+        "nativeAppDisplayName": "DemoPCBE99925 Basic Prod Authentication",
+        "redirectUri": "urn://demopcbe99925.basic.authentication",
+        "identifier": "136088c0-de23-4332-86a2-1f42725e8848",
+        "settings": "Basic.Settings"
+      }
+    ]
+  }
+}

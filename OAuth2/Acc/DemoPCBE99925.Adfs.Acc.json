@@ -1,0 +1,30 @@
+{
+  "Globals": {
+    "applicationGroupName": "DemoPCBE99925 Acc",
+    "authority": "https://adfsacc.belgrid.net/adfs",
+    "webApiResourceId": "https://demopcbe99925.acc.host",
+    "serviceDisplayName": "DemoPCBE99925 Acc Service"
+  },
+  "Scripts": {
+    "CreateGroup": {},
+    "RegisterBE": {
+      "rootUrl": "https://demopcbe99925.acc.belgrid.net/",
+      "ttl": "600",
+      "applicationName": "DemoPCBE99925",
+      "serviceAccount": "Belgrid\\SVC_DemoPCBE99925_Acc"
+    },
+    "RegisterWebApp": {
+      "webAppDisplayName": "DemoPCBE99925 WebHost Acc Client",
+      "rootUrl": "https://demopcbe99925.acc.belgrid.net/signin-oidc",
+      "identifier": "5cbae533-8f2b-4493-a855-8bc28d8e4af4"
+    },
+    "RegisterNativeApplication": [
+      {
+        "nativeAppDisplayName": "DemoPCBE99925 Basic Acc Authentication",
+        "redirectUri": "urn://demopcbe99925.basic.authentication",
+        "identifier": "3e05ac28-81b4-4306-905a-526fcf9f55b8",
+        "settings": "Basic.Settings"
+      }
+    ]
+  }
+}

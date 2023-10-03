@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+    <PackageReference Include="Arc4u.Standard.Authorization" Version="6.1.18.1" />
+    <PackageReference Include="Arc4u.Standard.Data" Version="6.1.18.1" />
+		<PackageReference Include="Arc4u.Standard.FluentValidation" Version="6.1.18.1" />
+  </ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Shared\DemoPCBE99925.Shared.Domain\DemoPCBE99925.Shared.Domain.csproj" />
+	  <ProjectReference Include="..\DemoPCBE99925.Yarp.Domain\DemoPCBE99925.Yarp.Domain.csproj" />
+	  <ProjectReference Include="..\DemoPCBE99925.Yarp.IBusiness\DemoPCBE99925.Yarp.IBusiness.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Logic\Rules\" />
+	  <Folder Include="Logic\Validators\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Resources\ErrorRes.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ErrorRes.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\ErrorRes.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ErrorRes.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+</Project>

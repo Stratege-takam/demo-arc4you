@@ -1,0 +1,22 @@
+{
+  "ReverseProxy": {
+    "Routes": {},
+    "Clusters": {
+      "yarp": {
+        "HttpClient": {
+          "MaxConnectionsPerServer": 16
+        },
+        "HttpRequest": {
+          "Version": "2.0",
+          "VersionPolicy": "RequestVersionOrHigher",
+          "ActivityTimeout": "00:10:00"
+        },
+        "Destinations": {
+          "yarp/destination1": {
+            "Address": "https://demopcbe99925.acc.belgrid.net/"
+          }
+        }
+      }
+    }
+  }
+}
