@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Arc4u.Standard.EFCore" Version="6.1.18.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.18" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DemoPCBE99925.ManageCourseService.Domain\DemoPCBE99925.ManageCourseService.Domain.csproj" />
+    <ProjectReference Include="..\DemoPCBE99925.ManageCourseService.IDatabase\DemoPCBE99925.ManageCourseService.IDatabase.csproj" />
+  </ItemGroup>
+</Project>
