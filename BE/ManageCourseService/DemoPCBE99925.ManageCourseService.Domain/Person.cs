@@ -7,7 +7,7 @@ namespace EG.DemoPCBE99925.ManageCourseService.Domain;
 /// Person
 /// </summary>
 [Table("Peoples")]
-public class Person : IPersistEntity
+public abstract class Person : IPersistEntity
 {
     #region Audi Properties
     public Guid Id { get; set; }
