@@ -26,7 +26,7 @@ public class Course : IPersistEntity
 
     public Person Owner { get; set; }
 
-    public Guid PersonId { get; set; }
+    public Guid OwnerId { get; set; }
 
     #endregion Navigation
 }
