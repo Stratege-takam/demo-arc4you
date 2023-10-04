@@ -1,0 +1,57 @@
+<MenuItems>
+  <MenuItem>
+    <Access></Access>
+    <GroupName/>
+    <ImageUrl/>
+    <InputGestureText/>
+    <IsCheckable>false</IsCheckable>
+    <IsChecked>false</IsChecked>
+    <IsEnabled>true</IsEnabled>
+    <IsSeparator>false</IsSeparator>
+    <MenuItems>
+      <MenuItem>
+        <Access/>
+        <GroupName/>
+        <ImageUrl/>
+        <InputGestureText/>
+        <IsCheckable>false</IsCheckable>
+        <IsChecked>false</IsChecked>
+        <IsEnabled>true</IsEnabled>
+        <IsSeparator>true</IsSeparator>
+        <MenuItems/>
+        <Key/>
+        <StaysOpenOnClick>false</StaysOpenOnClick>
+        <Text/>
+        <ToolTip/>
+        <ResourceType>
+          EG.DemoPCBE99925.ManageCourse.WPF.Views.Resources.MenuRes, DemoPCBE99925.ManageCourse.WPF
+        </ResourceType>
+      </MenuItem>
+      <MenuItem>
+        <Access/>
+        <GroupName/>
+        <ImageUrl>/DemoPCBE99925.ManageCourse.WPF.Common;component/ResourceDictionary/Images/appbar.close.rest.png</ImageUrl>
+        <InputGestureText/>
+        <IsCheckable>false</IsCheckable>
+        <IsChecked>false</IsChecked>
+        <IsEnabled>true</IsEnabled>
+        <IsSeparator>false</IsSeparator>
+        <MenuItems/>
+        <Key>Exit</Key>
+        <StaysOpenOnClick>false</StaysOpenOnClick>
+        <Text>Exit</Text>
+        <ToolTip>ExitTooltip</ToolTip>
+        <ResourceType>
+          EG.DemoPCBE99925.ManageCourse.WPF.Views.Resources.MenuRes, DemoPCBE99925.ManageCourse.WPF
+        </ResourceType>
+      </MenuItem>
+    </MenuItems>
+    <Key>File</Key>
+    <StaysOpenOnClick>false</StaysOpenOnClick>
+    <Text>File</Text>
+    <ToolTip>FileTooltip</ToolTip>
+    <ResourceType>
+      EG.DemoPCBE99925.ManageCourse.WPF.Views.Resources.MenuRes, DemoPCBE99925.ManageCourse.WPF
+    </ResourceType>
+  </MenuItem>
+</MenuItems>

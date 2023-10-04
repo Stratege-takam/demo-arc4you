@@ -30,6 +30,12 @@
         "redirectUri": "https://localhost:7179/authentication/login-callback",
         "identifier": "274f12b5-f635-4980-89c9-f5f453bee451",
         "settings": "Blazor.OAuth2.ManageCourse.Web.Settings"
+      },
+      {
+        "nativeAppDisplayName": "DemoPCBE99925 Wpf ManageCourse.WPF Client",
+        "redirectUri": "http://localhost",
+        "identifier": "0169f8ea-c48e-44fa-8c1b-2c9d788a49da",
+        "settings": "WPF.OAuth2.ManageCourse.WPF.Settings"
       }
     ]
   }

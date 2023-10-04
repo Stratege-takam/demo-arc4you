@@ -1,0 +1,113 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+	  <Nullable>enable</Nullable>
+	  <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+	<RootNamespace>EG.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ResourceDictionary\Images\appbar.add.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.back.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.basecircle.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.cancel.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.check.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.close.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.delete.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.download.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.edit.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.favs.addto.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.favs.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.feature.camera.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.feature.email.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.feature.search.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.feature.settings.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.feature.video.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.folder.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.minus.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.new.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.next.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.overflowdots.png" />
+    <None Remove="ResourceDictionary\Images\appbar.questionmark.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.refresh.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.save.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.share.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.stop.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.sync.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.transport.ff.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.transport.pause.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.transport.play.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.transport.rew.rest.png" />
+    <None Remove="ResourceDictionary\Images\appbar.upload.rest.png" />
+    <None Remove="ResourceDictionary\Images\background.png" />
+    <None Remove="ResourceDictionary\Images\clipboard.png" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Arc4u.Standard.OAuth2.Msal" Version="6.1.18.1" />
+		<PackageReference Include="Arc4u.Standard.OAuth2.Client" Version="6.1.18.1" />
+		<PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+		<PackageReference Include="System.Linq.Async" Version="6.0.1" />
+		<PackageReference Include="Arc4u.Standard.gRPC" Version="6.1.18.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\BE\Yarp\Sdks\DemoPCBE99925.Yarp.Facade.Sdk\DemoPCBE99925.Yarp.Facade.Sdk.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="ResourceDictionary\Images\appbar.add.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.back.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.basecircle.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.cancel.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.check.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.close.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.delete.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.download.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.edit.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.favs.addto.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.favs.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.feature.camera.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.feature.email.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.feature.search.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.feature.settings.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.feature.video.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.folder.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.minus.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.new.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.next.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.overflowdots.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.questionmark.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.refresh.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.save.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.share.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.stop.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.sync.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.transport.ff.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.transport.pause.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.transport.play.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.transport.rew.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\appbar.upload.rest.png" />
+	  <Resource Include="ResourceDictionary\Images\background.png" />
+	  <Resource Include="ResourceDictionary\Images\clipboard.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Controls\MessageBoxControl\MessageBoxRes.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>MessageBoxRes.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Controls\MessageBoxControl\MessageBoxRes.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>MessageBoxRes.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>	
+	
+</Project>

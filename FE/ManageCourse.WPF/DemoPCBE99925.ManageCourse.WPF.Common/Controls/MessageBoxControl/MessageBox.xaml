@@ -1,0 +1,99 @@
+
+<Window x:Name="messageBox"
+        x:Class="EG.DemoPCBE99925.ManageCourse.WPF.Common.Controls.MessageBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        MinWidth="250"
+        MinHeight="60"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        Topmost="True"
+        ButtonBase.Click="MessageBox_Click">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Grid.Column="0" 
+                    Margin="10"
+                    Orientation="Horizontal">
+            
+            <Image Source="{StaticResource WarningSchield}"
+                   Height="50"
+                   MaxHeight="50"
+                   Width="50"
+                   MaxWidth="50"
+                   Visibility="{Binding ElementName=messageBox, Path=WarningIconVisibility}" />
+            
+            <Image Source="{StaticResource ErrorSchield}"
+                   Height="50"
+                   MaxHeight="50"
+                   Width="50"
+                   MaxWidth="50"
+                   Visibility="{Binding ElementName=messageBox, Path=ErrorIconVisibility}" />
+            
+            <Image Source="{StaticResource InformationSchield}"
+                   Height="50"
+                   MaxHeight="50"
+                   Width="50"
+                   MaxWidth="50"
+                   Visibility="{Binding ElementName=messageBox, Path=InformationIconVisibility}" />
+            
+            <Image Source="{StaticResource QuestionSchield}"
+                   Height="50"
+                   MaxHeight="50"
+                   Width="50"
+                   MaxWidth="50"
+                   Visibility="{Binding ElementName=messageBox, Path=QuestionIconVisibility}" />
+            
+        </StackPanel>
+
+        <TextBlock Grid.Row="0"
+                   Grid.Column="1"
+                   Margin="10"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Text="{Binding ElementName=messageBox, Path=MessageBoxText}" />
+        
+        <StackPanel Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+            
+            <Button Name="yes"
+                    MinWidth="64"
+                    IsDefault="{Binding ElementName=messageBox, Path=IsYesButtonDefault}"
+                    Content="{Binding Resources.ButtonYes}"
+                    Visibility="{Binding ElementName=messageBox, Path=ButtonYesVisibility}" />
+            
+            <Button Name="no"
+                    MinWidth="64" 
+                    IsDefault="{Binding ElementName=messageBox, Path=IsNoButtonDefault}"
+                    Content="{Binding Resources.ButtonNo}"
+                    Visibility="{Binding ElementName=messageBox, Path=ButtonNoVisibility}" />
+            
+            <Button Name="ok"
+                    MinWidth="64" 
+                    IsDefault="{Binding ElementName=messageBox, Path=IsOkButtonDefault}"
+                    Content="{Binding Resources.ButtonOk}"
+                    Visibility="{Binding ElementName=messageBox, Path=ButtonOkVisibility}" />
+            
+            <Button Name="cancel"
+                    MinWidth="64" 
+                    IsDefault="{Binding ElementName=messageBox, Path=IsCancelButtonDefault}"
+                    IsCancel="True"
+                    Content="{Binding Resources.ButtonCancel}"
+                    Visibility="{Binding ElementName=messageBox, Path=ButtonCancelVisibility}" />
+            
+        </StackPanel>
+    </Grid>
+</Window>

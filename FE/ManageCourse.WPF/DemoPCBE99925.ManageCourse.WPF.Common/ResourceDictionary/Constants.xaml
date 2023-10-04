@@ -1,0 +1,58 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    
+    <!-- Size of text used in another part of the application as default size -->
+    <sys:Double x:Key="FontDefaultSize">11.5</sys:Double>
+    <sys:Double x:Key="Title1FontSize">16</sys:Double>                          <!-- Loading text -->
+    <sys:Double x:Key="Title2FontSize">14</sys:Double>                          
+    <sys:Double x:Key="Title3FontSize">13</sys:Double>                          
+    <FontFamily x:Key="FontDefaultFamily">Microsoft Sans Serif</FontFamily>
+    
+    <!-- Normal controls: Button, ComboBox, etc...  -->
+    <Thickness x:Key="ControlDefaultBorderThickness">1</Thickness>
+    <!-- Container: Panel, GroupBox, ... -->
+    <Thickness x:Key="ContainerControlDefaultBorderThickness">2</Thickness>
+    
+    <!-- Size of image buttons -->
+    <sys:Double x:Key="ImageDefaultWidth">22</sys:Double>
+    <sys:Double x:Key="ImageDefaultHeight">22</sys:Double>
+    <sys:Double x:Key="ImageButtonDefaultWidth">26</sys:Double>
+    <sys:Double x:Key="ImageButtonDefaultHeight">26</sys:Double>
+    <sys:Double x:Key="SmallImageButtonDefaultWidth">16</sys:Double>
+    <sys:Double x:Key="SmallImageButtonDefaultHeight">16</sys:Double>
+
+    <!-- Define the space to be left into two groups of controls on the same line: Name: [Value] [GridLengthBetweenGroupsOfControls] FirstName: [Value]-->
+    <GridLength x:Key="GridLengthBetweenGroupsOfControls">25</GridLength>
+    
+    <!-- Define the MinHeight of a Grid container for a row.  -->
+    <sys:Double x:Key="GridRowMinHeight">25</sys:Double>
+
+    <!-- 'BIG' controls: DataGrid, ... -->
+    <Thickness x:Key="BigControlDefaultMargin">2</Thickness>
+    
+    <!-- used for telerik and crosoft datagrid -->
+    <sys:Double x:Key="GridViewRowMinHeight">20</sys:Double>
+    
+    <!-- Used for simple data grid -->
+    <sys:Double x:Key="DataGridColumnHeaderHeight">25</sys:Double>
+    
+    <!-- GroupBox, Panel, TabControl etc... -->
+    <Thickness x:Key="ContentControlDefaultMargin">4</Thickness>
+    <Thickness x:Key="ContentControlDefaultPadding">4</Thickness>
+    
+    <!-- Label, TextBlock, TextBox, ComboBox, DatePicker, ProgressBar... -->
+    <Thickness x:Key="TextControlDefaultMargin">3</Thickness>
+    <Thickness x:Key="TextControlDefaultPadding">0</Thickness>
+    <sys:Double x:Key="TextControlDefaultMinHeight">20</sys:Double>
+    <sys:Double x:Key="TextControlDefaultMinWidth">120</sys:Double>
+    
+    <sys:Double x:Key="DatePickerDefaultMinHeight">19</sys:Double>
+    <sys:Double x:Key="DatePickerDefaultMinWidth">160</sys:Double>
+    
+    <!-- Button -->
+    <sys:Double x:Key="ButtonDefaultMinHeight">20</sys:Double>
+    <sys:Double x:Key="ButtonDefaultMinWidth">64</sys:Double>
+    
+    <sys:Double x:Key="DisabledOpacity">0.6</sys:Double>
+</ResourceDictionary>
