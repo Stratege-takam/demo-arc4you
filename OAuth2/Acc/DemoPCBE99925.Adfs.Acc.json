@@ -24,6 +24,17 @@
         "redirectUri": "urn://demopcbe99925.basic.authentication",
         "identifier": "3e05ac28-81b4-4306-905a-526fcf9f55b8",
         "settings": "Basic.Settings"
+      },
+      {
+        "nativeAppDisplayName": "DemoPCBE99925 Blazor ManageCourse.Web Client",
+        "redirectUri": "https://your blazor endpoint/authentication/login-callback",
+        "identifier": "5b31c92f-4065-42c3-8cbc-48b3f12dabcb",
+        "settings": "Blazor.OAuth2.ManageCourse.Web.Settings"
+      }
+    ],
+    "ConfigureCORSTO": [
+      {
+        "origin": "https://your blazor endpoint/"
       }
     ]
   }

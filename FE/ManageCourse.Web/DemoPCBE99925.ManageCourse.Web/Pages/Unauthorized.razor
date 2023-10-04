@@ -1,0 +1,14 @@
+@page "/unauthorized"
+
+<AuthorizeView Policy="AccessApplication">
+    <Authorized>
+        <h3>You are authorized!</h3>
+    </Authorized>
+    <NotAuthorized>
+        <NVStack Fill Vertical Gutter="2" Padding="4">
+            <NVPanel Class="text-center" Color="Primary" Outlined><h3>Sorry but you are not authorized to use this application.</h3></NVPanel>
+            <NVPanel Class="flex justify-center"><NVImg Src="assets/img/unauthorized.svg" /></NVPanel>
+            <NVPanel Class="text-center text-bold underline" Color="Primary" Outlined><h3>Check if the popup window is not disabled!</h3></NVPanel>
+        </NVStack>
+    </NotAuthorized>
+</AuthorizeView>

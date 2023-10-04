@@ -24,6 +24,12 @@
         "redirectUri": "urn://demopcbe99925.basic.authentication",
         "identifier": "255b41bd-c974-4286-90df-8b69a7259d56",
         "settings": "Basic.Settings"
+      },
+      {
+        "nativeAppDisplayName": "DemoPCBE99925 Blazor ManageCourse.Web Client",
+        "redirectUri": "https://localhost:7179/authentication/login-callback",
+        "identifier": "274f12b5-f635-4980-89c9-f5f453bee451",
+        "settings": "Blazor.OAuth2.ManageCourse.Web.Settings"
       }
     ]
   }
