@@ -17,5 +17,10 @@ internal class TeacherSaveValidator : ValidatorBase<Teacher>
 
 		RuleFor(e => e.AuditedBy).NotNull().NotEmpty().MaximumLength(50);
 		RuleFor(e => e.AuditedOn).IsUtcDateTime();
-	}
+
+        RuleFor(e => e.FirstName).NotNull().NotEmpty().MaximumLength(255);
+        RuleFor(e => e.Salary).NotNull();
+        RuleFor(e => e.HireDate).NotNull();
+        RuleFor(e => e.LastName);
+    }
 }

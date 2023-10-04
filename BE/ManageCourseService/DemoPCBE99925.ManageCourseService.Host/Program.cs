@@ -227,7 +227,7 @@ try
 
 	// Always replace the virtual path of this backend with the one from the yarp. Required for swagger and hangfire when hosted in IISHost!
 	app.Use((context, next) =>
-	{
+{
 		var pathBase = context.Request.Headers["X-Forwarded-Prefix"];
 		if (!string.IsNullOrWhiteSpace(pathBase))
 			context.Request.PathBase = new PathString(pathBase);

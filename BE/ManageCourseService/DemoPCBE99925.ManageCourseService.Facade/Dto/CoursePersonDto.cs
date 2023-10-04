@@ -5,12 +5,12 @@ using EG.DemoPCBE99925.ManageCourseService.Domain;
 namespace EG.DemoPCBE99925.ManageCourseService.Facade.Dtos;
 
 /// <summary>
-/// Teacher
+/// CoursePerson
 /// </summary>
-public class TeacherDto
+public class CoursePersonDto
 {
     /// <summary>
-    /// Id of Teacher.
+    /// Id of CoursePerson.
     /// </summary>
     public Guid Id { get; set; }
 
@@ -19,19 +19,18 @@ public class TeacherDto
     /// </summary>
     public PersistChange PersistChange { get; set; }
 
-    #region Properties Default
-    public string FirstName { get; set; }
-
-    public string LastName { get; set; }
-
-    #endregion Properties Default
-
 
     #region Properties
-    public double Salary { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
+    #endregion Properties
 
-    public DateTime HireDate { get; set; }
+    #region Navigation
+    public Guid LeadId { get; set; }
+    public Teacher Lead { get; set; }
 
-    #endregion
+    public Guid CourseId { get; set; }
+    public Course Course { get; set; }
 
+    #endregion Navigation
 }

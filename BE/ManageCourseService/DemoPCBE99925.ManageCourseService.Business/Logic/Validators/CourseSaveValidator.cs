@@ -17,5 +17,10 @@ internal class CourseSaveValidator : ValidatorBase<Course>
 
 		RuleFor(e => e.AuditedBy).NotNull().NotEmpty().MaximumLength(50);
 		RuleFor(e => e.AuditedOn).IsUtcDateTime();
-	}
+
+        RuleFor(e => e.Description).Empty();
+        RuleFor(e => e.Name).NotNull().NotEmpty().MaximumLength(50);
+        RuleFor(e => e.Unity).NotNull();
+        RuleFor(e => e.OwnerId).NotNull();
+    }
 }

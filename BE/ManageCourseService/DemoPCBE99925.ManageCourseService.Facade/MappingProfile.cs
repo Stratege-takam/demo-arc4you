@@ -17,5 +17,6 @@ public class MappingProfile : Profile
 		CreateMap<Domain.Student, StudentDto>().ReverseMap();
 		CreateMap<Domain.Course, CourseDto>().ReverseMap();
 		CreateMap<Domain.Teacher, TeacherDto>().ReverseMap();
+		CreateMap<Domain.CoursePerson, CoursePersonDto>().ReverseMap();
 	}
 }

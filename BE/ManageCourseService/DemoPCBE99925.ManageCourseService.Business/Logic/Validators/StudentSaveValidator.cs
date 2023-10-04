@@ -17,5 +17,10 @@ internal class StudentSaveValidator : ValidatorBase<Student>
 
 		RuleFor(e => e.AuditedBy).NotNull().NotEmpty().MaximumLength(50);
 		RuleFor(e => e.AuditedOn).IsUtcDateTime();
-	}
+
+
+        RuleFor(e => e.FirstName).NotNull().NotEmpty().MaximumLength(255);
+        RuleFor(e => e.Matricule).NotNull().NotEmpty().MaximumLength(50);
+        RuleFor(e => e.LastName);
+    }
 }

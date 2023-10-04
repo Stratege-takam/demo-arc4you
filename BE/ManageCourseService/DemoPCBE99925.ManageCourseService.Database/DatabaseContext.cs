@@ -15,9 +15,9 @@ public partial class DatabaseContext : DbContext
 		//define the default schema
 		modelBuilder.HasDefaultSchema("app");
 		modelBuilder.ApplyConfiguration(new CourseConfiguration());
-        modelBuilder.ApplyConfiguration(new CoursePersonConfiguration());
-        modelBuilder.ApplyConfiguration(new ParticipantConfiguration());
-        modelBuilder.ApplyConfiguration(new PersonConfiguration());
+		modelBuilder.ApplyConfiguration(new CoursePersonConfiguration());
+		modelBuilder.ApplyConfiguration(new ParticipantConfiguration());
+		modelBuilder.ApplyConfiguration(new PersonConfiguration());
 		modelBuilder.ApplyConfiguration(new StudentConfiguration());
 		modelBuilder.ApplyConfiguration(new TeacherConfiguration());
 	}
