@@ -1,9 +1,7 @@
 ﻿@inject IStringLocalizer<EG.DemoPCBE99925.ManageCourse.Web.Pages.Resources.Global> Localized
-@inject SwitchUserState userState;
-@implements IDisposable
-@inject NavigationManager navigationManager
 
-@*<AuthorizeView Policy="AccessApplication">
+
+<AuthorizeView Policy="AccessApplication">
     <Authorized>
         <NavLink href="" Match="NavLinkMatch.All">
             <NVStack  Gutter="2">
@@ -12,85 +10,4 @@
             </NVStack>
         </NavLink>
     </Authorized>
-</AuthorizeView>*@
-
-
-
-@if (!IsSideBar)
-{
-    <NVNav Color="secondary">
-        <NVButton @onclick="@( () => OnNavigateTo(""))" Color="secondary"
-                  Match="NavLinkMatch.All"
-                  LeadIcon="building-store">
-            Manage courses
-        </NVButton>
-        @* <AuthorizeView>*@
-        <NVButton @onclick="@( () => OnNavigateTo("Switch"))" Color="secondary"
-                  Match="NavLinkMatch.All"
-                  Title="Chose a role">Switch</NVButton>
-        @if (userState.CurrentRole == Utils.Enums.UserTypeEnum.Teacher)
-        {
-            <NVButton @onclick="@( () => OnNavigateTo("Teachers"))"
-                      Match="NavLinkMatch.All"
-                      Title="Manage Teacher">Teacher</NVButton>
-        }
-        @if (userState.CurrentRole == Utils.Enums.UserTypeEnum.Teacher)
-        {
-            <NVButton @onclick="@( () => OnNavigateTo("Students"))"
-                      Match="NavLinkMatch.All"
-                      Title="Manage Student">Sdtudent</NVButton>
-        }
-        <NVButton @onclick="@( () => OnNavigateTo("Courses"))"
-                  Color="secondary" Match="NavLinkMatch.All"
-                  Title="Manage Course">Course</NVButton>
-
-        @* </AuthorizeView> *@
-    </NVNav>
-}
-else
-{
-    <NavLink href="" Match="NavLinkMatch.All">
-        <NVStack Gutter="2">
-            <NVIcon Name="building-store" Small />
-            <span>Manage courses</span>
-        </NVStack>
-    </NavLink>
-
-    <NavLink href="Switch" Match="NavLinkMatch.All">
-        <NVStack Gutter="2">
-            <NVIcon Name="building-store" Small />
-            <span>Chose a role</span>
-        </NVStack>
-    </NavLink>
-
-}
-
-
-
-@code {
-
-    [Parameter]
-    public bool IsSideBar { get; set; }
-
-    private void OnNavigateTo(string route)
-    {
-        navigationManager.NavigateTo(route);
-    }
-
-    #region Listener state change
-
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        userState.Mont(async () => await InvokeAsync(StateHasChanged));
-    }
-
-    public void Dispose()
-    {
-        userState.UnMont(async () => await InvokeAsync(StateHasChanged));
-    }
-
-    #endregion
-
-}
+</AuthorizeView>
