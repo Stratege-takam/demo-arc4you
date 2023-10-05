@@ -27,39 +27,47 @@
                 <th></th>
             </NVTableHead>
             <NVTableBody>
-                <tr>
-                    <td data-table-heading="Firstname">John</td>
-                    <td data-table-heading="Lastname">Smith</td>
-                    <td data-table-heading="Hire date" class="text-gray-800">john.smith@gmail.com</td>
-                    <td data-table-heading="Salary">1000</td>
-                    <td>
-                        <NVButton XSmall Level="2" Color="primary" Icon="edit" MR="2" />
-                        <NVButton XSmall Level="2" Color="error" Icon="x" MR="2" />
-                        <NVButton XSmall Level="2" Color="secondary" Icon="eye" MR="2" />
-                    </td>
-                </tr>
-                <tr>
-                    <td data-table-heading="Firstname">Jean</td>
-                    <td data-table-heading="Lastname">Moulin</td>
-                    <td data-table-heading="Hire date" class="text-gray-800">jean.moulin@gmail.com</td>
-                    <td data-table-heading="Salary">1200</td>
-                    <td>
-                        <NVButton XSmall Level="2" Color="primary" Icon="edit" MR="2" />
-                        <NVButton XSmall Level="2" Color="error" Icon="x" MR="2" />
-                        <NVButton XSmall Level="2" Color="secondary" Icon="eye" MR="2" />
-                    </td>
-                </tr>
-                <tr>
-                    <td data-table-heading="Firstname">Bart</td>
-                    <td data-table-heading="Lastname">Simpson</td>
-                    <td data-table-heading="Hire date" class="text-gray-800">bart.simpson@gmail.com</td>
-                    <td data-table-heading="Salary">1180</td>
-                    <td>
-                        <NVButton XSmall Level="2" Color="primary" Icon="edit" MR="2" />
-                        <NVButton XSmall Level="2" Color="error" Icon="x" MR="2" />
-                        <NVButton XSmall Level="2" Color="secondary" Icon="eye" MR="2" />
-                    </td>
-                </tr>
+                @if (state.LoadingRefresh)
+                {
+                    <tr>
+                        <td colspan="5" class="align-center-r">
+                            <NVLoader Size="lg" Color="secondary" Loading />
+                        </td>
+                    </tr>
+                }
+                else if(state.Teachers == null)
+                {
+                    <tr>
+                        <td colspan="5" class="align-center-r">
+                            List is empty
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach(var teacher in state.Teachers)
+                    {
+                        <tr>
+                            <td data-table-heading="Firstname">
+                                @teacher.FirstName
+                                </td>
+                            <td data-table-heading="Lastname">
+                                @teacher.LastName
+                                </td>
+                            <td data-table-heading="Hire date" class="text-gray-800">
+                                @teacher.HireDate.ToString("dd MMM yyyy")
+                            </td>
+                            <td data-table-heading="Salary">
+                                @teacher.Salary €
+                            </td>
+                            <td>
+                                <NVButton XSmall Level="2" Color="primary" Icon="edit" MR="2" />
+                                <NVButton XSmall Level="2" Color="error" Icon="x" MR="2" />
+                                <NVButton XSmall Level="2" Color="secondary" Icon="eye" MR="2" />
+                            </td>
+                        </tr>
+                    }
+                }
             </NVTableBody>
         </NVTable>
     </NVPanel>
@@ -90,5 +98,12 @@
     }
 
     #endregion
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await state.RefreshList();
+    }
 
 }

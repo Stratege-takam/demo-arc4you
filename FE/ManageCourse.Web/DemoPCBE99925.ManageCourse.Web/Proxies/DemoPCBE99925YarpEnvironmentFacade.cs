@@ -6,7 +6,7 @@ using System.Net.Http;
 
 namespace EG.DemoPCBE99925.ManageCourse.Web.Proxies;
 
-[Export, Scoped]
+[Export]
 public class DemoPCBE99925YarpEnvironmentFacade
 {
     public DemoPCBE99925YarpEnvironmentFacade(IAppSettings appSettings, IHttpClientFactory httpClientFactory)
