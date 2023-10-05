@@ -1,11 +1,13 @@
+﻿
 @inherits LayoutComponentBase
 @inject NVAppStateService AppState;
 
+
 <NVLayout HasSidebarOpened="AppState.IsSidebarVisible()">
     <NVLayoutHeader>
-        <NVStack PX="8" Height="64px" Color="primary">
-            <NVButton ML="-5" MR="3" Level="1" Color="primary" Display="block" MD="@(new {Display = "hidden"})" Icon="menu" OnClick="@(() => AppState.ToggleDisplaySidebar())" />
-            <NVBlock BackgroundColor="white"><NVImg Src="/assets/img/icon-512.png" Height="32" Width="32" /></NVBlock>
+        <NVStack PX="8" Height="64px" Color="secondary">
+            <NavMenu IsSideBar="false" />
+            <NVButton ML="auto" Level="1" Color="secondary" Display="block" MD="@(new {Display = "hidden"})" Icon="menu-2" OnClick="@(() => AppState.ToggleDisplaySidebar())" />
         </NVStack>
     </NVLayoutHeader>
 
@@ -13,7 +15,7 @@
         <NVSidebar Stack StackVertical Color="white" HFull>
             <NVButton Shrink="0" Grow="0" Level="2" Display="block" ML="auto" MD="@(new {Display = "hidden"})" Icon="x" OnClick="@(() => AppState.DisplaySidebar(false))" />
             <NVNav Vertical Level="1" Overflow="auto">
-                <NavMenu />
+                <NavMenu IsSideBar="true" />
             </NVNav>
             <NVNav Vertical Color="primary" Level="1" Overflow="auto" MT="auto">
                 <BottomNavMenu />
@@ -22,9 +24,9 @@
     </NVLayoutSidebar>
 
     <NVLayoutContent>
-        <NVBlock P="8">
+        <NVContainer P="8">
             @Body
-        </NVBlock>
+        </NVContainer>
     </NVLayoutContent>
 </NVLayout>
 

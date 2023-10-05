@@ -1,5 +1,8 @@
-﻿namespace EG.DemoPCBE99925.ManageCourse.Web.States;
+using Arc4u.Dependency.Attribute;
 
-public class TeacherState
+namespace EG.DemoPCBE99925.ManageCourse.Web.States;
+
+[Export, Shared]
+public class TeacherState: BaseState
 {
 }
