@@ -3,84 +3,82 @@
 @implements IDisposable
 @inject NavigationManager navigationManager
 
-@*<AuthorizeView Policy="AccessApplication">
+<AuthorizeView Policy="AccessApplication">
     <Authorized>
-        <NavLink href="" Match="NavLinkMatch.All">
-            <NVStack  Gutter="2">
-                <NVIcon Name="home" Small />
-                <span>@Localized["Home"]</span>
-            </NVStack>
-        </NavLink>
+
+        @if (!IsSideBar)
+        {
+
+            <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Home))" Color="secondary"
+                      Match="NavLinkMatch.All"
+                      LeadIcon="building-store">
+                Manage courses
+            </NVButton>
+            <NVButton  @onclick="@( () => OnNavigateTo(AppRouteEnum.Switch))" Color="secondary"
+                      Match="NavLinkMatch.All"
+                      Title="Chose a role">Switch</NVButton>
+            @if (state.CurrentRole == Utils.Enums.UserTypeEnum.Teacher)
+            {
+                <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Teachers))"
+                          Match="NavLinkMatch.All"
+                          Color="secondary"
+                          Title="Manage Teacher">Teacher</NVButton>
+            }
+            else if (state.CurrentRole == Utils.Enums.UserTypeEnum.Student)
+            {
+                <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Students))"
+                          Match="NavLinkMatch.All"
+                          Color="secondary"
+                          Title="Manage Student">Student</NVButton>
+            }
+
+            @if (state.CurrentRole != Utils.Enums.UserTypeEnum.None)
+            {
+                <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Courses))"
+                          Color="secondary" Match="NavLinkMatch.All"
+                          Title="Manage Course">Course</NVButton>
+            }
+
+        }
+        else
+        {
+            <NavLink href="" Match="NavLinkMatch.All">
+                <NVStack Gutter="2">
+                    <NVIcon Name="building-store" Small />
+                    <span>Manage courses</span>
+                </NVStack>
+            </NavLink>
+
+            <NavLink Title="Chose a role"
+                     href="Switch" Match="NavLinkMatch.All">
+                Chose a role
+            </NavLink>
+
+            @if (state.CurrentRole == UserTypeEnum.Teacher)
+            {
+                <NavLink Title="Manage Teacher" href="Teachers" Match="NavLinkMatch.All">
+                    Teacher
+                </NavLink>
+            }
+            @if (state.CurrentRole == UserTypeEnum.Student)
+            {
+                <NavLink Title="Manage Student" href="Student" Match="NavLinkMatch.All">
+                    Sdtudent
+                </NavLink>
+            }
+
+            @if (state.CurrentRole != Utils.Enums.UserTypeEnum.None)
+            {
+                <NavLink Title="Manage Course" href="Courses" Match="NavLinkMatch.All">
+                    Courses
+                </NavLink>
+            }
+
+        }
     </Authorized>
-</AuthorizeView>*@
+</AuthorizeView>
 
 
-
-@if (!IsSideBar)
-{
-
-    <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Home))" Color="secondary"
-              Match="NavLinkMatch.All"
-              LeadIcon="building-store">
-        Manage courses
-    </NVButton>
-    @* <AuthorizeView>*@
-    <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Switch))" Color="secondary"
-              Match="NavLinkMatch.All"
-              Title="Chose a role">Switch</NVButton>
-    @if (state.CurrentRole == Utils.Enums.UserTypeEnum.Teacher)
-    {
-        <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Teachers))"
-                  Match="NavLinkMatch.All"
-                  Color="secondary"
-                  Title="Manage Teacher">Teacher</NVButton>
-    }
-    else if (state.CurrentRole == Utils.Enums.UserTypeEnum.Student)
-    {
-        <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Students))"
-                  Match="NavLinkMatch.All"
-                  Color="secondary"
-                  Title="Manage Student">Student</NVButton>
-    }
-
-    @if (state.CurrentRole != Utils.Enums.UserTypeEnum.None)
-    {
-        <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Courses))"
-                  Color="secondary" Match="NavLinkMatch.All"
-                  Title="Manage Course">Course</NVButton>
-    }
-    
-
-    @* </AuthorizeView> *@
-}
-else
-{
-    <NavLink href="" Match="NavLinkMatch.All">
-        <NVStack Gutter="2">
-            <NVIcon Name="building-store" Small />
-            <span>Manage courses</span>
-        </NVStack>
-    </NavLink>
-
-    <NavLink Title="Chose a role"
-             href="Switch" Match="NavLinkMatch.All">
-        Chose a role
-    </NavLink>
-
-    @if (state.CurrentRole == UserTypeEnum.Teacher)
-    {
-        <NavLink Title="Manage Teacher" href="Teachers" Match="NavLinkMatch.All">
-            Teacher
-        </NavLink>
-    }
-    @if (state.CurrentRole == UserTypeEnum.Student)
-    {
-        <NavLink Title="Manage Student" href="Student" Match="NavLinkMatch.All">
-            Sdtudent
-        </NavLink>
-    }
-
-}
 
 
 

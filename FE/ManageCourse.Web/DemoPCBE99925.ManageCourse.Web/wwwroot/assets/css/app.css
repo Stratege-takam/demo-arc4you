@@ -33,3 +33,54 @@
     justify-content: center;
     align-items: center;
 }
+
+.w-responsive-sm{
+    width: 50%;
+}
+
+.w-responsive-lg {
+    width: 80%;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .w-responsive-sm {
+        width: 70%;
+    }
+
+    .w-responsive-lg {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .w-responsive-sm {
+        width: 90%;
+    }
+
+    .w-responsive-lg {
+        width: 95%;
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+    .w-responsive-sm {
+        width: 100%;
+    }
+
+    .w-responsive-lg {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .w-responsive-sm {
+        width: 50%;
+    }
+
+    .w-responsive-lg {
+        width: 80%;
+    }
+}

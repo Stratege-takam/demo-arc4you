@@ -15,11 +15,11 @@
 
     <NVLayoutSidebar>
         <NVSidebar Stack StackVertical Color="white" HFull>
-           @* <NVButton Shrink="0" Grow="0" Level="2" Display="block" ML="auto" MD="@(new {Display = "hidden"})" Icon="x" OnClick="@(() => AppState.DisplaySidebar(false))" />
-            <NVNav Vertical Level="1" Overflow="auto">
+            <NVButton Shrink="0" Grow="0" Level="2" Display="block" ML="auto" MD="@(new {Display = "hidden"})" Icon="x" OnClick="@(() => AppState.DisplaySidebar(false))" />
+            <NVNav Vertical Level="1" Overflow="auto" MD="@(new {Display = "hidden"})">
                 <NavMenu IsSideBar="true" />
-            </NVNav>*@
-            <NVNav Vertical Color="primary" Level="1" Overflow="auto" MT="auto">
+            </NVNav>
+            <NVNav Vertical Color="primary" Level="1" Overflow="auto" MT="auto" MD="@(new {Display = "hidden"})">
                 <BottomNavMenu />
             </NVNav>
         </NVSidebar>
