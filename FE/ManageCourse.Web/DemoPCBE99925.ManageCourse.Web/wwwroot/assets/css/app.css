@@ -19,3 +19,17 @@
     right: 0.75rem;
     top: 0.5rem;
 }
+
+.align-center-c{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.align-center-r {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

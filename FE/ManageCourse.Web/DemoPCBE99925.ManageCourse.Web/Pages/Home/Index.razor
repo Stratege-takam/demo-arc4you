@@ -1,6 +1,42 @@
-@page "/"
+﻿@page "/"
+@page "/Switch"
 
-<h1>Hello from Blazor!</h1>
+@inject SwitchUserState userState;
+@implements IDisposable
+<NVStack Vertical StackItemCenter Width="60%" Gutter="8" P="8" MY="5">
+    <NVPanel Level="2">
+        <NVBlock MT="2" TextColor="petrol-500" TextSize="h-sm">Welcom to demo manage course website</NVBlock>
 
-Welcome and have fun.
+        <NVText MY="2" Bold Medium> Where are you? </NVText>
 
+        <NVBlock Class="align-center-r">
+            <NVButton @onclick="@(()=> userState.Switch(Utils.Enums.UserTypeEnum.Teacher, "Teachers"))"
+                Color="secondary" MR="2">Teacher </NVButton>
+            <NVButton @onclick="@(()=> userState.Switch(Utils.Enums.UserTypeEnum.Student, "Students"))"
+                Color="secondary">Student </NVButton>
+        </NVBlock>
+
+    </NVPanel>
+</NVStack>
+
+
+@code {
+
+   
+    #region Listener state change
+
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        userState.Mont(async () => await InvokeAsync(StateHasChanged));
+    }
+
+    public void Dispose()
+    {
+        userState.UnMont(async () => await InvokeAsync(StateHasChanged));
+    }
+
+    #endregion
+
+}
