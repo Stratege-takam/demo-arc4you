@@ -57,10 +57,30 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>About.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Pages\Resources\CourseFormPage.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>CourseFormPage.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\Resources\CoursePage.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>CoursePage.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\Resources\Global.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>Global.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\Resources\StudentPage.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>StudentPage.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\Resources\TeacherPage.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>TeacherPage.resx</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -69,9 +89,25 @@
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>About.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Pages\Resources\CourseFormPage.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>CourseFormPage.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Pages\Resources\CoursePage.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>CoursePage.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Pages\Resources\Global.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>Global.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Pages\Resources\StudentPage.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>StudentPage.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Pages\Resources\TeacherPage.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>TeacherPage.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	</ItemGroup>
 
