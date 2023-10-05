@@ -1,5 +1,6 @@
 using Arc4u.Dependency.Attribute;
 using EG.DemoPCBE99925.ManageCourse.Web.Utils.Enums;
+using EG.DemoPCBE99925.ManageCourse.Web.Utils.Extensions;
 using Microsoft.AspNetCore.Components;
 
 namespace EG.DemoPCBE99925.ManageCourse.Web.States;
@@ -22,10 +23,15 @@ public class SwitchUserState: BaseState
         _navigationManager = navigationManager;
     }
 
-    public void Switch(UserTypeEnum role,  string route)
+    public void Switch(UserTypeEnum role, AppRouteEnum route)
     {
         CurrentRole = role;
 
-        _navigationManager.NavigateTo(route);
+        _navigationManager.NavigateTo(GetRoute(route));
+    }
+
+    public string GetRoute(AppRouteEnum route)
+    {
+        return route == AppRouteEnum.Home ? "" : route.GetEnumDescription();
     }
 }

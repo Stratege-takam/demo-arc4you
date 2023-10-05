@@ -3,6 +3,8 @@
 
 @inject SwitchUserState userState;
 @implements IDisposable
+
+
 <NVStack Vertical StackItemCenter Width="60%" Gutter="8" P="8" MY="5">
     <NVPanel Level="2">
         <NVBlock MT="2" TextColor="petrol-500" TextSize="h-sm">Welcom to demo manage course website</NVBlock>
@@ -10,9 +12,9 @@
         <NVText MY="2" Bold Medium> Where are you? </NVText>
 
         <NVBlock Class="align-center-r">
-            <NVButton @onclick="@(()=> userState.Switch(Utils.Enums.UserTypeEnum.Teacher, "Teachers"))"
+            <NVButton @onclick="@(()=> userState.Switch(UserTypeEnum.Teacher, AppRouteEnum.Teachers))"
                 Color="secondary" MR="2">Teacher </NVButton>
-            <NVButton @onclick="@(()=> userState.Switch(Utils.Enums.UserTypeEnum.Student, "Students"))"
+            <NVButton @onclick="@(()=> userState.Switch(UserTypeEnum.Student, AppRouteEnum.Students))"
                 Color="secondary">Student </NVButton>
         </NVBlock>
 

@@ -1,5 +1,5 @@
 ﻿@inject IStringLocalizer<EG.DemoPCBE99925.ManageCourse.Web.Pages.Resources.Global> Localized
-@inject SwitchUserState userState;
+@inject SwitchUserState state;
 @implements IDisposable
 @inject NavigationManager navigationManager
 
@@ -19,33 +19,33 @@
 @if (!IsSideBar)
 {
 
-    <NVButton @onclick="@( () => OnNavigateTo(""))" Color="secondary"
+    <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Home))" Color="secondary"
               Match="NavLinkMatch.All"
               LeadIcon="building-store">
         Manage courses
     </NVButton>
     @* <AuthorizeView>*@
-    <NVButton @onclick="@( () => OnNavigateTo("Switch"))" Color="secondary"
+    <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Switch))" Color="secondary"
               Match="NavLinkMatch.All"
               Title="Chose a role">Switch</NVButton>
-    @if (userState.CurrentRole == Utils.Enums.UserTypeEnum.Teacher)
+    @if (state.CurrentRole == Utils.Enums.UserTypeEnum.Teacher)
     {
-        <NVButton @onclick="@( () => OnNavigateTo("Teachers"))"
+        <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Teachers))"
                   Match="NavLinkMatch.All"
                   Color="secondary"
                   Title="Manage Teacher">Teacher</NVButton>
     }
-    else if (userState.CurrentRole == Utils.Enums.UserTypeEnum.Student)
+    else if (state.CurrentRole == Utils.Enums.UserTypeEnum.Student)
     {
-        <NVButton @onclick="@( () => OnNavigateTo("Students"))"
+        <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Students))"
                   Match="NavLinkMatch.All"
                   Color="secondary"
                   Title="Manage Student">Student</NVButton>
     }
 
-    @if (userState.CurrentRole != Utils.Enums.UserTypeEnum.None)
+    @if (state.CurrentRole != Utils.Enums.UserTypeEnum.None)
     {
-        <NVButton @onclick="@( () => OnNavigateTo("Courses"))"
+        <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Courses))"
                   Color="secondary" Match="NavLinkMatch.All"
                   Title="Manage Course">Course</NVButton>
     }
@@ -67,13 +67,13 @@ else
         Chose a role
     </NavLink>
 
-    @if (userState.CurrentRole == Utils.Enums.UserTypeEnum.Teacher)
+    @if (state.CurrentRole == UserTypeEnum.Teacher)
     {
         <NavLink Title="Manage Teacher" href="Teachers" Match="NavLinkMatch.All">
             Teacher
         </NavLink>
     }
-    @if (userState.CurrentRole == Utils.Enums.UserTypeEnum.Student)
+    @if (state.CurrentRole == UserTypeEnum.Student)
     {
         <NavLink Title="Manage Student" href="Student" Match="NavLinkMatch.All">
             Sdtudent
@@ -89,9 +89,9 @@ else
     [Parameter]
     public bool IsSideBar { get; set; }
 
-    private void OnNavigateTo(string route)
+    private void OnNavigateTo(AppRouteEnum route)
     {
-        navigationManager.NavigateTo(route);
+        navigationManager.NavigateTo(state.GetRoute(route));
     }
 
     #region Listener state change
@@ -100,12 +100,12 @@ else
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        userState.Mont(async () => await InvokeAsync(StateHasChanged));
+        state.Mont(async () => await InvokeAsync(StateHasChanged));
     }
 
     public void Dispose()
     {
-        userState.UnMont(async () => await InvokeAsync(StateHasChanged));
+        state.UnMont(async () => await InvokeAsync(StateHasChanged));
     }
 
     #endregion
