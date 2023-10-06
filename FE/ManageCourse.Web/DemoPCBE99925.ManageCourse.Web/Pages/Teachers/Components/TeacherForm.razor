@@ -141,10 +141,17 @@
                 @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
                 {
                     <NVBlock Class="align-center-r-o">
-                        <NVButton Type="submit" Size="sm" MR="2" Color="secondary">Submit </NVButton>
                         @if (state.Loading)
                         {
+                            <NVButton Disabled Type="submit" Size="sm"
+                                MR="2" Color="secondary">Submit </NVButton>
+
                             <NVLoader Color="secondary" Loading />
+                        }
+                        else
+                        {
+                            <NVButton Type="submit" Size="sm" MR="2"
+                                Color="secondary">Submit </NVButton>
                         }
                     </NVBlock>
                 }

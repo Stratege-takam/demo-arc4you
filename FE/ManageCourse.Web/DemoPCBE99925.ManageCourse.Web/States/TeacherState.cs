@@ -107,6 +107,19 @@ public class TeacherState: BaseState
     }
 
 
+    public void OpenConfirmDelete(TeacherDto teacherDto, Action action)
+    {
+        Loading = false;
+        ErrorServer = null;
+        SuccessSave = false;
+        if(teacherDto != null)
+        {
+            ConvertTeacherDtoToViewModel(teacherDto);
+            PersistChange = PersistChange.Delete;
+            action?.Invoke();
+        }
+    }
+
     public void OpenForm(TeacherDto? teacherDto, Action action, bool isUpdate = true)
     {
         Loading = false;

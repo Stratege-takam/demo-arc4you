@@ -82,7 +82,9 @@
                                 <NVButton XSmall Level="2"
                                 @onclick="@(() =>state.OpenForm(teacherDto, () => OverlayService.Show(FormName), false))"
                                     Color="secondary" Icon="eye" MR="2" />
-                                <NVButton XSmall Level="2" Color="error" Icon="x" MR="2" />
+                                <NVButton XSmall Level="2" Color="error"
+                                @onclick="@(() =>state.OpenConfirmDelete(teacherDto, () => OverlayService.Show(ConfirmDeleteName)))"
+                                    Icon="x" MR="2" />
                             </td>
                         </tr>
                     }
@@ -145,13 +147,26 @@
 
     #region Modal Methods
     private readonly string FormName = "form-teacher";
+    private readonly string ConfirmDeleteName = "confirm-delete-teacher";
+
     private void InitializeModal()
     {
-        NVOverlayServiceConfig overlayConfig = new NVOverlayServiceConfig(NVOverlayServiceConfig.MODAL,
-           FormName,
-        typeof(TeacherForm), new { MaxWidth = "40vw" });
+        OverlayService.Initialize(GetNVOverlayServiceConfig(FormName, typeof(TeacherForm)));
+        OverlayService.Initialize(GetNVOverlayServiceConfig(ConfirmDeleteName, typeof(ItemRemoveConfirm)));
+    }
 
-        OverlayService.Initialize(overlayConfig);
+    private NVOverlayServiceConfig GetNVOverlayServiceConfig(string name, Type view)
+    {
+        NVOverlayServiceConfig overlayConfig = new NVOverlayServiceConfig(NVOverlayServiceConfig.MODAL,
+          name,
+       view, new { MaxWidth = "40vw" });
+
+        overlayConfig.AddAction("OnConfirm",  async(data) =>
+        {
+            await state.Submit();
+            OverlayService.Hide(name);
+        });
+        return overlayConfig;
     }
     #endregion
 }
