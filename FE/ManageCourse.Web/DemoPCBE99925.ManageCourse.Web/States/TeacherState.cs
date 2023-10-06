@@ -54,8 +54,8 @@ public class TeacherState: BaseState
         set => SetProperty(ref _persistChange, value);
     }
 
-    private string _errorServer;
-    public string ErrorServer
+    private string? _errorServer;
+    public string? ErrorServer
     {
         get => _errorServer;
         set => SetProperty(ref _errorServer, value);
@@ -85,6 +85,53 @@ public class TeacherState: BaseState
     {
         SuccessSave = false;
         this.Loading = true;
+        var teacher = ConvertTeacherViewModelToDto();
+
+        try
+        {
+            await _facade.Proxy.SaveAsync(teacher).ConfigureAwait(false);
+            SuccessSave = true;
+            UpdateList();
+        }
+        catch (Exception e)
+        {
+            ErrorServer = $"The error occurence in identifier: {teacher.Id}. Contact admin@elia.be";
+        }
+
+        Loading = false;
+    }
+
+    public void ResetForm()
+    {
+        Model = new TeacherFormViewModel();
+    }
+
+
+    public void OpenForm(TeacherDto? teacherDto, Action action)
+    {
+        Loading = false;
+        ErrorServer = null;
+        SuccessSave = false;
+        // state is created
+        if(teacherDto == null)
+        {
+            ResetForm();
+            PersistChange = PersistChange.Insert;
+        }
+        else // state is updated
+        {
+            ConvertTeacherDtoToViewModel(teacherDto);
+            PersistChange = PersistChange.Update;
+        }
+
+        action?.Invoke();
+    }
+    #endregion Public method
+
+    #region Private Methods
+
+    private TeacherDto ConvertTeacherViewModelToDto()
+    {
         var teacher = new TeacherDto()
         {
             FirstName = Model.FirstName,
@@ -94,26 +141,50 @@ public class TeacherState: BaseState
             Salary = Model.Salary,
             PersistChange = PersistChange
         };
-        try
-        {
-            await _facade.Proxy.SaveAsync(teacher).ConfigureAwait(false);
-            SuccessSave = true;
-        }
-        catch (Exception e)
-        {
-            ErrorServer = $"The error occurence in identifier: {teacher.Id}. Contact admin@elia.be";
-        }
-        ResetForm();
+
+        return teacher;
     }
 
-    public void ResetForm()
+    private void ConvertTeacherDtoToViewModel( TeacherDto teacherDto)
     {
-        Model = new TeacherFormViewModel();
-        this.Loading = false;
+        Model = new TeacherFormViewModel()
+        {
+            FirstName = teacherDto.FirstName,
+            HireDate = teacherDto.HireDate,
+            LastName = teacherDto.LastName,
+            Id = teacherDto.Id.ToString(),
+            Salary = teacherDto.Salary
+        };
     }
-    #endregion Public method
 
-    #region Private Methods
+    private void UpdateList()
+    {
+        switch (PersistChange)
+        {
+
+            case PersistChange.Insert:
+                Teachers.Insert(0, ConvertTeacherViewModelToDto());
+                ResetForm();
+                break;
+
+            case PersistChange.Update:
+                Teachers = Teachers.Select(t =>
+                {
+                    if (t.Id == Guid.Parse(Model.Id))
+                    {
+                        t = ConvertTeacherViewModelToDto();
+                    }
+                    return t;
+                }).ToList();
+                break;
+
+            case PersistChange.Delete:
+                Teachers = Teachers.Where(t => t.Id != Guid.Parse(Model.Id)).ToList();
+                break;
+        }
+
+    }
+
 
     #endregion
 }

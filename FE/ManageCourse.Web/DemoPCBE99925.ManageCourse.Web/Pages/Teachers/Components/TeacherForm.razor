@@ -4,7 +4,16 @@
 
 <NVModal @attributes="@Props">
   <NVModalHeader>
-    <h1 class="text-lg leading-6 font-medium">New Teacher</h1>
+        <NVBlock TextSize="h-md">
+            @if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Update)
+            {
+                <NVText>Update teacher </NVText>
+            }
+            else
+            {
+                <NVText>New Teacher </NVText>
+            }
+        </NVBlock>
   </NVModalHeader>
 
   <NVModalBody>
@@ -31,49 +40,110 @@
                     </NVAlert>
                 }
                 <NVBlock MB="2">
-                    <NVFieldText Name="Id"
+                    @if(state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.None)
+                    {
+                        <NVFieldText Name="Id" Readonly
                         @bind-Value="state.Model.Id"
-                        Label="Teacher identifier" />
-
+                                     Label="Teacher identifier" />
+                    }
+                    else if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Insert)
+                    {
+                        <NVFieldText Name="Id"
+                        @bind-Value="state.Model.Id"
+                                     Label="Teacher identifier" />
+                    }
                 </NVBlock>
 
                 <NVBlock MB="2">
-                    <NVFieldText Name="Firstname"
+                    @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
+                    {
+                        <NVFieldText Name="Firstname"
                         @bind-Value="state.Model.FirstName"
-                        Label="Firstname" />
+                                     Label="Firstname" />
+                    }
+                    else
+                    {
+                        <NVFieldText Name="Firstname"
+                        @bind-Value="state.Model.FirstName"
+                        Readonly
+                                     Label="Firstname" />
+                    }
+                   
                 </NVBlock>
 
                 <NVBlock MB="2">
-                    <NVFieldText Name="Lastname"
+                    
+                    @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
+                    {
+                        <NVFieldText Name="Lastname"
                         @bind-Value="state.Model.LastName"
-                        Label="Lastname" />
+                                     Label="Lastname" />
+                    }
+                    else
+                    {
+                        <NVFieldText Name="Lastname"
+                        @bind-Value="state.Model.LastName"
+                        Readonly
+                                     Label="Lastname" />
+                    }
                 </NVBlock>
 
                  <NVBlock MB="2">
-                    <NVFieldDate MinDate="@(DateTime.Now.AddYears(-80).ToShortDateString())" Name="Hire date"
-                                      CalendarOutsideField
+                    
+                    @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
+                    {
+                        <NVFieldDate MinDate="@(DateTime.Now.AddYears(-80).ToShortDateString())" Name="Hire date"
+                                          CalendarOutsideField
                         @bind-Value="state.Model.HireDate"
-                        Label="Hire date" />
+                                     Label="Hire date" />
+                    }
+                    else
+                    {
+                        <NVFieldDate MinDate="@(DateTime.Now.AddYears(-80).ToShortDateString())" Name="Hire date"
+                                          CalendarOutsideField
+                                          Readonly
+                        @bind-Value="state.Model.HireDate"
+                                     Label="Hire date" />
+                    }
                 </NVBlock>
 
                 <NVBlock MB="2">
-                    <NVFieldNumber Name="Salary"
-                        Min="@(1)"
-                        @bind-Value="state.Model.Salary"
-                        Label="Slary">
-                        <NVFieldBefore>
-                            <NVIcon Name="currency-euro" />
-                        </NVFieldBefore>
-                    </NVFieldNumber>
-                </NVBlock>
-               
-                <NVBlock Class="align-center-r-o">
-                    <NVButton Type="submit" Size="sm" MR="2" Color="secondary">Submit </NVButton>
-                    @if (state.Loading)
+                    
+                    @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
                     {
-                        <NVLoader Color="secondary" Loading />
+                        <NVFieldNumber Name="Salary"
+                                       Min="@(1)"
+                        @bind-Value="state.Model.Salary"
+                                       Label="Slary">
+                            <NVFieldBefore>
+                                <NVIcon Name="currency-euro" />
+                            </NVFieldBefore>
+                        </NVFieldNumber>
+                    }
+                    else
+                    {
+                        <NVFieldNumber Name="Salary"
+                                       Min="@(1)"
+                                       Readonly
+                        @bind-Value="state.Model.Salary"
+                                       Label="Slary">
+                            <NVFieldBefore>
+                                <NVIcon Name="currency-euro" />
+                            </NVFieldBefore>
+                        </NVFieldNumber>
                     }
                 </NVBlock>
+
+                @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
+                {
+                    <NVBlock Class="align-center-r-o">
+                        <NVButton Type="submit" Size="sm" MR="2" Color="secondary">Submit </NVButton>
+                        @if (state.Loading)
+                        {
+                            <NVLoader Color="secondary" Loading />
+                        }
+                    </NVBlock>
+                }
         </NVContainer>
 
     </EditForm>
@@ -108,9 +178,9 @@
         await state.Submit();
 
         if(state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Update
-            && !state.Loading)
+            && state.SuccessSave)
         {
-            Actions["OnClose"]?.Invoke(state.Model);
+            OverlayService.Hide(Name);
         }
     }
     #endregion Private methods

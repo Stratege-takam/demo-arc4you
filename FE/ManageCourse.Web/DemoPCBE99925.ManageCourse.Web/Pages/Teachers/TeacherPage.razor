@@ -10,7 +10,7 @@
 @inject NVOverlayService OverlayService;
 
 
-<NVStack Vertical StackItemCenter Class="w-responsive-lg" Gutter="8" P="8" MY="5">
+<NVStack Vertical StackItemCenter  Gutter="8" P="2" MY="5">
     <NVPanel Level="2">
         <NVBlock MY="2" TextColor="petrol-500" TextSize="h-sm">List of teachers</NVBlock>
 
@@ -21,7 +21,9 @@
                     LeadIcon="refresh"> Refresh </NVButton>
         </NVStackItemLead>
         <NVStackItemTail>
-                <NVButton Small Color="secondary" @onclick="OpenForm" LeadIcon="plus"> New teacher </NVButton>
+                <NVButton Small Color="secondary"
+                    @onclick="@(() =>state.OpenForm(null, () => OverlayService.Show(FormName)))"
+                    LeadIcon="plus"> New teacher </NVButton>
         </NVStackItemTail>
         </NVStack>
         <NVTable Responsive>
@@ -57,21 +59,24 @@
                 {
                     @foreach(var teacher in state.Teachers)
                     {
+                        var teacherDto = teacher;
                         <tr>
                             <td data-table-heading="Firstname">
-                                @teacher.FirstName
+                                @teacherDto.FirstName
                                 </td>
                             <td data-table-heading="Lastname">
-                                @teacher.LastName
+                                @teacherDto.LastName
                                 </td>
                             <td data-table-heading="Hire date" class="text-gray-800">
-                                @teacher.HireDate.ToString("dd MMM yyyy")
+                                @teacherDto.HireDate.ToString("dd MMM yyyy")
                             </td>
                             <td data-table-heading="Salary">
-                                @teacher.Salary €
+                                @teacherDto.Salary €
                             </td>
                             <td>
-                                <NVButton XSmall Level="2" Color="primary" Icon="edit" MR="2" />
+                                <NVButton XSmall Level="2"
+                                @onclick="@(() =>state.OpenForm(teacherDto, () => OverlayService.Show(FormName)))"
+                                          Color="primary" Icon="edit" MR="2" />
                                 <NVButton XSmall Level="2" Color="error" Icon="x" MR="2" />
                                 <NVButton XSmall Level="2" Color="secondary" Icon="eye" MR="2" />
                             </td>
@@ -85,20 +90,17 @@
 
 
 @code {
-    public override Task SetParametersAsync(ParameterView parameters)
-    {
-        if (userState.CurrentRole != Utils.Enums.UserTypeEnum.Teacher)
-        {
-            navigationManager.NavigateTo(userState.GetRoute(AppRouteEnum.Home));
-        }
-        return base.SetParametersAsync(parameters);
-    }
+
     #region Listener state change
 
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        if (userState.CurrentRole != Utils.Enums.UserTypeEnum.Teacher)
+        {
+            navigationManager.NavigateTo(userState.GetRoute(AppRouteEnum.Home));
+        }
         state.Mont(async () => await InvokeAsync(StateHasChanged));
 
         InitializeModal();
@@ -112,6 +114,7 @@
     #endregion
 
 
+    #region Method lifecycle (override)
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
@@ -133,30 +136,18 @@
         }
     }
 
+    #endregion Method lifecycle (override)
 
-    #region Methods
 
+    #region Modal Methods
+    private readonly string FormName = "form-teacher";
     private void InitializeModal()
     {
         NVOverlayServiceConfig overlayConfig = new NVOverlayServiceConfig(NVOverlayServiceConfig.MODAL,
-            "form-teacher",
-        typeof(TeacherForm), new { MaxWidth = "30vw" });
+           FormName,
+        typeof(TeacherForm), new { MaxWidth = "40vw" });
 
-        overlayConfig.AddAction("OnClose", CloseListener);
         OverlayService.Initialize(overlayConfig);
     }
-
-    private void CloseListener(object data)
-    {
-        OverlayService.Hide("form-teacher");
-    }
-
-    private void OpenForm()
-    {
-        state.ResetForm();
-        state.PersistChange = ManageCourseService.Facade.Sdk.PersistChange.Insert;
-        OverlayService.Show("form-teacher");
-    }
     #endregion
-
 }
