@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace EG.DemoPCBE99925.ManageCourse.Web.ViewModels.Students;
@@ -22,17 +23,19 @@ public class StudentFormViewModel: NotifyChangeProperty
 
 
     #region Properties
-    private string _matricule = GenerateMatricule();
+    private string _matricule = GenerateMatricule(5);
     [Required]
     public string Matricule { get => _matricule; set => SetProperty(ref _matricule, value); }
     #endregion
 
 
     #region Method Helpers
-    public static string GenerateMatricule()
+    public static string GenerateMatricule(int length)
     {
-        Random rand = new Random(100);
-        int digit = rand.Next(00000, 99999);
+        const string chars = "0123456789";
+        Random rand = new Random();
+        string digit = new string(Enumerable.Repeat(chars, length)
+        .Select(s => s[rand.Next(s.Length)]).ToArray());
 
         return $"P{digit}";
     }
