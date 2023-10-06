@@ -61,7 +61,7 @@ public class TeacherState: BaseState
         set => SetProperty(ref _errorServer, value);
     }
 
-    public TeacherFormViewModel Model { get; set; }
+    public StudentFormViewModel Model { get; set; }
     #endregion Teacher properties form (Edit / Create)
 
     #region Constructor
@@ -103,7 +103,7 @@ public class TeacherState: BaseState
 
     public void ResetForm()
     {
-        Model = new TeacherFormViewModel();
+        Model = new StudentFormViewModel();
     }
 
 
@@ -168,7 +168,7 @@ public class TeacherState: BaseState
 
     private void ConvertTeacherDtoToViewModel( TeacherDto teacherDto)
     {
-        Model = new TeacherFormViewModel()
+        Model = new StudentFormViewModel()
         {
             FirstName = teacherDto.FirstName,
             HireDate = teacherDto.HireDate,
