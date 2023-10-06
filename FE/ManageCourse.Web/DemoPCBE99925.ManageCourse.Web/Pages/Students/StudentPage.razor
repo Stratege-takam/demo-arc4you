@@ -1,9 +1,168 @@
 ﻿@page "/Students"
+@using EG.DemoPCBE99925.ManageCourse.Web.Pages.Students.Components;
 
 @inject IStringLocalizer<Resources.StudentPage> Localizer
+@inject StudentState state;
+@implements IDisposable
+@inject SwitchUserState userState;
+@inject NavigationManager navigationManager
 
-<h3>StudentPage</h3>
+@inject NVOverlayService OverlayService;
+
+
+<NVStack Vertical StackItemCenter Gutter="8" P="2" MY="5">
+    <NVPanel Level="2">
+        <NVBlock MY="2">
+            <NVText TextColor="petrol-500" TextSize="h-sm">List of Students</NVText>
+        </NVBlock>
+
+        <NVStack>
+            <NVStackItemLead>
+                <NVButton Small Level="2" Color="secondary"
+                @onclick="state.RefreshList"
+                          LeadIcon="refresh"> Refresh </NVButton>
+            </NVStackItemLead>
+            <NVStackItemTail>
+                <NVButton Small Color="secondary"
+                @onclick="@(() =>state.OpenForm(null, () => OverlayService.Show(FormName)))"
+                          LeadIcon="plus"> New Student </NVButton>
+            </NVStackItemTail>
+        </NVStack>
+        <NVTable Responsive>
+            <NVTableHead>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Matricule</th>
+                <th></th>
+            </NVTableHead>
+            <NVTableBody>
+                @if (state.LoadingRefresh)
+                {
+                    <tr>
+                        <td colspan="4">
+                            <NVBlock class="align-center-c">
+                                <NVLoader Size="lg" Color="secondary" Loading />
+                            </NVBlock>
+                        </td>
+                    </tr>
+                }
+                else if (state.Students == null)
+                {
+                    <tr>
+                        <td colspan="4">
+                            <NVBlock class="align-center-c">
+                                List is empty
+                            </NVBlock>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var Student in state.Students)
+                    {
+                        var StudentDto = Student;
+                        <tr>
+                            <td data-table-heading="Firstname">
+                                @StudentDto.FirstName
+                            </td>
+                            <td data-table-heading="Lastname">
+                                @StudentDto.LastName
+                            </td>
+                            <td data-table-heading="Matricule">
+                                @StudentDto.Matricule 
+                            </td>
+                            <td>
+                                <NVButton XSmall Level="2"
+                                @onclick="@(() =>state.OpenForm(StudentDto, () => OverlayService.Show(FormName)))"
+                                          Color="primary" Icon="edit" MR="2" />
+                                <NVButton XSmall Level="2"
+                                @onclick="@(() =>state.OpenForm(StudentDto, () => OverlayService.Show(FormName), false))"
+                                          Color="secondary" Icon="eye" MR="2" />
+                                <NVButton XSmall Level="2" Color="error"
+                                @onclick="@(() =>state.OpenConfirmDelete(StudentDto, () => OverlayService.Show(ConfirmDeleteName)))"
+                                          Icon="x" MR="2" />
+                            </td>
+                        </tr>
+                    }
+                }
+            </NVTableBody>
+        </NVTable>
+    </NVPanel>
+</NVStack>
+
 
 @code {
 
+    #region Listener state change
+
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        if (userState.CurrentRole != Utils.Enums.UserTypeEnum.Student)
+        {
+            navigationManager.NavigateTo(userState.GetRoute(AppRouteEnum.Home));
+        }
+        state.Mont(async () => await InvokeAsync(StateHasChanged));
+
+        InitializeModal();
+    }
+
+    public void Dispose()
+    {
+        state.UnMont(async () => await InvokeAsync(StateHasChanged));
+    }
+
+    #endregion
+
+
+    #region Method lifecycle (override)
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        if (!state.DataIsAlreadyInitialize)
+        {
+            await state.RefreshList();
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        // ensure that overlays exists before render overlays
+        if (firstRender)
+        {
+            OverlayService.Render();
+        }
+    }
+
+    #endregion Method lifecycle (override)
+
+
+    #region Modal Methods
+    private readonly string FormName = "form-Student";
+    private readonly string ConfirmDeleteName = "confirm-delete-Student";
+
+    private void InitializeModal()
+    {
+        OverlayService.Initialize(GetNVOverlayServiceConfig(FormName, typeof(StudentForm)));
+        OverlayService.Initialize(GetNVOverlayServiceConfig(ConfirmDeleteName, typeof(ItemRemoveConfirm)));
+    }
+
+    private NVOverlayServiceConfig GetNVOverlayServiceConfig(string name, Type view)
+    {
+        NVOverlayServiceConfig overlayConfig = new NVOverlayServiceConfig(NVOverlayServiceConfig.MODAL,
+          name,
+       view, new { MaxWidth = "40vw" });
+
+        overlayConfig.AddAction("OnConfirm", async (data) =>
+        {
+            await state.Submit();
+            OverlayService.Hide(name);
+        });
+        return overlayConfig;
+    }
+    #endregion
 }
