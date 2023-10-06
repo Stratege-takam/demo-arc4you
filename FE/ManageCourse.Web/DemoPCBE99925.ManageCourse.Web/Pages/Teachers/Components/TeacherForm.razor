@@ -4,14 +4,18 @@
 
 <NVModal @attributes="@Props">
   <NVModalHeader>
-        <NVBlock TextSize="h-md">
+        <NVBlock>
             @if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Update)
             {
-                <NVText>Update teacher </NVText>
+                <NVText TextSize="h-sm" TextColor="petrol-500">Update teacher </NVText>
             }
-            else
+            else if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Insert)
             {
-                <NVText>New Teacher </NVText>
+                <NVText TextSize="h-sm" TextColor="petrol-500">New Teacher </NVText>
+            }
+            else 
+            {
+                <NVText TextSize="h-sm" TextColor="petrol-500">Detail Teacher </NVText>
             }
         </NVBlock>
   </NVModalHeader>

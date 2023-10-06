@@ -107,7 +107,7 @@ public class TeacherState: BaseState
     }
 
 
-    public void OpenForm(TeacherDto? teacherDto, Action action)
+    public void OpenForm(TeacherDto? teacherDto, Action action, bool isUpdate = true)
     {
         Loading = false;
         ErrorServer = null;
@@ -118,10 +118,18 @@ public class TeacherState: BaseState
             ResetForm();
             PersistChange = PersistChange.Insert;
         }
-        else // state is updated
+        else  // state is updated or detail
         {
             ConvertTeacherDtoToViewModel(teacherDto);
-            PersistChange = PersistChange.Update;
+
+            if (isUpdate)
+            {
+                PersistChange = PersistChange.Update;
+            }
+            else
+            {
+                PersistChange = PersistChange.None;
+            }
         }
 
         action?.Invoke();

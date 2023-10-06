@@ -12,7 +12,9 @@
 
 <NVStack Vertical StackItemCenter  Gutter="8" P="2" MY="5">
     <NVPanel Level="2">
-        <NVBlock MY="2" TextColor="petrol-500" TextSize="h-sm">List of teachers</NVBlock>
+        <NVBlock MY="2">
+            <NVText TextColor="petrol-500" TextSize="h-sm">List of teachers</NVText>
+        </NVBlock>
 
         <NVStack>
         <NVStackItemLead>
@@ -77,8 +79,10 @@
                                 <NVButton XSmall Level="2"
                                 @onclick="@(() =>state.OpenForm(teacherDto, () => OverlayService.Show(FormName)))"
                                           Color="primary" Icon="edit" MR="2" />
+                                <NVButton XSmall Level="2"
+                                @onclick="@(() =>state.OpenForm(teacherDto, () => OverlayService.Show(FormName), false))"
+                                    Color="secondary" Icon="eye" MR="2" />
                                 <NVButton XSmall Level="2" Color="error" Icon="x" MR="2" />
-                                <NVButton XSmall Level="2" Color="secondary" Icon="eye" MR="2" />
                             </td>
                         </tr>
                     }
