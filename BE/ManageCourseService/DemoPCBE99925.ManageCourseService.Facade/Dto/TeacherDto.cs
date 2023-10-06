@@ -20,6 +20,7 @@ public class TeacherDto
     public PersistChange PersistChange { get; set; }
 
     #region Properties Default
+
     public string FirstName { get; set; }
 
     public string LastName { get; set; }
