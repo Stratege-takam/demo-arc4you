@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace EG.DemoPCBE99925.ManageCourse.Web.ViewModels.Teachers;
+namespace EG.DemoPCBE99925.ManageCourse.Web.ViewModels.Students;
 
 public class StudentFormViewModel: NotifyChangeProperty
 {
@@ -22,12 +22,19 @@ public class StudentFormViewModel: NotifyChangeProperty
 
 
     #region Properties
-    private double _salary;
-    [Required, Range(1,int.MaxValue)]
-    public double Salary { get => _salary; set => SetProperty(ref _salary, value); }
-
-    private DateTime? _hireDate = null;
+    private string _matricule = GenerateMatricule();
     [Required]
-    public DateTime? HireDate { get => _hireDate; set => SetProperty(ref _hireDate, value); }
+    public string Matricule { get => _matricule; set => SetProperty(ref _matricule, value); }
     #endregion
+
+
+    #region Method Helpers
+    public static string GenerateMatricule()
+    {
+        Random rand = new Random(100);
+        int digit = rand.Next(00000, 99999);
+
+        return $"P{digit}";
+    }
+    #endregion Method Helpers
 }
