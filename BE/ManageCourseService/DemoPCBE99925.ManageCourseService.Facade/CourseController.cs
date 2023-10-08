@@ -51,7 +51,7 @@ public class CourseController : ControllerBase
 	[HttpGet("id/{id:Guid}")]
 	public async Task<IActionResult> GetByIdAsync([FromServices] IMapper mapper, Guid id, CancellationToken cancellation)
 	{
-		var result = mapper.Map<CourseDto>(await _courseBL.GetByIdAsync(id, new Graph<Domain.Course>(), cancellation).ConfigureAwait(true));
+        var result = mapper.Map<CourseDto>(await _courseBL.GetByIdAsync(id, new Graph<Domain.Course>(), cancellation).ConfigureAwait(true));
 
 		return Ok(result);
 	}

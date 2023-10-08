@@ -6,5 +6,6 @@ public enum AppRouteEnum: ushort
     Switch = 2,
     Teachers = 3,
     Students = 4,
-    Courses = 5
+    Courses = 5,
+    Courses_Form = 6,
 }

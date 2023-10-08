@@ -1,14 +1,15 @@
 
 using Arc4u.Data;
+
 namespace EG.DemoPCBE99925.ManageCourseService.Facade.Dtos;
 
 /// <summary>
-/// CoursePerson
+/// Student
 /// </summary>
-public class CoursePersonDto
+public class PersonDto
 {
     /// <summary>
-    /// Id of CoursePerson.
+    /// Id of Student.
     /// </summary>
     public Guid Id { get; set; }
 
@@ -17,16 +18,12 @@ public class CoursePersonDto
     /// </summary>
     public PersistChange PersistChange { get; set; }
 
+    #region Properties 
+    public string FirstName { get; set; }
 
-    #region Properties
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
-    #endregion Properties
+    public string LastName { get; set; }
 
-    #region Navigation
-    public Guid LeadId { get; set; }
+    #endregion Properties 
 
-    public Guid CourseId { get; set; }
-
-    #endregion Navigation
+    
 }

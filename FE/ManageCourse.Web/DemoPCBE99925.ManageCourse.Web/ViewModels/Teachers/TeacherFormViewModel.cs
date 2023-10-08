@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EG.DemoPCBE99925.ManageCourse.Web.ViewModels.Teachers;
 
-public class StudentFormViewModel: NotifyChangeProperty
+public class TeacherFormViewModel: NotifyChangeProperty
 {
     #region Properties Default
     private string _id =  Guid.NewGuid().ToString();

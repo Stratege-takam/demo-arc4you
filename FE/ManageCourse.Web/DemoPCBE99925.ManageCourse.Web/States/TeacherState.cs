@@ -44,9 +44,6 @@ public class TeacherState: BaseState
         set => SetProperty(ref _successSave, value);
     }
 
-
-
-
     private PersistChange _persistChange;
     public PersistChange PersistChange
     {
@@ -61,7 +58,7 @@ public class TeacherState: BaseState
         set => SetProperty(ref _errorServer, value);
     }
 
-    public StudentFormViewModel Model { get; set; }
+    public TeacherFormViewModel Model { get; set; }
     #endregion Teacher properties form (Edit / Create)
 
     #region Constructor
@@ -103,7 +100,7 @@ public class TeacherState: BaseState
 
     public void ResetForm()
     {
-        Model = new StudentFormViewModel();
+        Model = new TeacherFormViewModel();
     }
 
 
@@ -168,7 +165,7 @@ public class TeacherState: BaseState
 
     private void ConvertTeacherDtoToViewModel( TeacherDto teacherDto)
     {
-        Model = new StudentFormViewModel()
+        Model = new TeacherFormViewModel()
         {
             FirstName = teacherDto.FirstName,
             HireDate = teacherDto.HireDate,

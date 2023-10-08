@@ -32,6 +32,6 @@ public class SwitchUserState: BaseState
 
     public string GetRoute(AppRouteEnum route)
     {
-        return route == AppRouteEnum.Home ? "" : route.GetEnumDescription();
+        return route == AppRouteEnum.Home ? "" : route.GetEnumDescription().Replace("_","/");
     }
 }

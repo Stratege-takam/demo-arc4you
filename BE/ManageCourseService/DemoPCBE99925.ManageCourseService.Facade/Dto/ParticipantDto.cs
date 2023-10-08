@@ -1,6 +1,5 @@
-using System;
+
 using Arc4u.Data;
-using EG.DemoPCBE99925.ManageCourseService.Domain;
 
 namespace EG.DemoPCBE99925.ManageCourseService.Facade.Dtos;
 
@@ -26,14 +25,11 @@ public class ParticipantDto
 
     #region Navigations
     public Guid StudentId { get; set; }
-    public Student Student { get; set; }
-
 
     /// <summary>
     /// The course that the student participate
     /// </summary>
     public Guid CoursePersonId { get; set; }
 
-    public CoursePerson CoursePerson { get; set; }
     #endregion Navigations
 }

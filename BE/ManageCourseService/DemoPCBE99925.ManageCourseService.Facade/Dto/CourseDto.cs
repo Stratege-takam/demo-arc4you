@@ -1,6 +1,4 @@
-using System;
 using Arc4u.Data;
-using EG.DemoPCBE99925.ManageCourseService.Domain;
 
 namespace EG.DemoPCBE99925.ManageCourseService.Facade.Dtos;
 
@@ -20,18 +18,11 @@ public class CourseDto
     public PersistChange PersistChange { get; set; }
 
 
-
     #region Properties
     public string Name { get; set; }
     public string Description { get; set; }
-    public string Unity { get; set; }
-
-    #endregion Properties
-
-
-    #region Navigations
-
+    public double Unity { get; set; }
     public Guid OwnerId { get; set; }
 
-    #endregion Navigation
+    #endregion Properties
 }
