@@ -5,174 +5,199 @@
 @inherits NVOverlayable;
 @inject CourseState state;
 @implements IDisposable
-
-<NVPanel>
-    <NVBlock>
-        @if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Update)
-        {
-            <NVText TextSize="h-sm" TextColor="petrol-500">Update Course </NVText>
-        }
-        else if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Insert)
-        {
-            <NVText TextSize="h-sm" TextColor="petrol-500">New Course </NVText>
-        }
-        else
-        {
-            <NVText TextSize="h-sm" TextColor="petrol-500">Detail Course </NVText>
-        }
-    </NVBlock>
+@inject SwitchUserState userState;
+@inject NavigationManager navigationManager
 
 
-    <NVBlock>
-        <EditForm OnValidSubmit="state.Submit" Model="state.Model">
-            <DataAnnotationsValidator />
+<NVStack Vertical Class="w-responsive-sm" Gutter="8" P="2" MY="5">
+    <NVPanel Level="2">
+        <NVBlock MY="2">
+            @if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Update)
+            {
+                <NVText TextSize="h-sm" TextColor="petrol-500">Update Course </NVText>
+            }
+            else if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Insert)
+            {
+                <NVText TextSize="h-sm" TextColor="petrol-500">New Course </NVText>
+            }
+            else
+            {
+                <NVText TextSize="h-sm" TextColor="petrol-500">Detail Course </NVText>
+            }
+        </NVBlock>
 
-            <NVContainer>
-                @if (state.SuccessSave)
-                {
-                    <NVAlert MB="2" Close Permanent Color="success">
-                        <NVText Size="sm" Medium MB="1">Information</NVText>
-                        <NVText Size="sm" MB="2">
-                            Save as successfull !
-                        </NVText>
-                    </NVAlert>
-                }
-                @if (state.ErrorServer != null)
-                {
-                    <NVAlert MB="2" Close Permanent Color="error-100">
-                        <NVText Size="sm" Medium MB="1">Error</NVText>
-                        <NVText Size="sm" MB="2">
-                            @state.ErrorServer
-                        </NVText>
-                    </NVAlert>
-                }
-                <NVBlock MB="2">
-                    @if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.None)
+
+        <NVBlock>
+            <EditForm OnValidSubmit="state.Submit"
+                      EditContext="FormContext">
+
+                <DataAnnotationsValidator />
+
+                <NVContainer>
+                    @if (state.SuccessSave)
                     {
-                        <NVFieldText Name="Id" Readonly
-                        @bind-Value="state.Model.Id"
-                                     Label="Teacher identifier" />
+                        <NVAlert MB="2" Close Permanent Color="success">
+                            <NVText Size="sm" Medium MB="1">Information</NVText>
+                            <NVText Size="sm" MB="2">
+                                Save as successfull !
+                            </NVText>
+                        </NVAlert>
                     }
-                    else if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Insert)
+                    @if (state.ErrorServer != null)
                     {
-                        <NVFieldText Name="Id"
-                        @bind-Value="state.Model.Id"
-                                     Label="Teacher identifier" />
+                        <NVAlert MB="2" Close Permanent Color="error-100">
+                            <NVText Size="sm" Medium MB="1">Error</NVText>
+                            <NVText Size="sm" MB="2">
+                                @state.ErrorServer
+                            </NVText>
+                        </NVAlert>
                     }
-                </NVBlock>
-
-                <NVBlock MB="2">
-                    @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
-                    {
-                        <NVFieldText Name="Name"
-                        @bind-Value="state.Model.Name"
-                                     Label="Name" />
-                    }
-                    else
-                    {
-                        <NVFieldText Name="Name"
-                        @bind-Value="state.Model.Name"
-                                          Readonly
-                                     Label="Name" />
-                    }
-
-                </NVBlock>
-
-                <NVBlock MB="2">
-                    @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
-                    {
-
-                       <NVFieldSelect
-                           Name="Owner"
-                        @bind-Value="state.Model.OwnerId">
-                           @foreach(var owner in state.Owners){
-                                <option value="@owner.Id"> @owner.FirstName @owner.LastName</option>
-                           }
-                        </NVFieldSelect>
-                    }
-                    else
-                    {
-                        <NVFieldSelect Name="Owner"
-                                          Readonly
-                        @bind-Value="state.Model.OwnerId">
-                            @foreach (var owner in state.Owners)
-                            {
-                                <option value="@owner.Id"> @owner.FirstName @owner.LastName</option>
-                            }
-                        </NVFieldSelect>
-                    }
-
-                </NVBlock>
-
-                <NVBlock MB="2">
-
-                    @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
-                    {
-                        <NVFieldNumber Name="Unity"
-                        @bind-Value="state.Model.Unity"
-                                       Label="Unity" />
-                    }
-                    else
-                    {
-                        <NVFieldNumber Name="Unity"
-                        @bind-Value="state.Model.Unity"
-                                          Readonly
-                                     Label="Unity" />
-                    }
-                </NVBlock>
-
-                <NVBlock MB="2">
-                    @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
-                    {
-                        <NVFieldTextArea Name="Description"
-                        @bind-Value="state.Model.Description"
-                                     Label="Description" />
-                    }
-                    else
-                    {
-                        <NVFieldTextArea Name="Description"
-                        @bind-Value="state.Model.Description"
-                                      Readonly
-                                     Label="Description" />
-                    }
-
-                </NVBlock>
-                @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
-                {
-                    <NVBlock Class="align-center-r-o">
-                        @if (state.Loading)
+                    <NVBlock MB="2">
+                        @if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.None)
                         {
-                            <NVButton Disabled Type="submit" Size="sm"
-                                      MR="2" Color="secondary">Submit </NVButton>
+                            <NVFieldText Name="Id" Readonly
+                            @bind-Value="state.Model.Id"
+                                         Label="Teacher identifier" />
+                        }
+                        else if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Insert)
+                        {
+                            <NVFieldText Name="Id"
+                            @bind-Value="state.Model.Id"
+                                         Label="Teacher identifier" />
+                        }
+                    </NVBlock>
 
-                            <NVLoader Color="secondary" Loading />
+                    <NVBlock MB="2">
+                        @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
+                        {
+                            <NVFieldText Name="Name"
+                            @bind-Value="state.Model.Name"
+                                         Label="Name" />
                         }
                         else
                         {
-                            <NVButton Type="submit" Size="sm" MR="2"
-                                      Color="secondary">Submit </NVButton>
+                            <NVFieldText Name="Name"
+                            @bind-Value="state.Model.Name"
+                                          Readonly
+                                         Label="Name" />
+                        }
+
+                    </NVBlock>
+
+                    <NVBlock MB="2">
+                        @if (state.Owners != null)
+                        {
+                            if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
+                            {
+
+                                <NVFieldSelect Name="Owner"
+                                @bind-Value="state.Model.OwnerId">
+                                    <option value=""> Choose element</option>
+                                    @foreach (var owner in state.Owners)
+                                    {
+                                        <option value="@owner.Id"> @owner.FirstName @owner.LastName</option>
+                                    }
+                                </NVFieldSelect>
+                            }
+                            else
+                            {
+                                <NVFieldSelect Name="Owner"
+                                                  Readonly
+                                @bind-Value="state.Model.OwnerId">
+                                @foreach (var owner in state.Owners)
+                                    {
+                                        <option value="@owner.Id"> @owner.FirstName @owner.LastName</option>
+                                    }
+                                </NVFieldSelect>
+                            }
                         }
                     </NVBlock>
-                }
-            </NVContainer>
 
-        </EditForm>
-    </NVBlock>
+                    <NVBlock MB="2">
+
+                        @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
+                        {
+                            <NVFieldNumberHelper 
+                                @bind-Field="state.Model.Coefficient"
+                                           Id="Unit" Label="Unit">
+                            </NVFieldNumberHelper>
+                            <NVBlock Class="nv-field-message">
+                                <NVBlock Class="nv-field-validation">
+                                    <ValidationMessage For="@(() => state.Model.Coefficient)" />
+                                </NVBlock>
+                               
+                            </NVBlock>
+                        }
+                        else
+                        {
+                            <NVFieldNumberHelper ReadOnly="true"
+                                @bind-Field="state.Model.Coefficient"
+                                                 Id="Unit"
+                                                 Label="Unit">
+                            </NVFieldNumberHelper>
+                        }
+                    </NVBlock>
+
+                    <NVBlock MB="2">
+                        @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
+                        {
+                            <NVFieldTextArea Name="Description"
+                            @bind-Value="state.Model.Description"
+                                             Label="Description" />
+                        }
+                        else
+                        {
+                            <NVFieldTextArea Name="Description"
+                            @bind-Value="state.Model.Description"
+                                                  Readonly
+                                             Label="Description" />
+                        }
+
+                    </NVBlock>
+                    @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
+                    {
+                        <NVBlock Class="align-center-r-o">
+                            @if (state.Loading)
+                            {
+                                <NVButton Disabled Type="submit" Size="sm"
+                                          MR="2" Color="secondary">Submit </NVButton>
+
+                                <NVLoader Color="secondary" Loading />
+                            }
+                            else
+                            {
+                                <NVButton Type="submit" Size="sm" MR="2"
+                                          Color="secondary">Submit </NVButton>
+                            }
+                        </NVBlock>
+                    }
+                </NVContainer>
+
+            </EditForm>
+        </NVBlock>
+    </NVPanel>
+</NVStack>
 
 
-</NVPanel>
+
+
 
 
 @code {
 
-
-
+    public EditContext FormContext { get; set; }
     #region Listener state change
-
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
+        FormContext = new(state.Model);
+
+        if (userState.CurrentRole == Utils.Enums.UserTypeEnum.None)
+        {
+            navigationManager.NavigateTo(userState.GetRoute(AppRouteEnum.Home));
+        }
         state.Mont(async () => await InvokeAsync(StateHasChanged));
     }
 
@@ -184,14 +209,15 @@
     #endregion
 
     #region Lifecycle
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
 
-        await state.RefreshOwners();
-    }
     #endregion Lifecycle
 
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+        await state.RefreshOwners();
+
+    }
     #region Private methods
 
     #endregion Private methods

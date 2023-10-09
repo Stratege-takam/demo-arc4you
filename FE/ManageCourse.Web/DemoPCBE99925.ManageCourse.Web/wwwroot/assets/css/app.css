@@ -66,6 +66,10 @@
     width: 80%;
 }
 
+.validation-message{
+    color: red;
+}
+
 
 
 @media screen and (max-width: 768px) {

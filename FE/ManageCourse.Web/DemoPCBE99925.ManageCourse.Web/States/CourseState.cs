@@ -2,10 +2,11 @@ using Arc4u.Dependency.Attribute;
 using EG.DemoPCBE99925.ManageCourse.Web.Proxies;
 using EG.DemoPCBE99925.ManageCourse.Web.ViewModels.Courses;
 using EG.DemoPCBE99925.ManageCourseService.Facade.Sdk;
+using Microsoft.AspNetCore.Components;
 
 namespace EG.DemoPCBE99925.ManageCourse.Web.States;
 
-[Export, Shared]
+[Export, Scoped]
 public class CourseState: BaseState
 {
 
@@ -13,7 +14,7 @@ public class CourseState: BaseState
     private readonly SwitchUserState _userState;
     private readonly DemoPCBE99925ManageCourseServiceStudentFacade _studentFacade;
     private readonly DemoPCBE99925ManageCourseServiceTeacherFacade _teacherFacade;
-
+    private readonly NavigationManager _navigationManager;
     #region Course properties list
     public IList<CourseDto> Courses { get; set; }
 
@@ -65,12 +66,14 @@ public class CourseState: BaseState
         DemoPCBE99925ManageCourseServiceStudentFacade studentFacade,
         DemoPCBE99925ManageCourseServiceTeacherFacade teacherFacade,
         DemoPCBE99925ManageCourseServiceCourseFacade facade,
-        SwitchUserState userState)
+        SwitchUserState userState,
+        NavigationManager navigationManager)
     {
         _facade = facade;
         _userState = userState;
-        _studentFacade = _studentFacade;
-        teacherFacade = _teacherFacade;
+        _studentFacade = studentFacade;
+        _teacherFacade = teacherFacade;
+        _navigationManager = navigationManager;
         ResetForm();
     }
     #endregion Constructor
@@ -87,17 +90,27 @@ public class CourseState: BaseState
     {
         if(_userState.CurrentRole == Utils.Enums.UserTypeEnum.Student)
         {
-            Owners = ( await _studentFacade.Proxy.GetAllAsync().ConfigureAwait(false)).Select(s => s as PersonDto).ToList();
+            var list = await _studentFacade.Proxy.GetAllAsync().ConfigureAwait(false);
+            Owners = list?.Select(s => s as PersonDto).ToList();
+        }
+        else if (_userState.CurrentRole == Utils.Enums.UserTypeEnum.Teacher)
+        {
+            var list = await _teacherFacade.Proxy.GetAllAsync().ConfigureAwait(false);
+            Owners = list?.Select(t => t as PersonDto).ToList(); 
         }
         else
         {
-            Owners = (await _teacherFacade.Proxy.GetAllAsync().ConfigureAwait(false)).Select(t => t as PersonDto).ToList(); ;
+            Owners = new List<PersonDto>();
+
         }
+
+        RaisePropertyChanged();
     }
 
     public async Task Submit()
     {
         SuccessSave = false;
+        ErrorServer = null;
         this.Loading = true;
         var Course = ConvertCourseViewModelToDto();
 
@@ -113,6 +126,7 @@ public class CourseState: BaseState
         }
 
         Loading = false;
+        RaisePropertyChanged();
     }
 
     public void ResetForm()
@@ -159,6 +173,8 @@ public class CourseState: BaseState
             }
         }
 
+        _navigationManager.NavigateTo(_userState.GetRoute(Utils.Enums.AppRouteEnum.Courses_Form));
+
     }
     #endregion Public method
 
@@ -170,7 +186,7 @@ public class CourseState: BaseState
         {
             Name = Model.Name,
             Description = Model.Description,
-            Unity = Model.Unity,
+            Unity = Model.Coefficient,
             Id = Guid.Parse(Model.Id),
             OwnerId = Guid.Parse(Model.OwnerId),
             PersistChange = PersistChange
@@ -185,7 +201,7 @@ public class CourseState: BaseState
         {
             Name = courseDto.Name,
             Description = courseDto.Description,
-            Unity = courseDto.Unity,
+            Coefficient = courseDto.Unity,
             Id = courseDto.Id.ToString(),
             OwnerId = courseDto.OwnerId.ToString(),
            // Owner = courseDto.Owner

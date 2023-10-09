@@ -12,7 +12,7 @@ public class GetCoursePersonDto: CoursePersonDto
 
     public CourseDto Course { get; set; }
 
-    public IList<ParticipantDto> Participants { get; set; }
+    public IList<GetParticipantDto> Participants { get; set; }
 
     #endregion Navigation
 }

@@ -25,4 +25,5 @@ public class CourseDto
     public Guid OwnerId { get; set; }
 
     #endregion Properties
+
 }

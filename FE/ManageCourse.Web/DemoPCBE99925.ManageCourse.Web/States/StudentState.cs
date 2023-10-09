@@ -5,7 +5,7 @@ using EG.DemoPCBE99925.ManageCourseService.Facade.Sdk;
 
 namespace EG.DemoPCBE99925.ManageCourse.Web.States;
 
-[Export, Shared]
+[Export, Scoped]
 public class StudentState: BaseState
 {
     private readonly DemoPCBE99925ManageCourseServiceStudentFacade _facade;
@@ -85,6 +85,7 @@ public class StudentState: BaseState
     {
         SuccessSave = false;
         this.Loading = true;
+        ErrorServer = null;
         var Student = ConvertStudentViewModelToDto();
 
         try
@@ -99,6 +100,7 @@ public class StudentState: BaseState
         }
 
         Loading = false;
+        RaisePropertyChanged();
     }
 
     public void ResetForm()

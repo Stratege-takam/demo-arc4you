@@ -5,7 +5,7 @@ namespace EG.DemoPCBE99925.ManageCourseService.Facade.Dtos;
 /// <summary>
 /// Course
 /// </summary>
-public class GetCourseDto: PersonDto
+public class GetCourseDto: CourseDto
 {
     #region Navigation Properties
 

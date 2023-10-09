@@ -48,7 +48,7 @@
                         </td>
                     </tr>
                 }
-                else if (state.Courses == null)
+                else if (state.Courses == null || !state.Courses.Any())
                 {
                     <tr>
                         <td colspan="6">
@@ -70,19 +70,19 @@
                             <td data-table-heading="Unity">
                                 @courseDto.Unity
                             </td>
-                           @* <td data-table-heading="Create by">
-                                @courseDto.Owner.FirstName @courseDto.Owner.LastName
+                            <td data-table-heading="Create by">
+                                @*@courseDto.Owner.FirstName @courseDto.Owner.LastName*@
                             </td>
                             <td data-table-heading="Status">
-                                @if (courseDto.IsTeacher)
+                               @* @if (courseDto.IsTeacher)
                                 {
                                     <NVText>Teacher</NVText>
                                 }
                                 else
                                 {
                                     <NVText>Student</NVText>
-                                }
-                            </td>*@
+                                }*@
+                            </td>
                             <td data-table-heading="Description">
                                 @if (courseDto.Description != null && courseDto.Description.Length > 20)
                                 {
@@ -93,14 +93,14 @@
                                     <NVText>@courseDto.Description</NVText>
                                 }
                             </td>
-                            @*<td>
+                            <td>
                                 <NVButton XSmall Level="2"
                                 @onclick="@(() =>state.OpenForm(courseDto))"
                                           Color="primary" Icon="edit" MR="2" />
                                 <NVButton XSmall Level="2"
                                 @onclick="@(() =>state.OpenForm(courseDto, false))"
                                           Color="secondary" Icon="eye" MR="2" />
-                                @if (courseDto.IsTeacher)
+                                @*@if (courseDto.IsTeacher)
                                 {
                                     <NVButton XSmall Level="2"
                                     
@@ -118,8 +118,8 @@
                                     <NVButton XSmall Level="2" Color="error"
                                     @onclick="@(() =>state.OpenConfirmDelete(courseDto, () => OverlayService.Show(ConfirmDeleteName)))"
                                               Icon="x" MR="2" />
-                                }
-                            </td>*@
+                                }*@
+                            </td>
                         </tr>
                     }
                 }

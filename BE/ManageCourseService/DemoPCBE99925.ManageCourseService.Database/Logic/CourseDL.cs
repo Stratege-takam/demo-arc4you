@@ -30,8 +30,12 @@ public class  CourseDL : ICourseDL
     {
         ArgumentNullException.ThrowIfNull(graph, nameof(graph));
         ArgumentNullException.ThrowIfNull(id, nameof(id));
-
-        return await graph.ApplySetReferences(_databaseContext.Courses).SingleOrDefaultAsync(p => p.Id == id, cancellationToken).ConfigureAwait(false);
+         
+        return await graph.ApplySetReferences(_databaseContext.Courses)
+            .Include(e => e.Owner)
+            .Include(e => e.CoursePeople).ThenInclude(e => e.Lead)
+            .Include(e => e.CoursePeople).ThenInclude(e => e.Participants).ThenInclude(e => e.Student)
+            .SingleOrDefaultAsync(p => p.Id == id, cancellationToken).ConfigureAwait(false);
     }
 
     public async IAsyncEnumerable<Course> GetAllAsync(Graph<Course> graph, [EnumeratorCancellation] CancellationToken cancellationToken)

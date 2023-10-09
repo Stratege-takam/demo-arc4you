@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace EG.DemoPCBE99925.ManageCourse.Web.Proxies;
 
-[Export]
+[Export, Scoped]
 public class DemoPCBE99925ManageCourseServiceCourseFacade
 {
     public DemoPCBE99925ManageCourseServiceCourseFacade(IOptionsMonitor<SimpleKeyValueSettings> optionsSettings, IHttpClientFactory httpClientFactory)

@@ -7,22 +7,21 @@ public class CourseFormViewModel : NotifyChangeProperty
 {
     #region Properties 
     private string _id = Guid.NewGuid().ToString();
-    [Required]
+    [Required, MinLength(2)]
     public string Id { get => _id; set => SetProperty(ref _id, value); }
 
 
     private string _name;
-
+    [Required]
     public string Name { get => _name; set => SetProperty(ref _name, value); }
 
     private string _description;
-    [Required]
+    [Required, MinLength(10)]
     public string Description { get => _description; set => SetProperty(ref _description, value); }
 
-
-    private double _unity;
-    [Required, Range(0.1, 1000)]
-    public double Unity { get => _unity; set => SetProperty(ref _unity, value); }
+    private double _coefficient;
+    [Required, Range(1, 1000)]
+    public double Coefficient { get => _coefficient; set => SetProperty(ref _coefficient, value); }
 
     private string _ownerId;
     [Required]
