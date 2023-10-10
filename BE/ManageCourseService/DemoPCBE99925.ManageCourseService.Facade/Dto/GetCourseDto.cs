@@ -14,11 +14,4 @@ public class GetCourseDto: CourseDto
     public IList<CoursePersonDto> CoursePeople { get; set; }
 
     #endregion Navigation Properties
-
-    #region Help Properties
-
-    public bool CanDelete { get; set; }
-    public bool IsTeacher { get; set; }
-
-    #endregion  Help Properties
 }

@@ -14,6 +14,7 @@ public class CourseState: BaseState
     private readonly SwitchUserState _userState;
     private readonly DemoPCBE99925ManageCourseServiceStudentFacade _studentFacade;
     private readonly DemoPCBE99925ManageCourseServiceTeacherFacade _teacherFacade;
+    private readonly DemoPCBE99925ManageCourseServiceCoursePersonFacade _coursePersonFacade;
     private readonly NavigationManager _navigationManager;
     #region Course properties list
     public IList<CourseDto> Courses { get; set; }
@@ -61,11 +62,105 @@ public class CourseState: BaseState
     public CourseFormViewModel Model { get; set; }
     #endregion Course properties form (Edit / Create)
 
+    #region Lead Courses
+    private bool _loadingLead = false;
+    public bool LoadingLead
+    {
+        get => _loadingLead;
+        set => SetProperty(ref _loadingLead, value);
+    }
+
+    private string _errorServerLead;
+    public string ErrorServerLead
+    {
+        get => _errorServerLead;
+        set => SetProperty(ref _errorServerLead, value);
+    }
+    public CoursePersonViewModel ModelLead { get; set; }
+
+    public async Task<IList<TeacherDto>> GetTeachers()
+    {
+        return await _teacherFacade.Proxy.GetAllAsync().ConfigureAwait(false);
+    }
+
+    public void OpenFormLead(CourseDto courseDto, Action action,
+        CoursePersonDto? coursePersonDto = null)
+    {
+        LoadingLead = false;
+        ErrorServerLead = null;
+        // state is created
+        if (coursePersonDto == null)
+        {
+            ModelLead = new CoursePersonViewModel()
+            {
+                CourseId = courseDto.Id.ToString(),
+                PersistChange = PersistChange.Insert
+            };
+        }
+        else  // state is updated or detail
+        {
+            ModelLead = new CoursePersonViewModel()
+            {
+                CourseId = courseDto.Id.ToString(),
+                PersistChange = PersistChange.Update,
+                EndDate = coursePersonDto.EndDate,
+                Id = coursePersonDto.Id.ToString(),
+                LeadId = coursePersonDto.LeadId.ToString(),
+                StartDate = coursePersonDto.StartDate
+            };
+        }
+
+        action?.Invoke();
+    }
+
+    public async Task SubmitLead()
+    {
+        ErrorServerLead = null;
+        this.LoadingLead = true;
+        var coursePerson = new CoursePersonDto()
+        {
+            CourseId = Guid.Parse(ModelLead.CourseId),
+            EndDate = ModelLead.EndDate.GetValueOrDefault(),
+            StartDate = ModelLead.StartDate.GetValueOrDefault(),
+            Id = Guid.Parse(ModelLead.Id),
+            LeadId =  Guid.Parse(ModelLead.LeadId),
+            PersistChange = ModelLead.PersistChange
+        };
+
+        try
+        {
+            await _coursePersonFacade.Proxy.SaveAsync(coursePerson).ConfigureAwait(false);
+
+            if (ModelLead.PersistChange == PersistChange.Insert)
+            {
+                Courses = Courses.Select(t =>
+                {
+                    if (t.Id == Guid.Parse(ModelLead.CourseId))
+                    {
+                        t.CanLead = false;
+                    }
+                    return t;
+                }).ToList();
+            }
+            
+        }
+        catch (Exception e)
+        {
+            ErrorServer = $"The error occurence in identifier: {ModelLead.Id}. Contact admin@elia.be";
+        }
+
+        LoadingLead = false;
+        RaisePropertyChanged();
+    }
+
+    #endregion Lead Courses
+
     #region Constructor
     public CourseState(
         DemoPCBE99925ManageCourseServiceStudentFacade studentFacade,
         DemoPCBE99925ManageCourseServiceTeacherFacade teacherFacade,
         DemoPCBE99925ManageCourseServiceCourseFacade facade,
+        DemoPCBE99925ManageCourseServiceCoursePersonFacade coursePersonFacade,
         SwitchUserState userState,
         NavigationManager navigationManager)
     {
@@ -73,6 +168,7 @@ public class CourseState: BaseState
         _userState = userState;
         _studentFacade = studentFacade;
         _teacherFacade = teacherFacade;
+        _coursePersonFacade = coursePersonFacade;
         _navigationManager = navigationManager;
         ResetForm();
     }
@@ -235,7 +331,6 @@ public class CourseState: BaseState
         }
 
     }
-
 
     #endregion
 }

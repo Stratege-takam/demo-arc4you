@@ -7,12 +7,12 @@ public class CourseFormViewModel : NotifyChangeProperty
 {
     #region Properties 
     private string _id = Guid.NewGuid().ToString();
-    [Required, MinLength(2)]
+    [Required]
     public string Id { get => _id; set => SetProperty(ref _id, value); }
 
 
     private string _name;
-    [Required]
+    [Required, MinLength(2)]
     public string Name { get => _name; set => SetProperty(ref _name, value); }
 
     private string _description;

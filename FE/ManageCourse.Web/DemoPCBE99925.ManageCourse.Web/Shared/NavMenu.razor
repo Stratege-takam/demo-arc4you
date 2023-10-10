@@ -11,17 +11,20 @@
 
             <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Home))" Color="secondary"
                       Match="NavLinkMatch.All"
+                      TextColor="white-100"
                       LeadIcon="building-store">
                 Manage courses
             </NVButton>
             <NVButton  @onclick="@( () => OnNavigateTo(AppRouteEnum.Switch))" Color="secondary"
                       Match="NavLinkMatch.All"
+                      TextColor="white-100"
                       Title="Chose a role">Switch</NVButton>
             @if (state.CurrentRole == Utils.Enums.UserTypeEnum.Teacher)
             {
                 <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Teachers))"
                           Match="NavLinkMatch.All"
                           Color="secondary"
+                          TextColor="white-100"
                           Title="Manage Teacher">Teacher</NVButton>
             }
             else if (state.CurrentRole == Utils.Enums.UserTypeEnum.Student)
@@ -29,6 +32,7 @@
                 <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Students))"
                           Match="NavLinkMatch.All"
                           Color="secondary"
+                          TextColor="white-100"
                           Title="Manage Student">Student</NVButton>
             }
 
@@ -36,6 +40,7 @@
             {
                 <NVButton @onclick="@( () => OnNavigateTo(AppRouteEnum.Courses))"
                           Color="secondary" Match="NavLinkMatch.All"
+                          TextColor="white-100"
                           Title="Manage Course">Course</NVButton>
             }
 

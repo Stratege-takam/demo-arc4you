@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Arc4u.Data;
 
 namespace EG.DemoPCBE99925.ManageCourseService.Domain;
@@ -31,4 +32,20 @@ public class Course : IPersistEntity
     public ICollection<CoursePerson> CoursePeople { get; set; }
 
     #endregion Navigation
+
+
+    #region Help Properties
+
+    [NotMapped]
+    public bool CanDelete { get; set; }
+
+    [NotMapped]
+    public bool CanLead { get; set; }
+
+    [NotMapped]
+    public bool IsTeacher { get; set; }
+    [NotMapped]
+    public string OwnerFullname { get; set; }
+
+    #endregion  Help Properties
 }

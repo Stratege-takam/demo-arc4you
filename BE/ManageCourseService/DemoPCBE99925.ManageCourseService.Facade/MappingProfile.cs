@@ -18,6 +18,7 @@ public class MappingProfile : Profile
   	 CreateMap<Domain.Course, CourseDto>().ReverseMap();
         CreateMap<Domain.Course, GetCourseDto>()
             .ForMember(d => d.CanDelete, opt => opt.MapFrom(src => !(src.CoursePeople != null && src.CoursePeople.Any())))
+            .ForMember(d => d.CanLead, opt => opt.MapFrom(src => !(src.CoursePeople != null && src.CoursePeople.Any())))
             .ForMember(d => d.CoursePeople, opt => opt.MapFrom(src => src.CoursePeople.Select(e => new GetCoursePersonDto()
             {
                 CourseId = e.CourseId,

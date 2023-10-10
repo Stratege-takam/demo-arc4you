@@ -41,6 +41,17 @@ public class  CourseDL : ICourseDL
     public async IAsyncEnumerable<Course> GetAllAsync(Graph<Course> graph, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         await foreach (var entity in graph.ApplySetReferences(_databaseContext.Courses)
+                .Select(c => new Course()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Unity =c.Unity,
+                    Description = c.Description,
+                    IsTeacher = c.Owner is Teacher,
+                    OwnerFullname = c.Owner.FirstName + " " + c.Owner.LastName,
+                    CanDelete = !c.CoursePeople.Any(),
+                    CanLead = !c.CoursePeople.Any()
+                })
                 .AsAsyncEnumerable()
                 .WithCancellation(cancellationToken)
                 .ConfigureAwait(false))

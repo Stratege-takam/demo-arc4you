@@ -32,8 +32,8 @@
             <NVTableHead>
                 <th>Name</th>
                 <th>Unity</th>
+                <th> Created Name</th>
                 <th>Create by</th>
-                <th>Status</th>
                 <th>Description</th>
                 <th></th>
             </NVTableHead>
@@ -70,18 +70,18 @@
                             <td data-table-heading="Unity">
                                 @courseDto.Unity
                             </td>
-                            <td data-table-heading="Create by">
-                                @*@courseDto.Owner.FirstName @courseDto.Owner.LastName*@
+                            <td data-table-heading="Created Name">
+                                @courseDto.OwnerFullname
                             </td>
-                            <td data-table-heading="Status">
-                               @* @if (courseDto.IsTeacher)
+                            <td data-table-heading="Create by">
+                                @if (courseDto.IsTeacher)
                                 {
-                                    <NVText>Teacher</NVText>
+                                    <NVText> A teacher</NVText>
                                 }
                                 else
                                 {
-                                    <NVText>Student</NVText>
-                                }*@
+                                    <NVText> A student</NVText>
+                                }
                             </td>
                             <td data-table-heading="Description">
                                 @if (courseDto.Description != null && courseDto.Description.Length > 20)
@@ -100,25 +100,29 @@
                                 <NVButton XSmall Level="2"
                                 @onclick="@(() =>state.OpenForm(courseDto, false))"
                                           Color="secondary" Icon="eye" MR="2" />
-                                @*@if (courseDto.IsTeacher)
+                                @if (courseDto.CanLead)
                                 {
                                     <NVButton XSmall Level="2"
-                                    
+                                    @onclick="@(() =>state.OpenFormLead(courseDto, () => OverlayService.Show(OpenLeadFormName)))"
                                               Color="secondary"  MR="2" > Lead </NVButton>
                                 }
                                 else
                                 {
+
+                                    @*<NVButton XSmall Level="2"
+                                              Color="secondary" MR="2"> Edit Lead </NVButton>*@
+
                                     <NVButton XSmall Level="2"
-                                    
                                               Color="secondary" MR="2"> Follow </NVButton>
                                 }
 
-                                @if (courseDto.CanDelete)
+                                @if (courseDto.CanDelete && (courseDto.IsTeacher && userState.CurrentRole ==UserTypeEnum.Teacher
+                                || !courseDto.IsTeacher && userState.CurrentRole == UserTypeEnum.Student))
                                 {
                                     <NVButton XSmall Level="2" Color="error"
                                     @onclick="@(() =>state.OpenConfirmDelete(courseDto, () => OverlayService.Show(ConfirmDeleteName)))"
                                               Icon="x" MR="2" />
-                                }*@
+                                }
                             </td>
                         </tr>
                     }
@@ -179,10 +183,12 @@
 
     #region Modal Methods
     private readonly string ConfirmDeleteName = "confirm-delete-Course";
+    private readonly string OpenLeadFormName = "lead-form-Course";
 
     private void InitializeModal()
     {
         OverlayService.Initialize(GetNVOverlayServiceConfig(ConfirmDeleteName, typeof(ItemRemoveConfirm)));
+        OverlayService.Initialize(GetNVOverlayServiceConfig(OpenLeadFormName, typeof(CourseLeadForm)));
     }
 
     private NVOverlayServiceConfig GetNVOverlayServiceConfig(string name, Type view)

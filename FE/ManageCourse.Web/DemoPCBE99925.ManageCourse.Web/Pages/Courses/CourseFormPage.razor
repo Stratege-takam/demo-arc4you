@@ -209,15 +209,15 @@
     #endregion
 
     #region Lifecycle
-
-    #endregion Lifecycle
-
     public override async Task SetParametersAsync(ParameterView parameters)
     {
         await base.SetParametersAsync(parameters);
         await state.RefreshOwners();
 
-    }
+    } 
+    #endregion Lifecycle
+
+   
     #region Private methods
 
     #endregion Private methods

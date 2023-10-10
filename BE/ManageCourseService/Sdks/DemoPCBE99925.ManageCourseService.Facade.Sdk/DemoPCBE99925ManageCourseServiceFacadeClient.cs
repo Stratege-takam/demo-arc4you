@@ -2695,12 +2695,6 @@ namespace EG.DemoPCBE99925.ManageCourseService.Facade.Sdk
         [Newtonsoft.Json.JsonProperty("coursePeople", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.ObjectModel.ObservableCollection<CoursePersonDto> CoursePeople { get; set; } = default!;
 
-        [Newtonsoft.Json.JsonProperty("canDelete", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool CanDelete { get; set; } = default!;
-
-        [Newtonsoft.Json.JsonProperty("isTeacher", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool IsTeacher { get; set; } = default!;
-
     }
 
     /// <summary>
@@ -2804,6 +2798,18 @@ namespace EG.DemoPCBE99925.ManageCourseService.Facade.Sdk
 
         [Newtonsoft.Json.JsonProperty("ownerId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid OwnerId { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("canDelete", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool CanDelete { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("canLead", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool CanLead { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("isTeacher", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool IsTeacher { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("ownerFullname", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string? OwnerFullname { get; set; } = default!;
 
     }
 

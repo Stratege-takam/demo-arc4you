@@ -2,6 +2,8 @@
 @inject TeacherState state;
 @implements IDisposable
 
+<EditForm OnValidSubmit="OnSubmit" Model="state.Model">
+
 <NVModal @attributes="@Props">
   <NVModalHeader>
         <NVBlock>
@@ -21,7 +23,6 @@
   </NVModalHeader>
 
   <NVModalBody>
-        <EditForm OnValidSubmit="OnSubmit" Model="state.Model">
         <DataAnnotationsValidator />
         
         <NVContainer>
@@ -138,30 +139,32 @@
                     }
                 </NVBlock>
 
-                @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
-                {
-                    <NVBlock Class="align-center-r-o">
-                        @if (state.Loading)
-                        {
-                            <NVButton Disabled Type="submit" Size="sm"
-                                MR="2" Color="secondary">Submit </NVButton>
-
-                            <NVLoader Color="secondary" Loading />
-                        }
-                        else
-                        {
-                            <NVButton Type="submit" Size="sm" MR="2"
-                                Color="secondary">Submit </NVButton>
-                        }
-                    </NVBlock>
-                }
         </NVContainer>
 
-    </EditForm>
   </NVModalBody>
 
+  <NVModalFooter>
+        @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
+        {
+            <NVBlock Class="align-center-r-o">
+                @if (state.Loading)
+                {
+                    <NVButton Disabled Type="submit" Size="sm"
+                              MR="2" Color="secondary">Submit </NVButton>
 
+                    <NVLoader Color="secondary" Loading />
+                }
+                else
+                {
+                    <NVButton Type="submit" Size="sm" MR="2"
+                              Color="secondary">Submit </NVButton>
+                }
+            </NVBlock>
+        }
+
+  </NVModalFooter>
 </NVModal>
+    </EditForm>
 
 
 @code {

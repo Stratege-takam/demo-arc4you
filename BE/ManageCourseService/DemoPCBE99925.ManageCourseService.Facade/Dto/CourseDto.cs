@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Arc4u.Data;
 
 namespace EG.DemoPCBE99925.ManageCourseService.Facade.Dtos;
@@ -26,4 +27,11 @@ public class CourseDto
 
     #endregion Properties
 
+    #region Help Properties
+
+    public bool CanDelete { get; set; }
+    public bool CanLead { get; set; }
+    public bool IsTeacher { get; set; }
+    public string? OwnerFullname { get; set; }
+    #endregion  Help Properties
 }
