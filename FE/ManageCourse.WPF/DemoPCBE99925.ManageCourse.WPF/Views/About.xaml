@@ -1,0 +1,357 @@
+<Window
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:ei="http://schemas.microsoft.com/xaml/behaviors" 
+  x:Name="window"
+  x:Class="EG.DemoPCBE99925.ManageCourse.WPF.Views.About"
+  mc:Ignorable="d"
+  ResizeMode="NoResize"
+  WindowStyle="ToolWindow"
+  Title="About"
+  Height="510"
+  Width="600">
+  <Window.Resources>
+    <DataTemplate x:Key="RolesTemplate">
+      <StackPanel Orientation="Horizontal"
+                  Margin="0">
+        <Ellipse x:Name="bullet"
+                 Fill="Black"
+                 Margin="0,0,5,0"
+                 Stroke="Black"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 Width="6"
+                 Height="6"
+                 StrokeThickness="0"/>
+        <TextBlock x:Name="RoleName"
+                   TextWrapping="Wrap"
+                   Text="{Binding}"/>
+      </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="ScopedRoleTemplate">
+      <StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    Margin="0,0,10,0"
+                    d:LayoutOverrides="Width">
+          <Rectangle Fill="Red"
+                     Height="5"
+                     Stroke="White"
+                     StrokeThickness="0"
+                     Width="5"
+                     Margin="0,0,10,0"/>
+          <TextBlock x:Name="Title"
+                     TextWrapping="Wrap"
+                     Text="Scope"
+                     Margin="0,0,5,0"
+                     FontSize="14.667"
+                     FontFamily="Arial Unicode MS"/>
+          <TextBlock x:Name="ScopeName"
+                     TextWrapping="Wrap"
+                     Text="{Binding Scope}"
+                     FontSize="14.667"
+                     FontFamily="Arial Unicode MS"/>
+        </StackPanel>
+        <ItemsControl x:Name="Roles"
+                      ItemsSource="{Binding Roles}"
+                      BorderThickness="0"
+                      ItemTemplate="{StaticResource RolesTemplate}"
+                      Margin="20,0,0,0"
+                      FontSize="12"
+                      FontFamily="Arial Unicode MS" />
+      </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="DatabaseCollectionTemplate">
+      <StackPanel Orientation="Horizontal">
+        <Rectangle Fill="Red"
+                   Height="5"
+                   Stroke="White"
+                   StrokeThickness="0"
+                   Width="5"
+                   Margin="0,0,10,0"/>
+        <TextBlock x:Name="ServerField"
+                   TextWrapping="Wrap"
+                   Text="{Binding Server}"
+                   Margin="0"
+                   FontFamily="Arial Unicode MS"
+                   FontSize="12"/>
+        <TextBlock x:Name="On"
+                   TextWrapping="Wrap"
+                   Text="\"
+                   Margin="2,0"
+                   FontFamily="Arial Unicode MS"
+                   FontSize="12"/>
+        <TextBlock x:Name="DatabaseField"
+                   TextWrapping="Wrap"
+                   Text="{Binding Database}"
+                   FontFamily="Arial Unicode MS"
+                   FontSize="12"/>
+      </StackPanel>
+    </DataTemplate>
+  </Window.Resources>
+  <Grid x:Name="LayoutRoot"
+        Margin="2">
+    <Grid.RowDefinitions>
+      <RowDefinition />
+      <RowDefinition Height="30" />
+    </Grid.RowDefinitions>
+    <Grid x:Name="Panorama"
+          HorizontalAlignment="Left"
+          Width="1000"
+          Margin="0,0,0,0">
+      <Grid.Background>
+        <LinearGradientBrush EndPoint="0.5,1"
+                             StartPoint="0.5,0">
+          <GradientStop Color="{StaticResource BackgroundTopColor}"
+                        Offset="0"/>
+          <GradientStop Color="#FFF9F1F1"
+                        Offset="1"/>
+        </LinearGradientBrush>
+      </Grid.Background>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="0.5*"/>
+        <ColumnDefinition Width="0.5*"/>
+      </Grid.ColumnDefinitions>
+      <ScrollViewer x:Name="Slider"
+                    FontFamily="Arial Unicode MS"
+                    FontSize="14.667"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                    Margin="0,0,-78,0"
+                    Foreground="Black" >
+        <Grid x:Name="Views">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.5*"/>
+          </Grid.ColumnDefinitions>
+          <Grid x:Name="Pane1"
+                Opacity="1"
+                Margin="0"
+                Width="500">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="0.055*"/>
+              <ColumnDefinition Width="0.945*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="72"/>
+              <RowDefinition Height="23"/>
+              <RowDefinition Height="23"/>
+              <RowDefinition Height="23"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="Title1"
+                       TextWrapping="Wrap"
+                       Text="{Binding Resource.Header1, Mode=OneWay}"
+                       Margin="2"
+                       Grid.ColumnSpan="2"
+                       FontSize="48"
+                       FontFamily="Arial Unicode MS"
+                       d:LayoutOverrides="GridBox"
+                       Foreground="{StaticResource PrimaryColorBrush}"/>
+            <StackPanel x:Name="EnvironementPanel"
+                        Grid.Column="1"
+                        Margin="2,2,2,0"
+                        Orientation="Horizontal"
+                        Grid.Row="1">
+              <TextBlock x:Name="EnvironmentResx"
+                         Text="{Binding Resource.Environment}"
+                         FontSize="14.667"
+                         FontFamily="Arial Unicode MS"
+                         d:LayoutOverrides="GridBox" />
+              <TextBlock x:Name="EnvironmentInfo_Name"
+                         Text="{Binding EnvironmentInfo.Name}"
+                         FontSize="14.667"
+                         Margin="0,0,10,0" />
+            </StackPanel>
+            <StackPanel x:Name="ServerPanel"
+                        Margin="2"
+                        Orientation="Horizontal"
+                        d:LayoutOverrides="Width, GridBox"
+                        Grid.Column="1"
+                        Grid.Row="2">
+              <TextBlock x:Name="ServerResx"
+                         Text="{Binding Resource.Server}"
+                         FontSize="14.667"
+                         Margin="0"
+                         d:LayoutOverrides="GridBox" />
+              <TextBlock x:Name="ServerName"
+                         Text="{Binding EnvironmentInfo.Server}"
+                         FontSize="14.667"
+                         d:LayoutOverrides="VerticalAlignment, GridBox"
+                         Margin="0,0,10,0" />
+
+            </StackPanel>
+
+            <TextBlock x:Name="DatabaseResx"
+                       Grid.Column="1"
+                       Text="{Binding Resource.Databases}"
+                       FontSize="14.667"
+                       FontStyle="Italic"
+                       Margin="2"
+                       d:LayoutOverrides="GridBox"
+                       Grid.Row="3"
+                       FontWeight="Bold" />
+            <ItemsControl x:Name="Databases"
+                          ItemsSource="{Binding EnvironmentInfo.DatabaseInfo}"
+                          Margin="2"
+                          ItemTemplate="{StaticResource DatabaseCollectionTemplate}"
+                          BorderThickness="0"
+                          Grid.ColumnSpan="2"
+                          Grid.RowSpan="2"
+                          Grid.Column="1"
+                          Grid.Row="4" />
+            <Ellipse x:Name="bullet1_Pane1"
+                     Fill="Black"
+                     Margin="0"
+                     Grid.Row="1"
+                     Stroke="Black"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Width="6"
+                     Height="6"
+                     StrokeThickness="0"/>
+            <Ellipse x:Name="bullet2_Pane1"
+                     Fill="Black"
+                     Margin="0"
+                     Stroke="Black"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Width="6"
+                     Height="6"
+                     StrokeThickness="0"
+                     Grid.Row="2"/>
+            <Ellipse x:Name="bullet3_Pane1"
+                     Fill="Black"
+                     Margin="0"
+                     Stroke="Black"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Width="6"
+                     Height="6"
+                     StrokeThickness="0"
+                     Grid.Row="3"/>
+          </Grid>
+          <Grid x:Name="Pane2"
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                Width="496">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="0.055*"/>
+              <ColumnDefinition Width="0.945*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="72"/>
+              <RowDefinition Height="23"/>
+              <RowDefinition Height="23"/>
+              <RowDefinition Height="23"/>
+              <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="Title2"
+                       Grid.Row="0"
+                       Text="{Binding UserProfile.DisplayName}"
+                       FontSize="48"
+                       Grid.ColumnSpan="2"
+                       Foreground="{StaticResource PrimaryColorBrush}" />
+            <TextBlock x:Name="Email"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       Text="{Binding UserProfile.Email}"
+                       FontSize="14.667"
+                       Margin="2" />
+            <StackPanel Margin="2"
+                        Orientation="Horizontal"
+                        Grid.Row="2"
+                        d:LayoutOverrides="Width"
+                        Grid.Column="1">
+              <TextBlock x:Name="SidResx"
+                         Text="{Binding Resource.Sid}"
+                         FontSize="14.667"
+                         Width="27"
+                         d:LayoutOverrides="VerticalMargin" />
+              <TextBlock x:Name="Sid"
+                         Text="{Binding UserProfile.Sid}"
+                         FontSize="14.667"
+                         Width="469"
+                         Margin="0,0,2,0" />
+            </StackPanel>
+            <TextBlock x:Name="Authorization"
+                       Grid.Row="3"
+                       Grid.Column="1"
+                       Text="{Binding Resource.Authorization}"
+                       FontSize="14.667"
+                       FontWeight="Bold"
+                       FontStyle="Italic"
+                       Margin="2" />
+            <ItemsControl x:Name="ScopedRoles"
+                          ItemsSource="{Binding Authorization.Roles}"
+                          BorderThickness="0"
+                          Grid.Column="1"
+                          Grid.Row="4"
+                          ItemTemplate="{StaticResource ScopedRoleTemplate}" />
+            <Ellipse x:Name="bullet2_Pane2"
+                     Fill="Black"
+                     Margin="0"
+                     Stroke="Black"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Width="6"
+                     Height="6"
+                     StrokeThickness="0"
+                     Grid.Row="2"/>
+            <Ellipse x:Name="bullet1_Pane2"
+                     Fill="Black"
+                     Margin="0"
+                     Grid.Row="1"
+                     Stroke="Black"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Width="6"
+                     Height="6"
+                     StrokeThickness="0"/>
+            <Ellipse x:Name="bullet3_Pane2"
+                     Fill="Black"
+                     Margin="0"
+                     Stroke="Black"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Width="6"
+                     Height="6"
+                     StrokeThickness="0"
+                     Grid.Row="3"/>
+          </Grid>
+        </Grid>
+      </ScrollViewer>
+    </Grid>
+    <Grid x:Name="Exit"
+          HorizontalAlignment="Left"
+          Style="{StaticResource GridMetroButtonStyle}"
+          Grid.Row="1"
+          Background="{StaticResource PrimaryColorBrush}">
+
+      <StackPanel Orientation="Horizontal"
+                  x:Name="ExitMetroBtn"
+                  Margin="0"
+                  VerticalAlignment="Center"
+                  d:LayoutOverrides="Width">
+		  <ei:Interaction.Triggers>
+			  <ei:EventTrigger EventName="MouseLeftButtonDown"
+							  SourceObject="{Binding ElementName=ExitMetroBtn}">
+				  <ei:CallMethodAction TargetObject="{Binding ElementName=window}"
+									   MethodName="Close"/>
+			  </ei:EventTrigger>
+		  </ei:Interaction.Triggers>
+        <Image HorizontalAlignment="Left"
+               Margin="0"
+               Source="/EG.DemoPCBE99925.ManageCourse.WPF.Common;component/ResourceDictionary/Images/appbar.close.rest.png" />
+        <TextBlock x:Name="ExitText"
+                   TextWrapping="NoWrap"
+                   Text="{Binding Resource.Exit}"
+                   Margin="10,0"
+                   FontSize="14.667"
+                   VerticalAlignment="Center"
+                   FontFamily="Arial Unicode MS"/>
+      </StackPanel>
+    </Grid>
+  </Grid>
+</Window>

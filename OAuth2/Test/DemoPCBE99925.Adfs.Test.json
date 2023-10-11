@@ -30,6 +30,12 @@
         "redirectUri": "https://your blazor endpoint/authentication/login-callback",
         "identifier": "370497f8-19b2-4d68-bf95-1f8687d57f1c",
         "settings": "Blazor.OAuth2.ManageCourse.Web.Settings"
+      },
+      {
+        "nativeAppDisplayName": "DemoPCBE99925 Wpf ManageCourse.WPF Client",
+        "redirectUri": "http://localhost",
+        "identifier": "f8bf45d5-3dfa-4c8e-8ef6-f6aa28f6da04",
+        "settings": "WPF.OAuth2.ManageCourse.WPF.Settings"
       }
     ],
     "ConfigureCORSTO": [

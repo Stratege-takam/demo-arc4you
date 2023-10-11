@@ -1,0 +1,78 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="BackgroundTopColor">#FF707070</Color>
+    <Color x:Key="DisabledColor">Gray</Color>
+    <Color x:Key="LinkColor">#FF0046D5</Color>
+    <Color x:Key="SimpleDataGridBorderColor">#FFD9E6F9</Color>
+    <SolidColorBrush x:Key="PrimaryColorLightBrush"  Color="#FFFFA000"/>
+    <SolidColorBrush x:Key="PrimaryColorBrush"    Color="#FFFF8A00"/>
+    
+    <!-- Used for disabled foreground -->
+    <SolidColorBrush x:Key="DisabledForegroundBrush" Color="{StaticResource DisabledColor}" />
+    
+    <!-- Used for links (LinkButton, TextBlockLabel, etc...) -->
+    <SolidColorBrush x:Key="LinkBrush" Color="{StaticResource LinkColor}" />
+    
+    <!-- GroupBox header text color -->
+    <SolidColorBrush x:Key="GroupBoxHeaderBrush" Color="{StaticResource LinkColor}" />
+    
+    <!-- Border brush of the SimpleDataGrid -->
+    <SolidColorBrush x:Key="SimpleDataGridBorderBrush" Color="{StaticResource SimpleDataGridBorderColor}" />
+    
+    <!-- Used for GroupBox -->
+    <LinearGradientBrush x:Key="BlueBackground"
+                     StartPoint="0.5,0.0" EndPoint="0.5,1.0">
+        <GradientStop Color="#BBE4F0FC" Offset="0"/>
+        <GradientStop Color="#FFE4F0FC" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- Used for header and border brush -->
+    <LinearGradientBrush x:Key="GridViewMainBrush" StartPoint="0.501,0.971" EndPoint="0.501,0.039">
+        <GradientStop Color="#FFFFA500" Offset="0.011"/>
+        <GradientStop Color="#FFFFB914" Offset="0.335"/>
+        <GradientStop Color="#FFFFCD28" Offset="0.879"/>
+        <GradientStop Color="#FFFFCD28" Offset="0.986"/>
+    </LinearGradientBrush>
+
+    <!-- Used for Wizard Tab header (Enabled and Selected) -->
+    <LinearGradientBrush x:Key="WizardTabItemSelectedEnabledBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#FFFFA500" Offset="0.011" />
+        <GradientStop Color="#FFFFB914" Offset="0.335" />
+        <GradientStop Color="#FFFFB914" Offset="1" />
+    </LinearGradientBrush>
+    
+    <!-- Used for Wizard Tab header (Enabled, non selected) -->
+    <LinearGradientBrush x:Key="WizardTabItemEnabledBrush" StartPoint="0.501,0.971" EndPoint="0.501,0.039">
+        <GradientStop Color="#FFFFDC89" Offset="0"/>
+        <GradientStop Color="#FFFFE58E" Offset="0.4"/>
+        <GradientStop Color="#FFFFE58E" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- Used for Tab header (Disabled) -->
+    <!--<LinearGradientBrush x:Key="WizardTabItemDisabledBrush" StartPoint="0.501,0.971" EndPoint="0.501,0.039">
+        <GradientStop Color="#FF687F91" Offset="0.011"/>
+        <GradientStop Color="#FF7C93A5" Offset="0.335"/>
+        <GradientStop Color="#FF90A7B9" Offset="0.879"/>
+        <GradientStop Color="#FF90A7B9" Offset="0.986"/>
+      
+    </LinearGradientBrush>-->
+
+  <SolidColorBrush x:Key="WizardTabItemDisabledBrush" Color="Gainsboro" />
+  
+    
+  
+
+    <!-- Used for simple data grid -->
+    <LinearGradientBrush x:Key="SimpleDataGridHeaderBackground"
+                     StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#FFA3CBF7" Offset="1"/>
+        <GradientStop Color="#FFD9E6F9" Offset="0"/>
+    </LinearGradientBrush>
+
+    <!-- Used for the menu of the application -->
+    <LinearGradientBrush x:Key="MenuBrush" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="LightGray" Offset="0" />
+        <GradientStop Color="White" Offset="1" />
+    </LinearGradientBrush>
+</ResourceDictionary>
