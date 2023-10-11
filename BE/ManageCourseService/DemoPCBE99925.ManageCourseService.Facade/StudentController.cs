@@ -64,12 +64,30 @@ public class StudentController : ControllerBase
 	[Authorize(nameof(Access.AccessApplication))]
 	[ProducesResponseType(StatusCodes.Status404NotFound)]
 	[ProducesResponseType(typeof(IEnumerable<StudentDto>), StatusCodes.Status200OK)]
+	[HttpGet("unfollow/course/{courseId:Guid}")]
+	public async Task<IActionResult> GetUnflowCourseByIdAsync([FromServices] IMapper mapper, Guid courseId, CancellationToken cancellation)
+	{
+		var entities = await _studentBL.GetUnflowCourseByIdAsync(courseId, new Graph<Domain.Student>(), cancellation).ToListAsync(cancellation).ConfigureAwait(true);
+		return Ok(mapper.Map<IEnumerable<StudentDto>>(entities));
+	}
+
+    /// <summary>
+	/// Fetch all the entities of type Student.
+	/// </summary>
+	/// <response code="200">The list of Student entities is found.</response>
+	/// <returns>The collection of StudentDto.</returns>
+	[Authorize(nameof(Access.AccessApplication))]
+	[ProducesResponseType(StatusCodes.Status404NotFound)]
+	[ProducesResponseType(typeof(IEnumerable<StudentDto>), StatusCodes.Status200OK)]
 	[HttpGet("~/managecourseservice/facade/students")]
 	public async Task<IActionResult> GetAllAsync([FromServices] IMapper mapper, CancellationToken cancellation)
 	{
 		var entities = await _studentBL.GetAllAsync(new Graph<Domain.Student>(), cancellation).ToListAsync(cancellation).ConfigureAwait(true);
 		return Ok(mapper.Map<IEnumerable<StudentDto>>(entities));
 	}
+
+
+
 
 	/// <summary>
 	/// Save entity Student.

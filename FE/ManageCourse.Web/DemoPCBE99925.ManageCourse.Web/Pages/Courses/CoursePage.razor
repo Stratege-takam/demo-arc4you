@@ -106,16 +106,7 @@
                                     @onclick="@(() =>state.OpenFormLead(courseDto, () => OverlayService.Show(OpenLeadFormName)))"
                                               Color="secondary"  MR="2" > Lead </NVButton>
                                 }
-                                else
-                                {
-
-                                    @*<NVButton XSmall Level="2"
-                                              Color="secondary" MR="2"> Edit Lead </NVButton>*@
-
-                                    <NVButton XSmall Level="2"
-                                              Color="secondary" MR="2"> Follow </NVButton>
-                                }
-
+                               
                                 @if (courseDto.CanDelete && (courseDto.IsTeacher && userState.CurrentRole ==UserTypeEnum.Teacher
                                 || !courseDto.IsTeacher && userState.CurrentRole == UserTypeEnum.Student))
                                 {

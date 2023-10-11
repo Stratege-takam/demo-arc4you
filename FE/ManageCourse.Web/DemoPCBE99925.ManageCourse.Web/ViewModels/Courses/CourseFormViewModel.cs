@@ -31,6 +31,7 @@ public class CourseFormViewModel : NotifyChangeProperty
 
     #region Navigation properties
     public PersonDto Owner { get; set; }
-    public IList<CoursePersonDto> CoursePeople { get; set; }
+    public IList<GetCoursePersonDto> CoursePeople { get; set; }
+    public string? OwnerFullname { get; internal set; }
     #endregion Navigation properties
 }

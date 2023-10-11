@@ -9,9 +9,9 @@ public class GetCourseDto: CourseDto
 {
     #region Navigation Properties
 
-    public PersonDto Owner { get; set; }
+    public PersonDto? Owner { get; set; }
 
-    public IList<CoursePersonDto> CoursePeople { get; set; }
+    public IList<GetCoursePersonDto> CoursePeople { get; set; }
 
     #endregion Navigation Properties
 }

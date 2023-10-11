@@ -14,6 +14,7 @@ public class CourseState: BaseState
     private readonly SwitchUserState _userState;
     private readonly DemoPCBE99925ManageCourseServiceStudentFacade _studentFacade;
     private readonly DemoPCBE99925ManageCourseServiceTeacherFacade _teacherFacade;
+    private readonly DemoPCBE99925ManageCourseServiceParticipantFacade _participantFacade;
     private readonly DemoPCBE99925ManageCourseServiceCoursePersonFacade _coursePersonFacade;
     private readonly NavigationManager _navigationManager;
     #region Course properties list
@@ -146,7 +147,7 @@ public class CourseState: BaseState
         }
         catch (Exception e)
         {
-            ErrorServer = $"The error occurence in identifier: {ModelLead.Id}. Contact admin@elia.be";
+            ErrorServerLead = $"The error occurence in identifier: {ModelLead.Id}. Contact admin@elia.be";
         }
 
         LoadingLead = false;
@@ -155,10 +156,92 @@ public class CourseState: BaseState
 
     #endregion Lead Courses
 
+
+    #region Follow Courses
+    private bool _loadingFollow = false;
+    public bool LoadingFollow
+    {
+        get => _loadingFollow;
+        set => SetProperty(ref _loadingFollow, value);
+    }
+
+    private string _errorServerFollow;
+    public string ErrorServerFollow
+    {
+        get => _errorServerFollow;
+        set => SetProperty(ref _errorServerFollow, value);
+    }
+    public CourseParticipantViewModel ModelFollow { get; set; }
+
+    public IList<StudentDto> Stuendts { get; set; }
+
+    public async Task UpdateStudents()
+    {
+        Stuendts =  await _studentFacade.Proxy.GetUnflowCourseByIdAsync(Guid.Parse(Model.Id)).ConfigureAwait(false);
+        RaisePropertyChanged();
+    }
+
+    public void OpenFormFollow(CourseFormViewModel courseDto, Action action)
+    {
+        LoadingFollow = false;
+        ErrorServerFollow = null;
+        ModelFollow = new CourseParticipantViewModel()
+        {
+            CoursePersonId = courseDto.CoursePeople.FirstOrDefault().Id.ToString(),
+            PersistChange = PersistChange.Insert,
+        };
+
+        action?.Invoke();
+    }
+
+    public async Task SubmitFollow()
+    {
+        ErrorServerFollow = null;
+        this.LoadingFollow = true;
+        var participant = new GetParticipantDto()
+        {
+            CoursePersonId = Guid.Parse(ModelFollow.CoursePersonId),
+            EndDate = ModelFollow.EndDate.GetValueOrDefault(),
+            StartDate = ModelFollow.StartDate.GetValueOrDefault(),
+            Id = Guid.Parse(ModelFollow.Id),
+            StudentId = Guid.Parse(ModelFollow.StudentId),
+            PersistChange = ModelFollow.PersistChange
+        };
+
+        try
+        {
+            await _participantFacade.Proxy.SaveAsync(participant).ConfigureAwait(false);
+
+            if (ModelFollow.PersistChange == PersistChange.Insert)
+            {
+                Model.CoursePeople = Model.CoursePeople.Select(cp =>
+                {
+                    if (cp.Id.ToString() == ModelFollow.CoursePersonId)
+                    {
+                        participant.Student = Stuendts.FirstOrDefault(s => s.Id == participant.StudentId);
+                        cp.Participants.Insert(0, participant);
+                    }
+                    return cp;
+                }).ToList();
+            }
+
+        }
+        catch (Exception e)
+        {
+            ErrorServerFollow = $"The error occurence in identifier: {ModelFollow.Id}. Contact admin@elia.be";
+        }
+
+        LoadingLead = false;
+        RaisePropertyChanged();
+    }
+
+    #endregion Follow Courses
+
     #region Constructor
     public CourseState(
         DemoPCBE99925ManageCourseServiceStudentFacade studentFacade,
         DemoPCBE99925ManageCourseServiceTeacherFacade teacherFacade,
+        DemoPCBE99925ManageCourseServiceParticipantFacade participantFacade,
         DemoPCBE99925ManageCourseServiceCourseFacade facade,
         DemoPCBE99925ManageCourseServiceCoursePersonFacade coursePersonFacade,
         SwitchUserState userState,
@@ -167,6 +250,7 @@ public class CourseState: BaseState
         _facade = facade;
         _userState = userState;
         _studentFacade = studentFacade;
+        _participantFacade = participantFacade;
         _teacherFacade = teacherFacade;
         _coursePersonFacade = coursePersonFacade;
         _navigationManager = navigationManager;
@@ -231,40 +315,46 @@ public class CourseState: BaseState
     }
 
 
-    public void OpenConfirmDelete(CourseDto CourseDto, Action action)
+    public void OpenConfirmDelete(CourseDto courseDto, Action action)
     {
         Loading = false;
         ErrorServer = null;
         SuccessSave = false;
-        if (CourseDto != null)
+        if (courseDto != null)
         {
-            ConvertCourseDtoToViewModel(CourseDto);
+            ConvertCourseDtoToViewModel(courseDto);
             PersistChange = PersistChange.Delete;
             action?.Invoke();
         }
     }
 
-    public void OpenForm(CourseDto? CourseDto, bool isUpdate = true)
+    public async void OpenForm(CourseDto? courseDto, bool isUpdate = true)
     {
         Loading = false;
         ErrorServer = null;
         SuccessSave = false;
         // state is created
-        if (CourseDto == null)
+        if (courseDto == null)
         {
             ResetForm();
             PersistChange = PersistChange.Insert;
         }
         else  // state is updated or detail
         {
-            ConvertCourseDtoToViewModel(CourseDto);
 
             if (isUpdate)
             {
+                ConvertCourseDtoToViewModel(courseDto);
+
                 PersistChange = PersistChange.Update;
             }
             else
             {
+                var course = await _facade.Proxy.GetByIdAsync(courseDto.Id).ConfigureAwait(false);
+                ConvertCourseDtoToViewModel(course);
+                Model.CoursePeople = course.CoursePeople;
+                Model.Owner = course.Owner;
+                Model.OwnerFullname = $"{course.Owner.FirstName} {course.Owner.LastName}";
                 PersistChange = PersistChange.None;
             }
         }
@@ -299,8 +389,7 @@ public class CourseState: BaseState
             Description = courseDto.Description,
             Coefficient = courseDto.Unity,
             Id = courseDto.Id.ToString(),
-            OwnerId = courseDto.OwnerId.ToString(),
-           // Owner = courseDto.Owner
+            OwnerId = courseDto.OwnerId.ToString()
         };
     }
 

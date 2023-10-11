@@ -34,6 +34,22 @@ public class  StudentDL : IStudentDL
         return await graph.ApplySetReferences(_databaseContext.Students).SingleOrDefaultAsync(p => p.Id == id, cancellationToken).ConfigureAwait(false);
     }
 
+    public async IAsyncEnumerable<Student> GetUnflowCourseByIdAsync(Guid courseId,
+        Graph<Student> graph,
+        [EnumeratorCancellation] CancellationToken cancellationToken)
+    {
+        await foreach (var entity in graph.ApplySetReferences(_databaseContext.Students.Where(s =>
+        !s.CourseParticipations.Any() || !s.CourseParticipations.Any(c => c.CoursePerson != null
+        &&  c.CoursePerson.CourseId == courseId)))
+                .AsAsyncEnumerable()
+                .WithCancellation(cancellationToken)
+                .ConfigureAwait(false))
+        {
+            yield return entity;
+        }
+    }
+
+
     public async IAsyncEnumerable<Student> GetAllAsync(Graph<Student> graph, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         await foreach (var entity in graph.ApplySetReferences(_databaseContext.Students)

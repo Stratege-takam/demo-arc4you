@@ -8,9 +8,9 @@ namespace EG.DemoPCBE99925.ManageCourseService.Facade.Dtos;
 public class GetCoursePersonDto: CoursePersonDto
 {
     #region Navigation
-    public TeacherDto Lead { get; set; }
+    public TeacherDto? Lead { get; set; }
 
-    public CourseDto Course { get; set; }
+    public CourseDto? Course { get; set; }
 
     public IList<GetParticipantDto> Participants { get; set; }
 

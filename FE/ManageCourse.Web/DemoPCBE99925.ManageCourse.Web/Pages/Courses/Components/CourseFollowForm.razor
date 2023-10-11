@@ -3,18 +3,18 @@
 @inject CourseState state;
 @implements IDisposable
 
-<EditForm OnValidSubmit="OnSubmit" Model="state.ModelLead">
+<EditForm OnValidSubmit="OnSubmit" Model="state.ModelFollow">
 
 <NVModal @attributes="@Props">
     <NVModalHeader>
         <NVBlock>
-            @if (state.ModelLead.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Update)
+            @if (state.ModelFollow.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Update)
             {
-                <NVText TextSize="h-sm" TextColor="petrol-500">Update lead of course </NVText>
+                <NVText TextSize="h-sm" TextColor="petrol-500">Update  particiption </NVText>
             }
-            else if (state.ModelLead.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Insert)
+            else if (state.ModelFollow.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Insert)
             {
-                <NVText TextSize="h-sm" TextColor="petrol-500">Asign lead of cours </NVText>
+                <NVText TextSize="h-sm" TextColor="petrol-500">Add student of the cours </NVText>
             }
         </NVBlock>
     </NVModalHeader>
@@ -23,12 +23,12 @@
             <DataAnnotationsValidator />
 
             <NVContainer>
-                @if (state.ErrorServerLead != null)
+                @if (state.ErrorServerFollow != null)
                 {
                     <NVAlert MB="2" Close Permanent Color="error-100">
                         <NVText Size="sm" Medium MB="1">Error</NVText>
                         <NVText Size="sm" MB="2">
-                            @state.ErrorServerLead
+                            @state.ErrorServerFollow
                         </NVText>
                     </NVAlert>
                 }
@@ -36,37 +36,38 @@
                     @if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Insert)
                     {
                         <NVFieldText Name="Id"
-                        @bind-Value="state.ModelLead.Id"
+                        @bind-Value="state.ModelFollow.Id"
                                      Label="Identifier" />
                     }
                 </NVBlock>
 
                 <NVBlock MB="2">
-                    <NVFieldText Name="CourseId"
+                    <NVFieldText Name="CoursePersonId"
                         Readonly
-                    @bind-Value="state.ModelLead.CourseId"
-                                 Label="Course Identifier" />
+                    @bind-Value="state.ModelFollow.CoursePersonId"
+                                 Label="Lesson Identifier" />
                 </NVBlock>
-                    @if (Teachers != null && Teachers.Any())
+                    @if (state.Stuendts != null && state.Stuendts.Any())
                 {
-                    <NVFieldSelect Name="Teacher" Label="Teacher"
-                    @bind-Value="state.ModelLead.LeadId">
-                        @foreach (var teacher in Teachers)
+                    <NVFieldSelect Name="Student" Label="Student"
+                    @bind-Value="state.ModelFollow.StudentId">
+                        <option value=""> Select a student</option>
+                        @foreach (var student in state.Stuendts)
                         {
-                            <option value="@teacher.Id"> @teacher.FirstName @teacher.LastName</option>
+                            <option value="@student.Id"> @student.FirstName @student.LastName</option>
                         }
                     </NVFieldSelect>
                 }
                
                 <NVBlock MB="2">
                     <NVFieldDate Name="StartDate"
-                    @bind-Value="state.ModelLead.StartDate"
+                    @bind-Value="state.ModelFollow.StartDate"
                                  Label="Start date" />
                 </NVBlock>
 
                     <NVBlock MB="2">
                     <NVFieldDate Name="EndDate"
-                    @bind-Value="state.ModelLead.EndDate"
+                    @bind-Value="state.ModelFollow.EndDate"
                                  Label="End Date" />
                     </NVBlock>
 
@@ -75,7 +76,7 @@
     </NVModalBody>
 
     <NVModalFooter>
-        @if (state.ModelLead.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
+        @if (state.ModelFollow.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
         {
             <NVBlock Class="align-center-r-o">
                 @if (state.Loading)
@@ -100,8 +101,6 @@
 
 @code {
 
-    private IList<TeacherDto> Teachers { get; set; }
-
     #region Listener state change
 
     protected override void OnInitialized()
@@ -121,17 +120,16 @@
     public override async Task SetParametersAsync(ParameterView parameters)
     {
         await base.SetParametersAsync(parameters);
-        Teachers = await state.GetTeachers();
-        await InvokeAsync(StateHasChanged);
+        await state.UpdateStudents();
     }
     #endregion Lifecycle
 
     #region Private methods
     private async Task OnSubmit()
     {
-        await state.SubmitLead();
+        await state.SubmitFollow();
 
-        if (state.ErrorServerLead == null)
+        if (state.ErrorServerFollow == null)
         {
             OverlayService.Hide(Name);
         }

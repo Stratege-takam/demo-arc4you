@@ -44,7 +44,19 @@ public class StudentBL : IStudentBL
 		return result;
 	}
 
-	public async IAsyncEnumerable<Student> GetAllAsync(Graph<Student> graph, [EnumeratorCancellation] CancellationToken cancellationToken)
+    public async IAsyncEnumerable<Student> GetUnflowCourseByIdAsync(Guid courseId,
+        Graph<Student> graph, [EnumeratorCancellation] CancellationToken cancellationToken)
+    {
+        await foreach (var entity in _studentDL.GetUnflowCourseByIdAsync(courseId, graph, cancellationToken))
+        {
+            (await ApplyRulesAsync(entity).ConfigureAwait(false)).LogAndThrowIfNecessary(_logger);
+
+            yield return entity;
+        }
+    }
+
+
+    public async IAsyncEnumerable<Student> GetAllAsync(Graph<Student> graph, [EnumeratorCancellation] CancellationToken cancellationToken)
 	{
 		await foreach (var entity in _studentDL.GetAllAsync(graph, cancellationToken))
 		{

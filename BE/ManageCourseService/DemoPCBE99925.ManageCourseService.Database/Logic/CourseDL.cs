@@ -50,6 +50,7 @@ public class  CourseDL : ICourseDL
                     IsTeacher = c.Owner is Teacher,
                     OwnerFullname = c.Owner.FirstName + " " + c.Owner.LastName,
                     CanDelete = !c.CoursePeople.Any(),
+                    OwnerId = c.OwnerId,
                     CanLead = !c.CoursePeople.Any()
                 })
                 .AsAsyncEnumerable()

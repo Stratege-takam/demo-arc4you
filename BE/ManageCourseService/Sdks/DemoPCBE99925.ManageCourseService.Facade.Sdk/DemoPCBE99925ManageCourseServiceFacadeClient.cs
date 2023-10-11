@@ -1708,6 +1708,21 @@ namespace EG.DemoPCBE99925.ManageCourseService.Facade.Sdk
         /// </summary>
         /// <returns>The list of Student entities is found.</returns>
         /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<StudentDto>> GetUnflowCourseByIdAsync(System.Guid courseId);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Fetch all the entities of type Student.
+        /// </summary>
+        /// <returns>The list of Student entities is found.</returns>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<StudentDto>> GetUnflowCourseByIdAsync(System.Guid courseId, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Fetch all the entities of type Student.
+        /// </summary>
+        /// <returns>The list of Student entities is found.</returns>
+        /// <exception cref="RestException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<StudentDto>> GetAllAsync();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -1843,6 +1858,110 @@ namespace EG.DemoPCBE99925.ManageCourseService.Facade.Sdk
                         if (status_ == 200)
                         {
                             var objectResponse_ = await ReadObjectResponseAsync<StudentDto?>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new RestException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Fetch all the entities of type Student.
+        /// </summary>
+        /// <returns>The list of Student entities is found.</returns>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<StudentDto>> GetUnflowCourseByIdAsync(System.Guid courseId)
+        {
+            return GetUnflowCourseByIdAsync(courseId, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Fetch all the entities of type Student.
+        /// </summary>
+        /// <returns>The list of Student entities is found.</returns>
+        /// <exception cref="RestException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<StudentDto>> GetUnflowCourseByIdAsync(System.Guid courseId, System.Threading.CancellationToken cancellationToken)
+        {
+            if (courseId == null)
+                throw new System.ArgumentNullException("courseId");
+
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/ManageCourseService/facade/Student/unfollow/course/{courseId}");
+            urlBuilder_.Replace("{courseId}", System.Uri.EscapeDataString(ConvertToString(courseId, System.Globalization.CultureInfo.InvariantCulture)));
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.ObjectModel.ObservableCollection<Message>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new RestException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new RestException<System.Collections.ObjectModel.ObservableCollection<Message>>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new RestException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new RestException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.ObjectModel.ObservableCollection<StudentDto>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new RestException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
                             return objectResponse_.Object;
                         }
                         else
@@ -2689,11 +2808,11 @@ namespace EG.DemoPCBE99925.ManageCourseService.Facade.Sdk
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.5.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class GetCourseDto : CourseDto
     {
-        [Newtonsoft.Json.JsonProperty("owner", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public PersonDto Owner { get; set; } = default!;
+        [Newtonsoft.Json.JsonProperty("owner", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public PersonDto? Owner { get; set; } = default!;
 
         [Newtonsoft.Json.JsonProperty("coursePeople", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.ObjectModel.ObservableCollection<CoursePersonDto> CoursePeople { get; set; } = default!;
+        public System.Collections.ObjectModel.ObservableCollection<GetCoursePersonDto> CoursePeople { get; set; } = default!;
 
     }
 
@@ -2741,31 +2860,30 @@ namespace EG.DemoPCBE99925.ManageCourseService.Facade.Sdk
     /// CoursePerson
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.5.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class CoursePersonDto
+    public partial class GetCoursePersonDto : CoursePersonDto
     {
-        /// <summary>
-        /// Id of CoursePerson.
-        /// </summary>
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid Id { get; set; } = default!;
+        [Newtonsoft.Json.JsonProperty("lead", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public TeacherDto? Lead { get; set; } = default!;
 
-        /// <summary>
-        /// Define what we do with the object =&gt; delete, update, insert?
-        /// </summary>
-        [Newtonsoft.Json.JsonProperty("persistChange", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public PersistChange PersistChange { get; set; } = default!;
+        [Newtonsoft.Json.JsonProperty("course", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public CourseDto? Course { get; set; } = default!;
 
-        [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTime StartDate { get; set; } = default!;
+        [Newtonsoft.Json.JsonProperty("participants", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.ObjectModel.ObservableCollection<GetParticipantDto> Participants { get; set; } = default!;
 
-        [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTime EndDate { get; set; } = default!;
+    }
 
-        [Newtonsoft.Json.JsonProperty("leadId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid LeadId { get; set; } = default!;
+    /// <summary>
+    /// Teacher
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.5.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TeacherDto : PersonDto
+    {
+        [Newtonsoft.Json.JsonProperty("salary", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double Salary { get; set; } = default!;
 
-        [Newtonsoft.Json.JsonProperty("courseId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid CourseId { get; set; } = default!;
+        [Newtonsoft.Json.JsonProperty("hireDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTime HireDate { get; set; } = default!;
 
     }
 
@@ -2810,6 +2928,98 @@ namespace EG.DemoPCBE99925.ManageCourseService.Facade.Sdk
 
         [Newtonsoft.Json.JsonProperty("ownerFullname", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string? OwnerFullname { get; set; } = default!;
+
+    }
+
+    /// <summary>
+    /// Participant
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.5.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class GetParticipantDto : ParticipantDto
+    {
+        [Newtonsoft.Json.JsonProperty("student", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public StudentDto? Student { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("coursePerson", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public CoursePersonDto? CoursePerson { get; set; } = default!;
+
+    }
+
+    /// <summary>
+    /// Student
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.5.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class StudentDto : PersonDto
+    {
+        [Newtonsoft.Json.JsonProperty("matricule", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Matricule { get; set; } = default!;
+
+    }
+
+    /// <summary>
+    /// CoursePerson
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.5.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class CoursePersonDto
+    {
+        /// <summary>
+        /// Id of CoursePerson.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid Id { get; set; } = default!;
+
+        /// <summary>
+        /// Define what we do with the object =&gt; delete, update, insert?
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("persistChange", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public PersistChange PersistChange { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTime StartDate { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTime EndDate { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("leadId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid LeadId { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("courseId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid CourseId { get; set; } = default!;
+
+    }
+
+    /// <summary>
+    /// Participant
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.5.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ParticipantDto
+    {
+        /// <summary>
+        /// Id of Participant.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid Id { get; set; } = default!;
+
+        /// <summary>
+        /// Define what we do with the object =&gt; delete, update, insert?
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("persistChange", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public PersistChange PersistChange { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTime StartDate { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTime EndDate { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("studentId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid StudentId { get; set; } = default!;
+
+        /// <summary>
+        /// The course that the student participate
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("coursePersonId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid CoursePersonId { get; set; } = default!;
 
     }
 
@@ -2864,66 +3074,6 @@ namespace EG.DemoPCBE99925.ManageCourseService.Facade.Sdk
 
         [Newtonsoft.Json.JsonProperty("database", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string? Database { get; set; } = default!;
-
-    }
-
-    /// <summary>
-    /// Participant
-    /// </summary>
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.5.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ParticipantDto
-    {
-        /// <summary>
-        /// Id of Participant.
-        /// </summary>
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid Id { get; set; } = default!;
-
-        /// <summary>
-        /// Define what we do with the object =&gt; delete, update, insert?
-        /// </summary>
-        [Newtonsoft.Json.JsonProperty("persistChange", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public PersistChange PersistChange { get; set; } = default!;
-
-        [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTime StartDate { get; set; } = default!;
-
-        [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTime EndDate { get; set; } = default!;
-
-        [Newtonsoft.Json.JsonProperty("studentId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid StudentId { get; set; } = default!;
-
-        /// <summary>
-        /// The course that the student participate
-        /// </summary>
-        [Newtonsoft.Json.JsonProperty("coursePersonId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid CoursePersonId { get; set; } = default!;
-
-    }
-
-    /// <summary>
-    /// Student
-    /// </summary>
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.5.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class StudentDto : PersonDto
-    {
-        [Newtonsoft.Json.JsonProperty("matricule", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Matricule { get; set; } = default!;
-
-    }
-
-    /// <summary>
-    /// Teacher
-    /// </summary>
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.5.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class TeacherDto : PersonDto
-    {
-        [Newtonsoft.Json.JsonProperty("salary", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public double Salary { get; set; } = default!;
-
-        [Newtonsoft.Json.JsonProperty("hireDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTime HireDate { get; set; } = default!;
 
     }
 
