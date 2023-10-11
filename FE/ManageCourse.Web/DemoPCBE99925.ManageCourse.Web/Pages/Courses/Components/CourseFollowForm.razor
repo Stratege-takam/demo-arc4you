@@ -1,0 +1,138 @@
+﻿@using EG.DemoPCBE99925.ManageCourseService.Facade.Sdk;
+@inherits NVOverlayable;
+@inject CourseState state;
+@implements IDisposable
+
+<EditForm OnValidSubmit="OnSubmit" Model="state.ModelFollow">
+
+<NVModal @attributes="@Props">
+    <NVModalHeader>
+        <NVBlock>
+            @if (state.ModelFollow.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Update)
+            {
+                <NVText TextSize="h-sm" TextColor="petrol-500">Update  particiption </NVText>
+            }
+            else if (state.ModelFollow.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Insert)
+            {
+                <NVText TextSize="h-sm" TextColor="petrol-500">Add student of the cours </NVText>
+            }
+        </NVBlock>
+    </NVModalHeader>
+
+    <NVModalBody>
+            <DataAnnotationsValidator />
+
+            <NVContainer>
+                @if (state.ErrorServerFollow != null)
+                {
+                    <NVAlert MB="2" Close Permanent Color="error-100">
+                        <NVText Size="sm" Medium MB="1">Error</NVText>
+                        <NVText Size="sm" MB="2">
+                            @state.ErrorServerFollow
+                        </NVText>
+                    </NVAlert>
+                }
+                <NVBlock MB="2">
+                    @if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Insert)
+                    {
+                        <NVFieldText Name="Id"
+                        @bind-Value="state.ModelFollow.Id"
+                                     Label="Identifier" />
+                    }
+                </NVBlock>
+
+                <NVBlock MB="2">
+                    <NVFieldText Name="CoursePersonId"
+                        Readonly
+                    @bind-Value="state.ModelFollow.CoursePersonId"
+                                 Label="Lesson Identifier" />
+                </NVBlock>
+                    @if (state.Stuendts != null && state.Stuendts.Any())
+                {
+                    <NVFieldSelect Name="Student" Label="Student"
+                    @bind-Value="state.ModelFollow.StudentId">
+                        <option value=""> Select a student</option>
+                        @foreach (var student in state.Stuendts)
+                        {
+                            <option value="@student.Id"> @student.FirstName @student.LastName</option>
+                        }
+                    </NVFieldSelect>
+                }
+               
+                <NVBlock MB="2">
+                    <NVFieldDate Name="StartDate"
+                    @bind-Value="state.ModelFollow.StartDate"
+                                 Label="Start date" />
+                </NVBlock>
+
+                    <NVBlock MB="2">
+                    <NVFieldDate Name="EndDate"
+                    @bind-Value="state.ModelFollow.EndDate"
+                                 Label="End Date" />
+                    </NVBlock>
+
+            </NVContainer>
+
+    </NVModalBody>
+
+    <NVModalFooter>
+        @if (state.ModelFollow.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
+        {
+            <NVBlock Class="align-center-r-o">
+                @if (state.Loading)
+                {
+                    <NVButton Disabled Type="submit" Size="sm"
+                              MR="2" Color="secondary">Submit </NVButton>
+
+                    <NVLoader Color="secondary" Loading />
+                }
+                else
+                {
+                    <NVButton Type="submit" Size="sm" MR="2"
+                              Color="secondary">Submit </NVButton>
+                }
+            </NVBlock>
+        }
+
+    </NVModalFooter>
+</NVModal>
+        </EditForm>
+
+
+@code {
+
+    #region Listener state change
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        state.Mont(async () => await InvokeAsync(StateHasChanged));
+    }
+
+    public void Dispose()
+    {
+        state.UnMont(async () => await InvokeAsync(StateHasChanged));
+    }
+
+    #endregion
+
+    #region Lifecycle
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+        await state.UpdateStudents();
+    }
+    #endregion Lifecycle
+
+    #region Private methods
+    private async Task OnSubmit()
+    {
+        await state.SubmitFollow();
+
+        if (state.ErrorServerFollow == null)
+        {
+            OverlayService.Hide(Name);
+        }
+    }
+    #endregion Private methods
+}

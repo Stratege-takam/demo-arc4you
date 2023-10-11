@@ -1,0 +1,12 @@
+﻿@inject IStringLocalizer<EG.DemoPCBE99925.ManageCourse.Web.Pages.Resources.Global> Localized
+
+<AuthorizeView Policy="AccessApplication">
+    <Authorized>
+        <NavLink href="about" Match="NavLinkMatch.All">
+            <NVStack Gutter="2">
+                <NVIcon Name="info-circle" Small />
+                <span>@Localized["About"]</span>
+            </NVStack>
+        </NavLink>
+    </Authorized>
+</AuthorizeView>

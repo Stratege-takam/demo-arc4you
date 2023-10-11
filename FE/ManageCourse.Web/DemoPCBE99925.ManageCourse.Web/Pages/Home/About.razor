@@ -1,0 +1,63 @@
+@page "/about"
+
+@using EG.DemoPCBE99925.Yarp.Facade.Sdk
+@using Blazored.LocalStorage
+@using Arc4u.Security.Principal
+
+@inject EG.DemoPCBE99925.ManageCourse.Web.Proxies.DemoPCBE99925YarpEnvironmentFacade facade
+
+@inject IStringLocalizer<Resources.About> Localizer
+@inject ILocalStorageService localStorage
+@inject IApplicationContext applicationContext 
+@inject NavigationManager navigationManager
+
+<NVBlock>
+    <NVStack Color="secondary-200" BorderRadius="8px 8px . ." Fill Full Padding="3">
+        <NVBlock StackItemLead TextColor="primary" TextSize="2xl">
+            B1
+        </NVBlock>
+        <NVBlock StackItemTail>
+            <Img Width="64" Height="64" src="/assets/img/icon-512.png" Color="secondary-200" />
+        </NVBlock>
+    </NVStack>
+    <NVStack Full Fill Flex Color="secondary-300" BorderRadius=". . 8px 8px" Padding="3">
+        <NVBlock TextSize="xl">
+            @Localizer["environment"] @environment?.Name
+            <br />
+            @Localizer["server"] @environment?.Server
+        </NVBlock>
+        <NVStack Flex>
+            @foreach (var cultureItem in Localizer["cultures"].ToString().Split(';'))
+            {
+                var c = cultureItem.Split(',');
+                <NVPanel Color="secondary-300" Flat>
+                    <NVButton OnClick="@(() => SetCulture(c[0]))">@c[1]</NVButton>
+                </NVPanel>
+            }
+        </NVStack>
+    </NVStack>
+</NVBlock>
+
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        environment = await facade.Proxy.GetAsync().ConfigureAwait(false);
+    }
+
+    private async Task SetCulture(string culture)
+    {
+        if (applicationContext.Principal.Profile.CurrentCulture.Name.Equals(culture))
+            return;
+
+        await localStorage.SetItemAsStringAsync("uiculture", culture);
+
+        navigationManager.NavigateTo("about", true);
+
+    }
+
+
+    private EnvironmentInfo environment;
+
+}

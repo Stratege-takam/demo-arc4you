@@ -65,6 +65,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\DemoPCBE99925.Shared.Domain\DemoPCBE99925.Shared.Domain.csproj" />
     <ProjectReference Include="..\DemoPCBE99925.ManageCourseService.Business\DemoPCBE99925.ManageCourseService.Business.csproj" />
+    <ProjectReference Include="..\DemoPCBE99925.ManageCourseService.Database\DemoPCBE99925.ManageCourseService.Database.csproj" />
     <ProjectReference Include="..\DemoPCBE99925.ManageCourseService.Domain\DemoPCBE99925.ManageCourseService.Domain.csproj" />
     <ProjectReference Include="..\DemoPCBE99925.ManageCourseService.Facade\DemoPCBE99925.ManageCourseService.Facade.csproj" />
     <ProjectReference Include="..\DemoPCBE99925.ManageCourseService.IBusiness\DemoPCBE99925.ManageCourseService.IBusiness.csproj" />

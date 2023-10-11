@@ -69,23 +69,38 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ManageCourseService", "Mana
 		BE\ManageCourseService\BuildAndPublish.yml = BE\ManageCourseService\BuildAndPublish.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoPCBE99925.ManageCourseService.Host", "BE\ManageCourseService\DemoPCBE99925.ManageCourseService.Host\DemoPCBE99925.ManageCourseService.Host.csproj", "{7ECEC015-15FA-46E8-A763-AFFC53A52C05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoPCBE99925.ManageCourseService.Host", "BE\ManageCourseService\DemoPCBE99925.ManageCourseService.Host\DemoPCBE99925.ManageCourseService.Host.csproj", "{7ECEC015-15FA-46E8-A763-AFFC53A52C05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoPCBE99925.ManageCourseService.Domain", "BE\ManageCourseService\DemoPCBE99925.ManageCourseService.Domain\DemoPCBE99925.ManageCourseService.Domain.csproj", "{27F46336-B3F0-4C14-B54C-85DC069B2DB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoPCBE99925.ManageCourseService.Domain", "BE\ManageCourseService\DemoPCBE99925.ManageCourseService.Domain\DemoPCBE99925.ManageCourseService.Domain.csproj", "{27F46336-B3F0-4C14-B54C-85DC069B2DB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoPCBE99925.ManageCourseService.IBusiness", "BE\ManageCourseService\DemoPCBE99925.ManageCourseService.IBusiness\DemoPCBE99925.ManageCourseService.IBusiness.csproj", "{3E231C9B-507B-43D3-968B-282DB7EAD6F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoPCBE99925.ManageCourseService.IBusiness", "BE\ManageCourseService\DemoPCBE99925.ManageCourseService.IBusiness\DemoPCBE99925.ManageCourseService.IBusiness.csproj", "{3E231C9B-507B-43D3-968B-282DB7EAD6F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoPCBE99925.ManageCourseService.Business", "BE\ManageCourseService\DemoPCBE99925.ManageCourseService.Business\DemoPCBE99925.ManageCourseService.Business.csproj", "{4B7E0091-5B0A-4946-A5D7-8151151B450E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoPCBE99925.ManageCourseService.Business", "BE\ManageCourseService\DemoPCBE99925.ManageCourseService.Business\DemoPCBE99925.ManageCourseService.Business.csproj", "{4B7E0091-5B0A-4946-A5D7-8151151B450E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoPCBE99925.ManageCourseService.Facade", "BE\ManageCourseService\DemoPCBE99925.ManageCourseService.Facade\DemoPCBE99925.ManageCourseService.Facade.csproj", "{D3B490A4-A48B-4165-904D-B4131E0D43EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoPCBE99925.ManageCourseService.Facade", "BE\ManageCourseService\DemoPCBE99925.ManageCourseService.Facade\DemoPCBE99925.ManageCourseService.Facade.csproj", "{D3B490A4-A48B-4165-904D-B4131E0D43EF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sdks", "Sdks", "{3FE27DFA-A3BA-402D-8310-DBDA684A8B63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoPCBE99925.ManageCourseService.Facade.Sdk", "BE\ManageCourseService\Sdks\DemoPCBE99925.ManageCourseService.Facade.Sdk\DemoPCBE99925.ManageCourseService.Facade.Sdk.csproj", "{2EC6B363-146F-4F29-BC70-13117C9ED6C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoPCBE99925.ManageCourseService.Facade.Sdk", "BE\ManageCourseService\Sdks\DemoPCBE99925.ManageCourseService.Facade.Sdk\DemoPCBE99925.ManageCourseService.Facade.Sdk.csproj", "{2EC6B363-146F-4F29-BC70-13117C9ED6C3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{173AC3FA-6D3D-4D76-8596-A9AC8EEEF72F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoPCBE99925.ManageCourseService.UnitTest", "BE\ManageCourseService\Tests\DemoPCBE99925.ManageCourseService.UnitTest\DemoPCBE99925.ManageCourseService.UnitTest.csproj", "{A372B4AB-500C-429B-BAE7-E7679FC37DC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoPCBE99925.ManageCourseService.UnitTest", "BE\ManageCourseService\Tests\DemoPCBE99925.ManageCourseService.UnitTest\DemoPCBE99925.ManageCourseService.UnitTest.csproj", "{A372B4AB-500C-429B-BAE7-E7679FC37DC7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoPCBE99925.ManageCourseService.IDatabase", "BE\ManageCourseService\DemoPCBE99925.ManageCourseService.IDatabase\DemoPCBE99925.ManageCourseService.IDatabase.csproj", "{6671DFCC-1B57-4FD2-B5BB-FD3F4E285930}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoPCBE99925.ManageCourseService.Database", "BE\ManageCourseService\DemoPCBE99925.ManageCourseService.Database\DemoPCBE99925.ManageCourseService.Database.csproj", "{F2B7E956-7826-4E24-8A8F-D82A0CA989BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{92D85CA2-A515-470D-89E3-9B8324D03A3B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoPCBE99925.ManageCourseService.Database.MigrationTool", "BE\ManageCourseService\Tools\DemoPCBE99925.ManageCourseService.Database.MigrationTool\DemoPCBE99925.ManageCourseService.Database.MigrationTool.csproj", "{A3005DF9-C84C-4C25-860B-5C158B89C713}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ManageCourse.Web", "ManageCourse.Web", "{608ACE05-D755-4B89-B653-4ABFA529D57C}"
+	ProjectSection(SolutionItems) = preProject
+		FE\ManageCourse.Web\BuildAndPublish.yml = FE\ManageCourse.Web\BuildAndPublish.yml
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoPCBE99925.ManageCourse.Web", "FE\ManageCourse.Web\DemoPCBE99925.ManageCourse.Web\DemoPCBE99925.ManageCourse.Web.csproj", "{70F7C5EC-83FA-41FC-9647-BC3AAF2434D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -153,6 +168,22 @@ Global
 		{A372B4AB-500C-429B-BAE7-E7679FC37DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A372B4AB-500C-429B-BAE7-E7679FC37DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A372B4AB-500C-429B-BAE7-E7679FC37DC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6671DFCC-1B57-4FD2-B5BB-FD3F4E285930}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6671DFCC-1B57-4FD2-B5BB-FD3F4E285930}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6671DFCC-1B57-4FD2-B5BB-FD3F4E285930}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6671DFCC-1B57-4FD2-B5BB-FD3F4E285930}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2B7E956-7826-4E24-8A8F-D82A0CA989BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2B7E956-7826-4E24-8A8F-D82A0CA989BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2B7E956-7826-4E24-8A8F-D82A0CA989BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2B7E956-7826-4E24-8A8F-D82A0CA989BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3005DF9-C84C-4C25-860B-5C158B89C713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3005DF9-C84C-4C25-860B-5C158B89C713}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3005DF9-C84C-4C25-860B-5C158B89C713}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3005DF9-C84C-4C25-860B-5C158B89C713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70F7C5EC-83FA-41FC-9647-BC3AAF2434D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70F7C5EC-83FA-41FC-9647-BC3AAF2434D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70F7C5EC-83FA-41FC-9647-BC3AAF2434D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70F7C5EC-83FA-41FC-9647-BC3AAF2434D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -184,6 +215,12 @@ Global
 		{2EC6B363-146F-4F29-BC70-13117C9ED6C3} = {3FE27DFA-A3BA-402D-8310-DBDA684A8B63}
 		{173AC3FA-6D3D-4D76-8596-A9AC8EEEF72F} = {16890C75-A3F4-4E9D-8A78-564590A7F069}
 		{A372B4AB-500C-429B-BAE7-E7679FC37DC7} = {173AC3FA-6D3D-4D76-8596-A9AC8EEEF72F}
+		{6671DFCC-1B57-4FD2-B5BB-FD3F4E285930} = {16890C75-A3F4-4E9D-8A78-564590A7F069}
+		{F2B7E956-7826-4E24-8A8F-D82A0CA989BD} = {16890C75-A3F4-4E9D-8A78-564590A7F069}
+		{92D85CA2-A515-470D-89E3-9B8324D03A3B} = {16890C75-A3F4-4E9D-8A78-564590A7F069}
+		{A3005DF9-C84C-4C25-860B-5C158B89C713} = {92D85CA2-A515-470D-89E3-9B8324D03A3B}
+		{608ACE05-D755-4B89-B653-4ABFA529D57C} = {4A8807D9-DECB-487E-A3F6-E05D8D3049CF}
+		{70F7C5EC-83FA-41FC-9647-BC3AAF2434D3} = {608ACE05-D755-4B89-B653-4ABFA529D57C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2FC2D24D-5266-443B-966B-1E39DE8F9E35}

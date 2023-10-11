@@ -1,0 +1,43 @@
+﻿
+@inherits LayoutComponentBase
+@inject NVAppStateService AppState;
+
+
+<NVLayout HasSidebarOpened="AppState.IsSidebarVisible()">
+    <NVLayoutHeader>
+        <NVStack PX="8" Height="64px" Color="secondary">
+            <NVNav Color="secondary">
+                <NavMenu IsSideBar="false" />
+            </NVNav>
+            <NVButton ML="auto" Level="1" Color="secondary" Display="block" MD="@(new {Display = "hidden"})" Icon="menu-2" OnClick="@(() => AppState.ToggleDisplaySidebar())" />
+        </NVStack>
+    </NVLayoutHeader>
+
+    <NVLayoutSidebar>
+        <NVSidebar Stack StackVertical Color="white" HFull>
+            <NVButton Shrink="0" Grow="0" Level="2" Display="block" ML="auto" MD="@(new {Display = "hidden"})" Icon="x" OnClick="@(() => AppState.DisplaySidebar(false))" />
+            <NVNav Vertical Level="1" Overflow="auto" MD="@(new {Display = "hidden"})">
+                <NavMenu IsSideBar="true" />
+            </NVNav>
+            <NVNav Vertical Color="primary" Level="1" Overflow="auto" MT="auto" MD="@(new {Display = "hidden"})">
+                <BottomNavMenu />
+            </NVNav>
+        </NVSidebar>
+    </NVLayoutSidebar>
+
+    <NVLayoutContent>
+        <NVContainer PX="4" PY="8" Class="align-center-c">
+            @Body
+        </NVContainer>
+    </NVLayoutContent>
+</NVLayout>
+
+<NVOverlays />
+
+@code {
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        AppState.DisplaySidebar(false);
+    }
+}

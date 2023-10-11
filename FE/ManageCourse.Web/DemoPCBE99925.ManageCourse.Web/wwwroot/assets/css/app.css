@@ -1,0 +1,114 @@
+
+
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+
+.align-center-c{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.align-center-r {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.align-center-c-o {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.align-center-r-o {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.justify-center-c-o {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.justify-center-r-o {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.w-responsive-sm{
+    width: 50%;
+}
+
+.w-responsive-lg {
+    width: 80%;
+}
+
+.validation-message{
+    color: red;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .w-responsive-sm {
+        width: 70%;
+    }
+
+    .w-responsive-lg {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .w-responsive-sm {
+        width: 90%;
+    }
+
+    .w-responsive-lg {
+        width: 95%;
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+    .w-responsive-sm {
+        width: 100%;
+    }
+
+    .w-responsive-lg {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .w-responsive-sm {
+        width: 50%;
+    }
+
+    .w-responsive-lg {
+        width: 80%;
+    }
+}

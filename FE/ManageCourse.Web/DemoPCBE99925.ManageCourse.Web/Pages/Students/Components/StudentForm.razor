@@ -1,0 +1,172 @@
+﻿@inherits NVOverlayable;
+@inject StudentState state;
+@implements IDisposable
+
+<EditForm OnValidSubmit="OnSubmit" Model="state.Model">
+
+<NVModal @attributes="@Props">
+    <NVModalHeader>
+        <NVBlock>
+            @if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Update)
+            {
+                <NVText TextSize="h-sm" TextColor="petrol-500">Update Student </NVText>
+            }
+            else if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Insert)
+            {
+                <NVText TextSize="h-sm" TextColor="petrol-500">New Student </NVText>
+            }
+            else
+            {
+                <NVText TextSize="h-sm" TextColor="petrol-500">Detail Student </NVText>
+            }
+        </NVBlock>
+    </NVModalHeader>
+
+    <NVModalBody>
+            <DataAnnotationsValidator />
+
+            <NVContainer>
+                @if (state.SuccessSave)
+                {
+                    <NVAlert MB="2" Close Permanent Color="success">
+                        <NVText Size="sm" Medium MB="1">Information</NVText>
+                        <NVText Size="sm" MB="2">
+                            Save as successfull !
+                        </NVText>
+                    </NVAlert>
+                }
+                @if (state.ErrorServer != null)
+                {
+                    <NVAlert MB="2" Close Permanent Color="error-100">
+                        <NVText Size="sm" Medium MB="1">Error</NVText>
+                        <NVText Size="sm" MB="2">
+                            @state.ErrorServer
+                        </NVText>
+                    </NVAlert>
+                }
+                <NVBlock MB="2">
+                    @if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.None)
+                    {
+                        <NVFieldText Name="Id" Readonly
+                        @bind-Value="state.Model.Id"
+                                     Label="Student identifier" />
+                    }
+                    else if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Insert)
+                    {
+                        <NVFieldText Name="Id"
+                        @bind-Value="state.Model.Id"
+                                     Label="Student identifier" />
+                    }
+                </NVBlock>
+
+                <NVBlock MB="2">
+                    @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
+                    {
+                        <NVFieldText Name="Firstname"
+                        @bind-Value="state.Model.FirstName"
+                                     Label="Firstname" />
+                    }
+                    else
+                    {
+                        <NVFieldText Name="Firstname"
+                        @bind-Value="state.Model.FirstName"
+                                          Readonly
+                                     Label="Firstname" />
+                    }
+
+                </NVBlock>
+
+                <NVBlock MB="2">
+
+                    @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
+                    {
+                        <NVFieldText Name="Lastname"
+                        @bind-Value="state.Model.LastName"
+                                     Label="Lastname" />
+                    }
+                    else
+                    {
+                        <NVFieldText Name="Lastname"
+                        @bind-Value="state.Model.LastName"
+                                          Readonly
+                                     Label="Lastname" />
+                    }
+                </NVBlock>
+
+                <NVBlock MB="2">
+
+                    @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
+                    {
+                        <NVFieldText Name="Matricule"
+                        @bind-Value="state.Model.Matricule"
+                                     Label="Matricule" />
+                    }
+                    else
+                    {
+                        <NVFieldText Name="Matricule"
+                        @bind-Value="state.Model.Matricule"
+                                          Readonly
+                                     Label="Matricule" />
+                    }
+                </NVBlock>
+
+            </NVContainer>
+
+    </NVModalBody>
+
+    <NVModalFooter>
+        @if (state.PersistChange != ManageCourseService.Facade.Sdk.PersistChange.None)
+        {
+            <NVBlock Class="align-center-r-o">
+                @if (state.Loading)
+                {
+                    <NVButton Disabled Type="submit" Size="sm"
+                              MR="2" Color="secondary">Submit </NVButton>
+
+                    <NVLoader Color="secondary" Loading />
+                }
+                else
+                {
+                    <NVButton Type="submit" Size="sm" MR="2"
+                              Color="secondary">Submit </NVButton>
+                }
+            </NVBlock>
+        }
+
+    </NVModalFooter>
+</NVModal>
+        </EditForm>
+
+
+@code {
+
+
+    #region Listener state change
+
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        state.Mont(async () => await InvokeAsync(StateHasChanged));
+    }
+
+    public void Dispose()
+    {
+        state.UnMont(async () => await InvokeAsync(StateHasChanged));
+    }
+
+    #endregion
+
+    #region Private methods
+    private async Task OnSubmit()
+    {
+        await state.Submit();
+
+        if (state.PersistChange == ManageCourseService.Facade.Sdk.PersistChange.Update
+            && state.SuccessSave)
+        {
+            OverlayService.Hide(Name);
+        }
+    }
+    #endregion Private methods
+}

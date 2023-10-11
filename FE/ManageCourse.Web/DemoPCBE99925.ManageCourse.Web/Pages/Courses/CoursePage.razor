@@ -1,0 +1,199 @@
+﻿@page "/Courses"
+@using EG.DemoPCBE99925.ManageCourse.Web.Pages.Courses.Components;
+
+@inject IStringLocalizer<Resources.CoursePage> Localizer
+@inject CourseState state;
+@implements IDisposable
+@inject SwitchUserState userState;
+@inject NavigationManager navigationManager
+
+@inject NVOverlayService OverlayService;
+
+
+<NVStack Vertical StackItemCenter Gutter="8" P="2" MY="5">
+    <NVPanel Level="2">
+        <NVBlock MY="2">
+            <NVText TextColor="petrol-500" TextSize="h-sm">List of Courses</NVText>
+        </NVBlock>
+
+        <NVStack>
+            <NVStackItemLead>
+                <NVButton Small Level="2" Color="secondary"
+                @onclick="state.RefreshList"
+                          LeadIcon="refresh"> Refresh </NVButton>
+            </NVStackItemLead>
+            <NVStackItemTail>
+                <NVButton Small Color="secondary"
+                @onclick="@(() =>state.OpenForm(null))"
+                          LeadIcon="plus"> New Course </NVButton>
+            </NVStackItemTail>
+        </NVStack>
+        <NVTable Responsive>
+            <NVTableHead>
+                <th>Name</th>
+                <th>Unity</th>
+                <th> Created Name</th>
+                <th>Create by</th>
+                <th>Description</th>
+                <th></th>
+            </NVTableHead>
+            <NVTableBody>
+                @if (state.LoadingRefresh)
+                {
+                    <tr>
+                        <td colspan="6">
+                            <NVBlock class="align-center-c">
+                                <NVLoader Size="lg" Color="secondary" Loading />
+                            </NVBlock>
+                        </td>
+                    </tr>
+                }
+                else if (state.Courses == null || !state.Courses.Any())
+                {
+                    <tr>
+                        <td colspan="6">
+                            <NVBlock class="align-center-c">
+                                List is empty
+                            </NVBlock>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var Course in state.Courses)
+                    {
+                        var courseDto = Course;
+                        <tr>
+                            <td data-table-heading="Name">
+                                @courseDto.Name
+                            </td>
+                            <td data-table-heading="Unity">
+                                @courseDto.Unity
+                            </td>
+                            <td data-table-heading="Created Name">
+                                @courseDto.OwnerFullname
+                            </td>
+                            <td data-table-heading="Create by">
+                                @if (courseDto.IsTeacher)
+                                {
+                                    <NVText> A teacher</NVText>
+                                }
+                                else
+                                {
+                                    <NVText> A student</NVText>
+                                }
+                            </td>
+                            <td data-table-heading="Description">
+                                @if (courseDto.Description != null && courseDto.Description.Length > 20)
+                                {
+                                    <NVText>@courseDto.Description?.Substring(0,20)...</NVText>
+                                }
+                                else
+                                {
+                                    <NVText>@courseDto.Description</NVText>
+                                }
+                            </td>
+                            <td>
+                                <NVButton XSmall Level="2"
+                                @onclick="@(() =>state.OpenForm(courseDto))"
+                                          Color="primary" Icon="edit" MR="2" />
+                                <NVButton XSmall Level="2"
+                                @onclick="@(() =>state.OpenForm(courseDto, false))"
+                                          Color="secondary" Icon="eye" MR="2" />
+                                @if (courseDto.CanLead)
+                                {
+                                    <NVButton XSmall Level="2"
+                                    @onclick="@(() =>state.OpenFormLead(courseDto, () => OverlayService.Show(OpenLeadFormName)))"
+                                              Color="secondary"  MR="2" > Lead </NVButton>
+                                }
+                               
+                                @if (courseDto.CanDelete && (courseDto.IsTeacher && userState.CurrentRole ==UserTypeEnum.Teacher
+                                || !courseDto.IsTeacher && userState.CurrentRole == UserTypeEnum.Student))
+                                {
+                                    <NVButton XSmall Level="2" Color="error"
+                                    @onclick="@(() =>state.OpenConfirmDelete(courseDto, () => OverlayService.Show(ConfirmDeleteName)))"
+                                              Icon="x" MR="2" />
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </NVTableBody>
+        </NVTable>
+    </NVPanel>
+</NVStack>
+
+
+@code {
+
+    #region Listener state change
+
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        if (userState.CurrentRole == Utils.Enums.UserTypeEnum.None)
+        {
+            navigationManager.NavigateTo(userState.GetRoute(AppRouteEnum.Home));
+        }
+        state.Mont(async () => await InvokeAsync(StateHasChanged));
+
+        InitializeModal();
+    }
+
+    public void Dispose()
+    {
+        state.UnMont(async () => await InvokeAsync(StateHasChanged));
+    }
+
+    #endregion
+
+
+    #region Method lifecycle (override)
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        await state.RefreshList();
+
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        // ensure that overlays exists before render overlays
+        if (firstRender)
+        {
+            OverlayService.Render();
+        }
+    }
+
+    #endregion Method lifecycle (override)
+
+
+    #region Modal Methods
+    private readonly string ConfirmDeleteName = "confirm-delete-Course";
+    private readonly string OpenLeadFormName = "lead-form-Course";
+
+    private void InitializeModal()
+    {
+        OverlayService.Initialize(GetNVOverlayServiceConfig(ConfirmDeleteName, typeof(ItemRemoveConfirm)));
+        OverlayService.Initialize(GetNVOverlayServiceConfig(OpenLeadFormName, typeof(CourseLeadForm)));
+    }
+
+    private NVOverlayServiceConfig GetNVOverlayServiceConfig(string name, Type view)
+    {
+        NVOverlayServiceConfig overlayConfig = new NVOverlayServiceConfig(NVOverlayServiceConfig.MODAL,
+          name,
+       view, new { MaxWidth = "40vw" });
+
+        overlayConfig.AddAction("OnConfirm", async (data) =>
+        {
+            await state.Submit();
+            OverlayService.Hide(name);
+        });
+        return overlayConfig;
+    }
+    #endregion
+}

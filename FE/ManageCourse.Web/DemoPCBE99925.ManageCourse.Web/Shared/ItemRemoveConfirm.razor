@@ -1,0 +1,48 @@
+﻿@inherits NVOverlayable;
+
+<NVModal @attributes="@Props">
+    <NVModalBody>
+        <NVBlock>
+            Do you really want to delete this item?
+        </NVBlock>
+    </NVModalBody>
+    <NVModalFooter>
+        <NVButton Size="sm" MR="2" OnClick="@OnCancel">
+        Cancel
+        </NVButton>
+        <NVBlock Class="align-center-r-o">
+           
+            @if (Loading)
+            {
+                <NVButton Disabled Color="error"
+                          Size="sm" MR="2"
+                    OnClick="@OnConfirm">
+                    Confirm
+                </NVButton>
+                <NVLoader Color="error" Loading />
+            }
+            else
+            {
+                <NVButton Color="error"
+                          Size="sm" MR="2"
+                    OnClick="@OnConfirm">
+                    Confirm
+                </NVButton>
+            }
+        </NVBlock>
+        
+    </NVModalFooter>
+</NVModal>
+
+@code {
+    public bool Loading { get; set; } = false;
+    void OnConfirm()
+    {
+        Loading = true;
+        Actions["OnConfirm"]?.Invoke(new {});
+  }
+  void OnCancel()
+  {
+    OverlayService.Hide(Name);
+  }
+}

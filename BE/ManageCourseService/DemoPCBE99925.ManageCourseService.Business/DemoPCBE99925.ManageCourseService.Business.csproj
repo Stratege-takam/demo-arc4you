@@ -16,11 +16,11 @@
 	  <ProjectReference Include="..\..\..\Shared\DemoPCBE99925.Shared.Domain\DemoPCBE99925.Shared.Domain.csproj" />
 	  <ProjectReference Include="..\DemoPCBE99925.ManageCourseService.Domain\DemoPCBE99925.ManageCourseService.Domain.csproj" />
 	  <ProjectReference Include="..\DemoPCBE99925.ManageCourseService.IBusiness\DemoPCBE99925.ManageCourseService.IBusiness.csproj" />
+	  <ProjectReference Include="..\DemoPCBE99925.ManageCourseService.IDatabase\DemoPCBE99925.ManageCourseService.IDatabase.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="Logic\Rules\" />
-	  <Folder Include="Logic\Validators\" />
 	</ItemGroup>
 
 	<ItemGroup>

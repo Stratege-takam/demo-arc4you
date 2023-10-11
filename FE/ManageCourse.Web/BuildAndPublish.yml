@@ -1,0 +1,41 @@
+trigger:
+  branches:
+    include:     
+    - main
+    - release/*
+    - develop/*
+  paths:
+    include:
+      - FE/$(servicename)/*
+      - Shared/*
+      - BE/Yarp/Sdks/*
+
+resources:
+  repositories:
+  - repository: templates
+    type: git
+    endpoint: EliaGroupCollectionRepo
+    name: DevOps/Templating
+
+variables:
+  buildConfiguration: 'Release'
+  majorVersion: 1
+  minorVersion: 0
+
+name: $(majorVersion).$(minorVersion).$(Year:yy)$(DayOfYear)$(Rev:.r)
+
+stages:
+- template: Build/BuildAndPublish.yml@templates
+  parameters:
+    serviceName: '$(servicename)'
+    projectName: 'DemoPCBE99925'
+    folderPrefix: '' 
+    sharedFolderName: 'Shared/'
+    beFolder: 'FE'
+    projectFileName: 'DemoPCBE99925.$(servicename)'
+    frontendType: blazor
+    owaspDependencyCheckEnabled: true
+    sonarQubeEnabled: true
+    collectCodeCoverage: true
+    publishTestResult: true
+    publishCodeCoverageResult: true

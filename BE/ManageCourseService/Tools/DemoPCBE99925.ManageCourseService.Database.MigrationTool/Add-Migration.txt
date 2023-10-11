@@ -1,0 +1,5 @@
+To Add a migration to the Database.MigrationTool, run the following command in the Package Manage Console.
+
+Add-Migration -Name InitialCreation -Project BE\ManageCourseService\Tools\DemoPCBE99925.ManageCourseService.Database.MigrationTool -StartupProject BE\ManageCourseService\Tools\DemoPCBE99925.ManageCourseService.Database.MigrationTool -Context DatabaseContext
+
+Update-Database -Project BE\ManageCourseService\Tools\DemoPCBE99925.ManageCourseService.Database.MigrationTool -StartupProject BE\ManageCourseService\Tools\DemoPCBE99925.ManageCourseService.Database.MigrationTool -Context DatabaseContext

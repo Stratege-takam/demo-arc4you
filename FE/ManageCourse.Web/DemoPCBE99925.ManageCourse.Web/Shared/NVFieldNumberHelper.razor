@@ -1,0 +1,59 @@
+﻿<NVBlock Class="@css">
+    <label class="nv-field-label" for="@Id">
+        @Label
+    </label>
+    <NVBlock Class="nv-field-input">
+        @if (ReadOnly)
+        {
+            <input type="number" readonly="readonly" autocomplete="off"
+                   id="@Id" name="@Id"
+            @bind="Field" @bind:event="oninput" />
+        }
+        else
+        {
+            <input type="number" autocomplete="off"
+                   id="@Id" name="@Id"
+            @bind="Field" @bind:event="oninput" />
+        }
+    </NVBlock>
+</NVBlock>
+
+@code {
+
+    [Parameter]
+    public string Label { get; set; }
+
+    private string css { get; set; } = "nv-field nv-field-number ";
+
+    private bool _readOnly;
+    [Parameter]
+    public bool ReadOnly { get => _readOnly; set
+        {
+            if(value != _readOnly)
+            {
+                _readOnly = value;
+                css = "nv-field nv-field-number";
+
+                if (value)
+                {
+                    css = "nv-field nv-field-number nv-field-readonly";
+                }
+            } 
+        } }
+
+    private double _field;
+    [Parameter]
+    public double Field { get => _field; set {
+            if (value != _field)
+            {
+                _field = value;
+                FieldChanged.InvokeAsync(value);
+            }
+        } }
+
+    [Parameter]
+    public EventCallback<double> FieldChanged { get; set; }
+
+    [Parameter]
+    public string Id { get; set; }
+}
