@@ -22,14 +22,14 @@ namespace EG.DemoPCBE99925.ManageCourse.WPF.Views.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class MenuRes {
+    public class StudentRes {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal MenuRes() {
+        internal StudentRes() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EG.DemoPCBE99925.ManageCourse.WPF.Views.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EG.DemoPCBE99925.ManageCourse.WPF.Views.Resources.MenuRes", typeof(MenuRes).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EG.DemoPCBE99925.ManageCourse.WPF.Views.Resources.StudentRes", typeof(StudentRes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,83 +61,47 @@ namespace EG.DemoPCBE99925.ManageCourse.WPF.Views.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About.
+        ///   Looks up a localized string similar to Detailleerling.
         /// </summary>
-        public static string About {
+        public static string DetailStudent {
             get {
-                return ResourceManager.GetString("About", resourceCulture);
+                return ResourceManager.GetString("DetailStudent", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contextual information about the application and the user..
+        ///   Looks up a localized string similar to Maak een nieuwe leerling aan.
         /// </summary>
-        public static string AboutTooltip {
+        public static string NewStudent {
             get {
-                return ResourceManager.GetString("AboutTooltip", resourceCulture);
+                return ResourceManager.GetString("NewStudent", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Course.
+        ///   Looks up a localized string similar to Lijst met studenten.
         /// </summary>
-        public static string Course {
+        public static string StudentList {
             get {
-                return ResourceManager.GetString("Course", resourceCulture);
+                return ResourceManager.GetString("StudentList", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exit.
+        ///   Looks up a localized string similar to Indienen.
         /// </summary>
-        public static string Exit {
+        public static string Submit {
             get {
-                return ResourceManager.GetString("Exit", resourceCulture);
+                return ResourceManager.GetString("Submit", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quit the application.
+        ///   Looks up a localized string similar to Leerling bijwerken.
         /// </summary>
-        public static string ExitTooltip {
+        public static string UpdateStudent {
             get {
-                return ResourceManager.GetString("ExitTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Application.
-        /// </summary>
-        public static string File {
-            get {
-                return ResourceManager.GetString("File", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to EN.
-        /// </summary>
-        public static string Language {
-            get {
-                return ResourceManager.GetString("Language", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Student.
-        /// </summary>
-        public static string Student {
-            get {
-                return ResourceManager.GetString("Student", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Teacher.
-        /// </summary>
-        public static string Teacher {
-            get {
-                return ResourceManager.GetString("Teacher", resourceCulture);
+                return ResourceManager.GetString("UpdateStudent", resourceCulture);
             }
         }
     }

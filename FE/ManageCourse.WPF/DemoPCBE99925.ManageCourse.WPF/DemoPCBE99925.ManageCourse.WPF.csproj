@@ -71,15 +71,20 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>GlobalResources.resx</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\Resources\LoginPageRes.Designer.cs">
+	  <Compile Update="Views\Resources\LoginRes.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
-	    <DependentUpon>LoginPageRes.resx</DependentUpon>
+	    <DependentUpon>LoginRes.resx</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Resources\MenuRes.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>MenuRes.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Resources\StudentRes.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>StudentRes.resx</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -98,9 +103,9 @@
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>GlobalResources.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Resources\LoginPageRes.resx">
+	  <EmbeddedResource Update="Views\Resources\LoginRes.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
-	    <LastGenOutput>LoginPageRes.Designer.cs</LastGenOutput>
+	    <LastGenOutput>LoginRes.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Resources\MenuRes.Fr.resx">
 	    <DependentUpon>MenuRes.resx</DependentUpon>
@@ -111,6 +116,16 @@
 	  <EmbeddedResource Update="Views\Resources\MenuRes.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>MenuRes.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Resources\StudentRes.fr.resx">
+	    <DependentUpon>StudentRes.resx</DependentUpon>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Resources\StudentRes.Nl.resx">
+	    <DependentUpon>StudentRes.resx</DependentUpon>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Resources\StudentRes.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>StudentRes.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	</ItemGroup>	
 	

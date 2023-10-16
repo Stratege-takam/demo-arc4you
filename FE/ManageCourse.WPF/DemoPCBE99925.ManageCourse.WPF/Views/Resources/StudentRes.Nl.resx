@@ -117,31 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
-    <value>Ter Info...</value>
+  <data name="DetailStudent" xml:space="preserve">
+    <value>Detail student</value>
   </data>
-  <data name="AboutTooltip" xml:space="preserve">
-    <value>Information contextuel sur l'application.</value>
+  <data name="NewStudent" xml:space="preserve">
+    <value>Create a new student</value>
   </data>
-  <data name="Course" xml:space="preserve">
-    <value>Cursus</value>
+  <data name="StudentList" xml:space="preserve">
+    <value>List of students</value>
   </data>
-  <data name="Exit" xml:space="preserve">
-    <value>Quitter</value>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
   </data>
-  <data name="ExitTooltip" xml:space="preserve">
-    <value>Quitter l'application</value>
-  </data>
-  <data name="File" xml:space="preserve">
-    <value>Toepassing</value>
-  </data>
-  <data name="Language" xml:space="preserve">
-    <value>Nl</value>
-  </data>
-  <data name="Student" xml:space="preserve">
-    <value>Student</value>
-  </data>
-  <data name="Teacher" xml:space="preserve">
-    <value>Docent</value>
+  <data name="UpdateStudent" xml:space="preserve">
+    <value>Update student</value>
   </data>
 </root>

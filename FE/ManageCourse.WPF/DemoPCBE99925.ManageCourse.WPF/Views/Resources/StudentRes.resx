@@ -117,31 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
-    <value>Ter Info...</value>
+  <data name="DetailStudent" xml:space="preserve">
+    <value>Detailleerling</value>
   </data>
-  <data name="AboutTooltip" xml:space="preserve">
-    <value>Information contextuel sur l'application.</value>
+  <data name="NewStudent" xml:space="preserve">
+    <value>Maak een nieuwe leerling aan</value>
   </data>
-  <data name="Course" xml:space="preserve">
-    <value>Cursus</value>
+  <data name="StudentList" xml:space="preserve">
+    <value>Lijst met studenten</value>
   </data>
-  <data name="Exit" xml:space="preserve">
-    <value>Quitter</value>
+  <data name="Submit" xml:space="preserve">
+    <value>Indienen</value>
   </data>
-  <data name="ExitTooltip" xml:space="preserve">
-    <value>Quitter l'application</value>
-  </data>
-  <data name="File" xml:space="preserve">
-    <value>Toepassing</value>
-  </data>
-  <data name="Language" xml:space="preserve">
-    <value>Nl</value>
-  </data>
-  <data name="Student" xml:space="preserve">
-    <value>Student</value>
-  </data>
-  <data name="Teacher" xml:space="preserve">
-    <value>Docent</value>
+  <data name="UpdateStudent" xml:space="preserve">
+    <value>Leerling bijwerken</value>
   </data>
 </root>

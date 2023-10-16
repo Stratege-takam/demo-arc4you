@@ -55,6 +55,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\BE\ManageCourseService\Sdks\DemoPCBE99925.ManageCourseService.Facade.Sdk\DemoPCBE99925.ManageCourseService.Facade.Sdk.csproj" />
 	  <ProjectReference Include="..\..\..\BE\Yarp\Sdks\DemoPCBE99925.Yarp.Facade.Sdk\DemoPCBE99925.Yarp.Facade.Sdk.csproj" />
 	</ItemGroup>
 

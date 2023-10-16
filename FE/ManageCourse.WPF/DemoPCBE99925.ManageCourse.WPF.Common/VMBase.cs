@@ -65,4 +65,9 @@ public class VmBase<TResource, TViewModel> : BindableBase
             SetProperty(ref _resource, value);
         }
     }
+
+    public void InvokeMethod(Action action)
+    {
+        action?.Invoke();
+    }
 }

@@ -30,7 +30,7 @@ using Environment = System.Environment;
 namespace EG.DemoPCBE99925.ManageCourse.WPF.ViewModels;
 
 [Export]
-public class LoginPageVM : VmBase<LoginPageRes, LoginPageVM>, INavigationAware
+public class LoginPageVM : VmBase<LoginRes, LoginPageVM>, INavigationAware
 {
 	public const String AuthenticateUser = "AuthenticateUser";
 	public const String UserIsAuthenticated = "UserIsAuthenticated";
@@ -41,7 +41,7 @@ public class LoginPageVM : VmBase<LoginPageRes, LoginPageVM>, INavigationAware
         IOptionsMonitor<SimpleKeyValueSettings> optionSettings,
         IEventAggregator aggregator, IModuleCatalog moduleCatalog,
         IContainerResolve container, ILogger<LoginPageVM> logger,
-        IApplicationContext applicationContext) : base(new LoginPageRes(), aggregator, container, logger)
+        IApplicationContext applicationContext) : base(new LoginRes(), aggregator, container, logger)
 	{
 		_regionManager = regionManager;
 		_appFactory = appFactory;
@@ -52,8 +52,8 @@ public class LoginPageVM : VmBase<LoginPageRes, LoginPageVM>, INavigationAware
 
 		Messages = new ObservableCollection<LoadedMessageStatus>
 						{
-							new LoadedMessageStatus {Key = AuthenticateUser, Message = LoginPageRes.AuthenticateUser, IsDone = false},
-							new LoadedMessageStatus{Key = UserIsAuthenticated, Message = LoginPageRes.UserIsAuthenticated, IsDone=false},
+							new LoadedMessageStatus {Key = AuthenticateUser, Message = LoginRes.AuthenticateUser, IsDone = false},
+							new LoadedMessageStatus{Key = UserIsAuthenticated, Message = LoginRes.UserIsAuthenticated, IsDone=false},
 		};
 	}
 
@@ -100,7 +100,7 @@ public class LoginPageVM : VmBase<LoginPageRes, LoginPageVM>, INavigationAware
 			}
 			catch (HttpRequestException)
 			{
-				Dispatcher.CurrentDispatcher.Invoke(() => MessageBox.Show(LoginPageRes.NetworkIssue,
+				Dispatcher.CurrentDispatcher.Invoke(() => MessageBox.Show(LoginRes.NetworkIssue,
 							GlobalResources.ProgramStartup,
 							MessageBoxButton.OK,
 							MessageBoxImage.Information)

@@ -21,13 +21,11 @@ public class StudentFormViewModel: NotifyChangeProperty
 
     #endregion Properties Default
 
-
     #region Properties
     private string _matricule = GenerateMatricule(5);
     [Required]
     public string Matricule { get => _matricule; set => SetProperty(ref _matricule, value); }
     #endregion
-
 
     #region Method Helpers
     public static string GenerateMatricule(int length)

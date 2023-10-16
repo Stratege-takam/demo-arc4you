@@ -54,4 +54,58 @@
       EG.DemoPCBE99925.ManageCourse.WPF.Views.Resources.MenuRes, DemoPCBE99925.ManageCourse.WPF
     </ResourceType>
   </MenuItem>
+
+  <MenuItem>
+    <Access></Access>
+    <GroupName/>
+    <ImageUrl/>
+    <InputGestureText/>
+    <IsCheckable>false</IsCheckable>
+    <IsChecked>false</IsChecked>
+    <IsEnabled>true</IsEnabled>
+    <IsSeparator>false</IsSeparator>
+    <Key>Student</Key>
+    <StaysOpenOnClick>false</StaysOpenOnClick>
+    <Text>Student</Text>
+    <ToolTip>FileTooltip</ToolTip>
+    <ResourceType>
+      EG.DemoPCBE99925.ManageCourse.WPF.Views.Resources.MenuRes, DemoPCBE99925.ManageCourse.WPF
+    </ResourceType>
+  </MenuItem>
+
+  <MenuItem>
+    <Access></Access>
+    <GroupName/>
+    <ImageUrl/>
+    <InputGestureText/>
+    <IsCheckable>false</IsCheckable>
+    <IsChecked>false</IsChecked>
+    <IsEnabled>true</IsEnabled>
+    <IsSeparator>false</IsSeparator>
+    <Key>Teacher</Key>
+    <StaysOpenOnClick>false</StaysOpenOnClick>
+    <Text>Teacher</Text>
+    <ToolTip>FileTooltip</ToolTip>
+    <ResourceType>
+      EG.DemoPCBE99925.ManageCourse.WPF.Views.Resources.MenuRes, DemoPCBE99925.ManageCourse.WPF
+    </ResourceType>
+  </MenuItem>
+
+  <MenuItem>
+    <Access></Access>
+    <GroupName/>
+    <ImageUrl/>
+    <InputGestureText/>
+    <IsCheckable>false</IsCheckable>
+    <IsChecked>false</IsChecked>
+    <IsEnabled>true</IsEnabled>
+    <IsSeparator>false</IsSeparator>
+    <Key>Course</Key>
+    <StaysOpenOnClick>false</StaysOpenOnClick>
+    <Text>Course</Text>
+    <ToolTip>FileTooltip</ToolTip>
+    <ResourceType>
+      EG.DemoPCBE99925.ManageCourse.WPF.Views.Resources.MenuRes, DemoPCBE99925.ManageCourse.WPF
+    </ResourceType>
+  </MenuItem>
 </MenuItems>
