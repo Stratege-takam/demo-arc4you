@@ -8,7 +8,6 @@ using Arc4u.Dependency;
 using Arc4u.Dependency.ComponentModel;
 using Arc4u.Diagnostics;
 using Arc4u.Security.Principal;
-using EG.DemoPCBE99925.ManageCourse.WPF.Common;
 using EG.DemoPCBE99925.ManageCourse.WPF.Infrastructure;
 using EG.DemoPCBE99925.ManageCourse.WPF.Views.Resources;
 using Microsoft.Extensions.Configuration;
@@ -31,13 +30,19 @@ public partial class App : PrismApplication
             viewType =>
             {
                 var viewName = viewType.FullName;
-                viewName = viewName.Replace(".Views.", ".ViewModels.");
+                viewName = viewName.Replace(".Views.Home.", ".ViewModels.");
+                viewName = viewName.Replace(".Views.Courses.", ".ViewModels.");
+                viewName = viewName.Replace(".Views.Auth.", ".ViewModels.");
+                viewName = viewName.Replace(".Views.Students.", ".ViewModels.");
+                viewName = viewName.Replace(".Views.Teachers.", ".ViewModels.");
                 var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
                 var suffix = viewName.EndsWith("View") ? "Model" : "VM";
                 var viewModelName = String.Format(CultureInfo.InvariantCulture, "{0}{1}, {2}", viewName, suffix, viewAssemblyName);
                 return Type.GetType(viewModelName);
             };
 
+
+   
     private IConfiguration _configuration;
 
     protected override Window CreateShell()
@@ -50,7 +55,7 @@ public partial class App : PrismApplication
             return null;
         }
 
-        var shell = Container.Resolve<Views.Main>();
+        var shell = Container.Resolve<Views.Home.Main>();
         shell.WindowState = WindowState.Maximized;
         shell.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 

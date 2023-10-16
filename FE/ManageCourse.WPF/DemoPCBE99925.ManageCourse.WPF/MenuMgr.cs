@@ -4,7 +4,7 @@ using Arc4u.Security.Principal;
 using EG.DemoPCBE99925.ManageCourse.WPF.Common.Events;
 using EG.DemoPCBE99925.ManageCourse.WPF.Common.Menu;
 using EG.DemoPCBE99925.ManageCourse.WPF.Contracts;
-using EG.DemoPCBE99925.ManageCourse.WPF.Views;
+using EG.DemoPCBE99925.ManageCourse.WPF.Views.Home;
 using Prism.Events;
 using System.Globalization;
 using System.IO;

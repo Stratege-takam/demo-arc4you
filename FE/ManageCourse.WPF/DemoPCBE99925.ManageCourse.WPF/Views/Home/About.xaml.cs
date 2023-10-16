@@ -3,7 +3,7 @@ using EG.DemoPCBE99925.ManageCourse.WPF.Views.Resources;
 using Prism.Regions;
 using System.Windows;
 
-namespace EG.DemoPCBE99925.ManageCourse.WPF.Views;
+namespace EG.DemoPCBE99925.ManageCourse.WPF.Views.Home;
 
 /// <summary>
 /// Interaction logic for About.xaml

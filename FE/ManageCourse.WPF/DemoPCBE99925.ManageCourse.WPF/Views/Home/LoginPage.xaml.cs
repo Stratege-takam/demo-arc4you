@@ -1,7 +1,7 @@
 using Arc4u.Dependency.Attribute;
 using System.Windows.Controls;
 
-namespace EG.DemoPCBE99925.ManageCourse.WPF.Views;
+namespace EG.DemoPCBE99925.ManageCourse.WPF.Views.Home;
 
 /// <summary>
 /// Interaction logic for LoginPage.xaml

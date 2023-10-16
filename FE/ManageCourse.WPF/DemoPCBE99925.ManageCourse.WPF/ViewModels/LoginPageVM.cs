@@ -35,7 +35,13 @@ public class LoginPageVM : VmBase<LoginPageRes, LoginPageVM>, INavigationAware
 	public const String AuthenticateUser = "AuthenticateUser";
 	public const String UserIsAuthenticated = "UserIsAuthenticated";
 
-	public LoginPageVM(IRegionManager regionManager, IAppPrincipalFactory appFactory, PublicClientApp publicClientApp, IOptionsMonitor<SimpleKeyValueSettings> optionSettings, IEventAggregator aggregator, IModuleCatalog moduleCatalog, IContainerResolve container, ILogger<LoginPageVM> logger, IApplicationContext applicationContext) : base(new LoginPageRes(), aggregator, container, logger)
+	public LoginPageVM(IRegionManager regionManager,
+        IAppPrincipalFactory appFactory,
+        PublicClientApp publicClientApp,
+        IOptionsMonitor<SimpleKeyValueSettings> optionSettings,
+        IEventAggregator aggregator, IModuleCatalog moduleCatalog,
+        IContainerResolve container, ILogger<LoginPageVM> logger,
+        IApplicationContext applicationContext) : base(new LoginPageRes(), aggregator, container, logger)
 	{
 		_regionManager = regionManager;
 		_appFactory = appFactory;
@@ -86,8 +92,9 @@ public class LoginPageVM : VmBase<LoginPageRes, LoginPageVM>, INavigationAware
 
 				_publicClientApp.PublicClient = PublicClientApplicationBuilder.Create(_securitySettings.Values[TokenKeys.ClientIdKey])
 													.WithAdfsAuthority(_securitySettings.Values[TokenKeys.AuthorityKey], false)
-													.WithDefaultRedirectUri()
-													.Build();
+                                                    //.WithDefaultRedirectUri()
+                                                    .WithRedirectUri(_securitySettings.Values[TokenKeys.RedirectUrl])
+                                                    .Build();
 
 				await _appFactory.CreatePrincipal(_securitySettings, messages, null).ConfigureAwait(true);
 			}
