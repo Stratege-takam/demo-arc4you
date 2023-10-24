@@ -30,6 +30,7 @@ public partial class App : PrismApplication
             viewType =>
             {
                 var viewName = viewType.FullName;
+                viewName = viewName.Replace(".Views.UserControls.", ".ViewModels.");
                 viewName = viewName.Replace(".Views.Home.", ".ViewModels.");
                 viewName = viewName.Replace(".Views.Courses.", ".ViewModels.");
                 viewName = viewName.Replace(".Views.Auth.", ".ViewModels.");
@@ -116,10 +117,11 @@ public partial class App : PrismApplication
         services.AddApplicationConfig(_configuration);
 
         var container = new ComponentModelContainer(services).InitializeFromConfig(_configuration);
-
         container.RegisterInstance<IConfiguration>(_configuration);
         container.RegisterSingleton<IAddPropertiesToLog, DefaultLoggingProperties>();
         container.RegisterSingleton<IApplicationContext, ApplicationInstanceContext>();
+
+      // var serviceProvider =  services.BuildServiceProvider();
 
         return new PrismContainerExtension(container);
     }

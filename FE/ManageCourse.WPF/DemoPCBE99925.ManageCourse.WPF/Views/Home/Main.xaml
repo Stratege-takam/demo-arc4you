@@ -5,7 +5,8 @@
         xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
         xmlns:menu="clr-namespace:EG.DemoPCBE99925.ManageCourse.WPF.Common.Menu;assembly=DemoPCBE99925.ManageCourse.WPF.Common"
         xmlns:prism="http://prismlibrary.com/"
-        prism:ViewModelLocator.AutoWireViewModel="True"
+    xmlns:Control="clr-namespace:EG.DemoPCBE99925.ManageCourse.WPF.Views.UserControls"
+    prism:ViewModelLocator.AutoWireViewModel="True"
         Title="ManageCourse.WPF">
   <Window.Resources>
     <menu:MenuConverter x:Key="menuConverter"/>
@@ -30,33 +31,14 @@
     </Style>
   </Window.Resources>
   <Grid x:Name="LayoutRoot">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
-    <Grid VerticalAlignment="Top"
-          Grid.Row="0">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="140" />
-      </Grid.ColumnDefinitions>
-      <telerik:RadMenu
-          ItemsSource="{Binding Menu}"
-          ItemTemplate="{StaticResource MenuItemTemplate}"
-          ItemContainerStyle="{StaticResource ResourceKey=MenuStyle }"
-          Background="#FFFF8A00"
-          VerticalAlignment="Top">
-      </telerik:RadMenu>
-      <telerik:RadMenu
-          ItemsSource="{Binding RightMenu}"
-          ItemTemplate="{StaticResource MenuItemTemplate}"
-          ItemContainerStyle="{StaticResource ResourceKey=MenuStyle }"
-          Background="#FF00AEEF"
-          Grid.Column="1"
-          VerticalAlignment="Top">
-      </telerik:RadMenu>
-    </Grid>
-    <ContentControl Name="MainRegion"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <Control:MenuBar  />
+        </StackPanel>
+        <ContentControl Name="MainRegion"
                     Grid.Row="1"
                     VerticalContentAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"

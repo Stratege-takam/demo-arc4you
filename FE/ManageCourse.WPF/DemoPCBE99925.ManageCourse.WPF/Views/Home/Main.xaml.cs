@@ -1,5 +1,6 @@
 using Arc4u.Dependency.Attribute;
 using EG.DemoPCBE99925.ManageCourse.WPF.Common;
+using EG.DemoPCBE99925.ManageCourse.WPF.Model;
 using Prism.Regions;
 using System.Windows;
 
@@ -15,6 +16,6 @@ public partial class Main : Window
     {
         InitializeComponent();
 
-        Loaded += (s, e) => regionManager.RequestNavigate(Constants.MainRegion, "LoginPage");
+        Loaded += (s, e) => regionManager.RequestNavigate(Constants.MainRegion, ChildRegionConst.LoginPage);
     }
 }

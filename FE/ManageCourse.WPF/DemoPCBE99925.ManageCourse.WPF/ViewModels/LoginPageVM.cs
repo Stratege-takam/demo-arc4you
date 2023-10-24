@@ -123,7 +123,7 @@ public class LoginPageVM : VmBase<LoginRes, LoginPageVM>, INavigationAware
 			if (!_applicationContext.Principal.IsAuthorized((int)Access.AccessApplication))
 			{
 				await _appFactory.SignOutUserAsync(_securitySettings, CancellationToken.None).ConfigureAwait(true);
-				_regionManager.RequestNavigate(Constants.MainRegion, "NotAuthorizedPage");
+				_regionManager.RequestNavigate(Constants.MainRegion, ChildRegionConst.NotAuthorizedPage);
 				return;
 			}
 

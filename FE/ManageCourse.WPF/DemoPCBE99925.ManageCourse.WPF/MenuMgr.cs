@@ -1,11 +1,15 @@
 using Arc4u.Dependency;
 using Arc4u.Dependency.Attribute;
 using Arc4u.Security.Principal;
+using EG.DemoPCBE99925.ManageCourse.WPF.Common;
 using EG.DemoPCBE99925.ManageCourse.WPF.Common.Events;
 using EG.DemoPCBE99925.ManageCourse.WPF.Common.Menu;
 using EG.DemoPCBE99925.ManageCourse.WPF.Contracts;
+using EG.DemoPCBE99925.ManageCourse.WPF.Model;
 using EG.DemoPCBE99925.ManageCourse.WPF.Views.Home;
+using EG.DemoPCBE99925.ManageCourse.WPF.Views.Students;
 using Prism.Events;
+using Prism.Regions;
 using System.Globalization;
 using System.IO;
 using System.Windows;
@@ -17,17 +21,21 @@ namespace EG.DemoPCBE99925.ManageCourse.WPF;
 [Export(typeof(IMenuMgr)), Shared]
 public class MenuMgr : IMenuMgr
 {
-    public MenuMgr(IContainerResolve container, IApplicationContext applicationContext)
+    public MenuMgr(IContainerResolve container,
+        IRegionManager regionManager,
+        IApplicationContext applicationContext)
     {
         _mainMenu = new MenuItemsCollection(null);
         _rightMenu = new MenuItemsCollection(null);
         _container = container;
         _applicationContext = applicationContext;
+        _regionManager = regionManager;
     }
 
     private MenuItemsCollection _mainMenu;
     private MenuItemsCollection _rightMenu;
     private readonly IContainerResolve _container;
+    private readonly IRegionManager _regionManager;
     private readonly IApplicationContext _applicationContext;
 
     #region IMenuMgr Members
@@ -52,6 +60,14 @@ public class MenuMgr : IMenuMgr
         var exitItem = _mainMenu.FindItem("File.Exit");
         if (null != exitItem) exitItem.ActionCommand = o => Application.Current.Shutdown();
 
+        var studentMenu = _mainMenu.FindItem("Student");
+        if (null != studentMenu) studentMenu.ActionCommand = a => _regionManager.RequestNavigate(Constants.MainRegion, ChildRegionConst.StudentPage);
+
+        var teacherMenu = _mainMenu.FindItem("Teacher");
+        if (null != teacherMenu) teacherMenu.ActionCommand = a => _regionManager.RequestNavigate(Constants.MainRegion, ChildRegionConst.TeacherPage);
+
+        var courseMenu = _mainMenu.FindItem("Course");
+        if (null != courseMenu) courseMenu.ActionCommand = a => _regionManager.RequestNavigate(Constants.MainRegion, ChildRegionConst.CoursePage);
 
         _rightMenu = Load(new Uri("pack://application:,,,/DemoPCBE99925.ManageCourse.WPF;component/rightmenu.xml", UriKind.Absolute));
         var aboutMenu = _rightMenu.FindItem("About");
