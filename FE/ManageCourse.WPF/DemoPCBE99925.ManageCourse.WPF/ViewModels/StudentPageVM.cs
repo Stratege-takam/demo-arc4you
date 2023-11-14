@@ -9,7 +9,6 @@ using EG.DemoPCBE99925.ManageCourseService.Facade.Sdk;
 using Prism.Mvvm;
 using System.ComponentModel.DataAnnotations;
 using Prism.Commands;
-using System.Windows.Controls;
 using System.Windows.Input;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.GridView;
@@ -18,6 +17,8 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Reflection;
+using Telerik.Windows.Data;
+using EG.DemoPCBE99925.ManageCourse.WPF.Extensions;
 
 namespace EG.DemoPCBE99925.ManageCourse.WPF.ViewModels;
 
@@ -25,13 +26,62 @@ namespace EG.DemoPCBE99925.ManageCourse.WPF.ViewModels;
 public class StudentPageVM : VmBase<StudentRes, StudentPageVM>
 {
 
+    #region Private
+    private GridViewDeletingEventArgs CurrentDeleteEvent;
+    private List<StudentItemVM> StudentsReseted = new List<StudentItemVM>();
+    #endregion
+
     #region Properties
+
+    public const int TAKE = 1000;
     private ObservableCollection<StudentItemVM> _students;
 
     public ObservableCollection<StudentItemVM> Students
     {
         get { return _students; }
         set { SetProperty(ref _students, value); }
+    }
+
+    private int _count;
+
+    public int Count
+    {
+        get { return _count; }
+        set { SetProperty(ref _count, value); }
+    }
+
+    private int _currentCount;
+
+    public int CurrentCount
+    {
+        get { return _currentCount; }
+        set {
+            SetProperty(ref _currentCount, value);
+            if (value == Count)
+            {
+                LoadingText = $"{value}/{Count}";
+            }
+            else
+            {
+                LoadingText = $"Loading {value}/{Count}";
+            }
+        }
+    }
+
+    private string _loadingText = "Loading...";
+
+    public string LoadingText
+    {
+        get { return _loadingText; }
+        set { SetProperty(ref _loadingText, value); }
+    }
+
+    private VirtualQueryableCollectionView _studentsVqc;
+
+    public VirtualQueryableCollectionView StudentsVqc
+    {
+        get { return _studentsVqc; }
+        set { SetProperty(ref _studentsVqc, value); }
     }
 
     private bool _isDataChanged;
@@ -52,16 +102,22 @@ public class StudentPageVM : VmBase<StudentRes, StudentPageVM>
     public ICommand AddingNewDataCommand { get; set; }
     public ICommand DistinctValuesLoadingCommand { get; set; }
     public ICommand ImportClickedCommand { get; set; }
+    public ICommand ResetListCommand { get; set; }
+    public ICommand RowValidatingCommand { get; set; }
     private void InitCommand()
     {
         DeletingCommand = new DelegateCommand<GridViewDeletingEventArgs>(OnDeletingCommandExecuted);
         ExportCommand = new DelegateCommand<GridViewElementExportedEventArgs>(OnExportedCommandExecuted);
         RowEditEndedCommand = new DelegateCommand<GridViewRowEditEndedEventArgs>(OnRowEditEndedCommandExecuted);
+        RowValidatingCommand = new DelegateCommand<GridViewRowValidatingEventArgs>(OnRowValidatingCommandExecuted);
         AddingNewDataCommand = new DelegateCommand<GridViewAddingNewEventArgs>(OnAddingNewDataCommandExecuted);
         DistinctValuesLoadingCommand = new DelegateCommand<GridViewDistinctValuesLoadingEventArgs>(OnDistinctValuesLoadingCommandExecuted);
         ImportClickedCommand = new DelegateCommand<object>(ImportClickedCommandCommandExecuted);
-        SaveCommand = new Prism.Commands.DelegateCommand( async() => await onSaveCommandExecuted());
+        SaveCommand = new Prism.Commands.DelegateCommand( async() => await OnSaveCommandExecuted());
+        ResetListCommand = new Prism.Commands.DelegateCommand(OnResetListCommandExecuted);
     }
+
+   
     #endregion Commands
 
     #region Constructor
@@ -82,13 +138,52 @@ public class StudentPageVM : VmBase<StudentRes, StudentPageVM>
 
 
     #region Methods bind command
+
+    private void OnRowValidatingCommandExecuted(GridViewRowValidatingEventArgs  e)
+    {
+        if (e.EditOperationType != Telerik.Windows.Controls.GridView.GridViewEditOperationType.None)
+        {
+           // RadWindow.Confirm("The row is not valid. Are you sure to cancel this your update?", OnConfirmCancelEditRadWindowClosed);
+
+        }
+        
+       /* if (messageBoxResult == MessageBoxResult.No)
+        {
+
+            this.clubsGrid.CancelEdit();
+        } */
+    }
+
+    private void OnConfirmCancelEditRadWindowClosed(object sender, WindowClosedEventArgs e)
+    {
+        //check whether the user confirmed 
+        bool shouldDelete = e.DialogResult.HasValue ? e.DialogResult.Value : false;
+        if (!shouldDelete)
+        {
+            Count = Students.Count;
+            CurrentCount--;
+            IsDataChanged = true;
+        }
+        else
+        {
+            CurrentDeleteEvent.Cancel = true;
+        }
+    }
+
     private void OnDeletingCommandExecuted(GridViewDeletingEventArgs e)
     {
         var items = e.Items;
+        CurrentDeleteEvent = e;
         if (items != null)
         {
             RadWindow.Confirm("Are you sure?", OnRadWindowClosed);
         }
+    }
+
+    private void OnResetListCommandExecuted()
+    {
+        BindStudents();
+        IsDataChanged = false;
     }
 
     private void ImportClickedCommandCommandExecuted(object e)
@@ -111,14 +206,14 @@ public class StudentPageVM : VmBase<StudentRes, StudentPageVM>
         // this call will return the first 15 distinct values regardless of their actual count in the data source 
         if (e.Column.UniqueName == "Firstname")
         {
-            e.ItemsSource = new List<string>()
+           /* e.ItemsSource = new List<string>()
             {
                 "Brad",
                 "Nell",
                 "Will",
                 "Camila",
                 "Lionel"
-            };
+            }; */
         }
 
         //gridView.GetDistinctValues(e.Column, shouldIncludeFilteredOutItems, 15);
@@ -145,31 +240,67 @@ public class StudentPageVM : VmBase<StudentRes, StudentPageVM>
     private void OnRowEditEndedCommandExecuted(GridViewRowEditEndedEventArgs e)
     {
         var obj = e.NewData as StudentItemVM;
-        IsDataChanged = false;
+
+        if (obj.PersistChange == PersistChange.None)
+        {
+            var values = e.OldValues?.Values;
+
+            var old = new StudentItemVM()
+            {
+                Firstname = values != null ? values.ElementAt(1).ToString() : "",
+                Lastname = values != null ? values.ElementAt(2).ToString() : "",
+                Matricule = values != null ? values.ElementAt(3).ToString() : ""
+            };
+
+            if (old.Firstname != obj.Firstname || old.Lastname != obj.Lastname || old.Matricule != obj.Matricule)
+            {
+                obj.PersistChange = PersistChange.Update;
+                e.Row.DataContext = obj;
+                IsDataChanged = true;
+            }
+        }
+        else if(obj.PersistChange == PersistChange.Insert)
+        {
+            CurrentCount++;
+            IsDataChanged = true;
+        }
     }
 
     private void OnAddingNewDataCommandExecuted(GridViewAddingNewEventArgs args)
     {
-        args.NewObject = new StudentItemVM();
-        IsDataChanged = true;
+        var obj = new StudentItemVM();
+        obj.PersistChange = PersistChange.Insert;
+        obj.Index = Students.Max(s => s.Index) + 1;
+        args.NewObject = obj;
     }
 
-    private async Task onSaveCommandExecuted()
+    private async Task OnSaveCommandExecuted()
     {
         try
         {
-            foreach (var item in Students.ToList().Where(s => s.PersistChange != PersistChange.None))
+            var students = Students.Where(s => s.PersistChange != PersistChange.None).ToList();
+            var toDelete = StudentsReseted.Where(s => !Students.Any(t => s.Id == t.Id)).Select(s =>
             {
-               await _facade.Proxy.SaveAsync(new StudentDto()
-                {
-                    FirstName = item.Firstname,
-                    LastName = item.Lastname,
-                    PersistChange = item.PersistChange,
-                    Matricule = item.Matricule,
-                    Id = item.Id
-                }).ConfigureAwait(false);
+                s.PersistChange = PersistChange.Delete;
+                return s;
+            }).ToList();
+
+            if (toDelete.Any())
+            {
+                Students.AddRange(toDelete);
             }
+
+            await _facade.Proxy.SaveManyAsync(students.Select(item => new StudentDto()
+            {
+                FirstName = item.Firstname,
+                LastName = item.Lastname,
+                PersistChange = item.PersistChange,
+                Matricule = item.Matricule,
+                Id = item.Id
+            }).ToList()).ConfigureAwait(true);
             IsDataChanged = false;
+
+            UpdateList();
         }
         catch (Exception ex)
         {
@@ -189,10 +320,13 @@ public class StudentPageVM : VmBase<StudentRes, StudentPageVM>
         bool shouldDelete = e.DialogResult.HasValue ? e.DialogResult.Value : false;
         if (shouldDelete)
         {
-           /* foreach (var club in itemsToBeDeleted)
-            {
-                gridView.Items.Remove(club);
-            }*/
+            Count = Students.Count;
+            CurrentCount--;
+            IsDataChanged = true;
+        }
+        else
+        {
+            CurrentDeleteEvent.Cancel = true;
         }
     }
     #endregion
@@ -201,17 +335,44 @@ public class StudentPageVM : VmBase<StudentRes, StudentPageVM>
 
     private async Task LoadDataAsync()
     {
-        var students = await _facade.Proxy.GetAllAsync().ConfigureAwait(false);
-        Students = new ObservableCollection<StudentItemVM>(students.Select((s, index) => new StudentItemVM
+        int page = 0;
+        var result = new List<StudentItemVM>();
+        do
         {
-            Firstname = s.FirstName,
-            Lastname = s.LastName,
-            Id = s.Id,
-            Index = index + 1,
-            Matricule = s.Matricule
-        }));
+            var skip = TAKE * page;
+
+            var response = await _facade.Proxy.GetAllLazyAsync(TAKE, skip).ConfigureAwait(false);
+            Count = response.Count;
+
+            result = response.Results?.Select((s, index) => new StudentItemVM
+            {
+                Firstname = s.FirstName,
+                Lastname = s.LastName,
+                Id = s.Id,
+                Index = (Students!= null ? Students.Max(s => s.Index) : 0) + index + 1,
+                Matricule = s.Matricule
+            }).ToList();
+
+            if (result != null && result.Any())
+            {
+                page++;
+
+                StudentsReseted.AddRange(result);
+
+                BindStudents();
+
+                CurrentCount = Students.Count;
+            }
+           Thread.Sleep(500);
+        } while (result != null && result.Any());
+        
+      //  StudentsVqc = new VirtualQueryableCollectionView(query) { LoadSize = 5 };
     }
 
+    private void BindStudents()
+    {
+        Students = new ObservableCollection<StudentItemVM>(StudentsReseted.Clone());
+    }
     private async Task<bool> ImportFile(string fileName)
     {
         string line;
@@ -258,11 +419,47 @@ public class StudentPageVM : VmBase<StudentRes, StudentPageVM>
                 return s;
             }).ToList();
 
+
+
             Students = new ObservableCollection<StudentItemVM>(all);
             IsDataChanged = true;
             return true;
         }
         return false;
+    }
+
+    private void UpdateList()
+    {
+        var toDelete = StudentsReseted.Where(s => !Students.Any(t => s.Id == t.Id)).ToList();
+        if (toDelete.Any())
+        {
+            StudentsReseted = StudentsReseted.Where(s => !toDelete.Any(t => t.Id == s.Id)).ToList();
+        }
+
+        var toInsert = Students.Where(s => s.PersistChange == PersistChange.Insert).ToList();
+        if (toInsert.Any())
+        {
+            StudentsReseted.AddRange(toInsert);
+        }
+
+        var toUpdate = Students.Where(s => s.PersistChange == PersistChange.Update).ToList();
+        if (toUpdate.Any())
+        {
+            foreach (var item in toUpdate)
+            {
+                var index = StudentsReseted.IndexOf(StudentsReseted.FirstOrDefault(s => s.Id == item.Id));
+                StudentsReseted[index] = item;
+            }
+        }
+
+        StudentsReseted = StudentsReseted.Select((s, index) =>
+        {
+            s.PersistChange = PersistChange.None;
+            s.Index = index + 1;
+            return s;
+        }).ToList();
+
+        BindStudents();
     }
     #endregion
 
@@ -278,7 +475,7 @@ public class StudentPageVM : VmBase<StudentRes, StudentPageVM>
     }
     #endregion Method Helpers
 
-    public class StudentItemVM: BindableBase
+    public class StudentItemVM: BindableBase, ICloneable
     {
         private int _index;
 
@@ -322,7 +519,7 @@ public class StudentPageVM : VmBase<StudentRes, StudentPageVM>
             set { SetProperty(ref _persistChange, value); }
         }
 
-        private Guid _id;
+        private Guid _id = Guid.NewGuid();
 
         public Guid Id
         {
@@ -330,5 +527,9 @@ public class StudentPageVM : VmBase<StudentRes, StudentPageVM>
             set { SetProperty(ref _id, value); }
         }
 
+        public object? Clone()
+        {
+            return MemberwiseClone() as StudentItemVM;
+        }
     }
 }

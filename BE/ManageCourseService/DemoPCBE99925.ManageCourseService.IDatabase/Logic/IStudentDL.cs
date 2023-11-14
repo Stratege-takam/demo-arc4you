@@ -1,5 +1,6 @@
 using Arc4u;
 using EG.DemoPCBE99925.ManageCourseService.Domain;
+using EG.DemoPCBE99925.ManageCourseService.IDatabase.Logic.Help;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -21,4 +22,11 @@ public interface IStudentDL
         Graph<Student> graph, CancellationToken cancellationToken);
 
     IAsyncEnumerable<Student> GetAllAsync(Graph<Student> graph, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// To test virtualization in WPF
+    /// </summary>
+    /// <param name="graph"></param>
+    /// <returns></returns>
+    Task<IListResult<Student>> GetAllLazyAsync(Graph<Student> graph, int take, int skip, CancellationToken cancellationToken);
 }

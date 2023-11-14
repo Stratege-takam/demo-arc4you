@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using EG.DemoPCBE99925.ManageCourseService.Domain;
 using Arc4u;
-using System.Runtime.CompilerServices;
+using EG.DemoPCBE99925.ManageCourseService.IDatabase.Logic.Help;
 
 namespace EG.DemoPCBE99925.ManageCourseService.IBusiness;
 
@@ -20,4 +16,11 @@ public interface  IStudentBL
     Task SaveAsync(Student entity, CancellationToken cancellationToken);
 
     Task SaveAsync(ICollection<Student> entities, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// To test virtualization in WPF
+    /// </summary>
+    /// <param name="graph"></param>
+    /// <returns></returns>
+    Task<IListResult<Student>> GetAllLazyAsync(Graph<Student> graph, int take, int skip, CancellationToken cancellationToken);
 }

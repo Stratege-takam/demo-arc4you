@@ -15,7 +15,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <telerik:RadGridView x:Name="gridView"
+        <telerik:RadGridView x:Name="gridViewStudent"
                         Grid.Row="0"
                         Margin="5"
                         ShowGroupPanel="False"
@@ -25,6 +25,8 @@
                         ItemsSource="{Binding Students}"
                         CanUserResizeColumns="False"
                         AutoGenerateColumns="False"
+                             CellValidated="gridViewStudent_CellValidated"
+                             CellValidating="gridViewStudent_CellValidating"
                         SelectedItem="{Binding ElementName=collectionNavigator, Path=CurrentItem, Mode=TwoWay}"
                         GroupRenderMode="Flat"
                         NewRowPosition="Bottom"
@@ -32,8 +34,15 @@
                              >
 
             <!-- Events & Commands -->
+           
 
             <telerik:EventToCommandBehavior.EventBindings>
+
+                <telerik:EventBinding Command="{Binding RowValidatingCommand, Mode=OneTime}"
+                                      EventName="RowValidating"
+                                      RaiseOnHandledEvents="True" 
+                        PassEventArgsToCommand="True" />
+                
                 <telerik:EventBinding Command="{Binding RowEditEndedCommand, Mode=OneTime}"
                                       EventName="RowEditEnded"
                                       RaiseOnHandledEvents="True" 
@@ -65,10 +74,10 @@
             
             <!-- Column Headers -->
             <telerik:RadGridView.Columns>
-                <telerik:GridViewDataColumn Width="auto" TextAlignment="Center" DataMemberBinding="{Binding Index}" Header="Num"/>
-                <telerik:GridViewDataColumn UniqueName="Firstname" OptimizeDistinctFilterQuery="True" Width="*" DataMemberBinding="{Binding Firstname}" Header="First name"/>
-                <telerik:GridViewDataColumn UniqueName="Lastname" Width="*" DataMemberBinding="{Binding Lastname}" Header="Last name"/>
-                <telerik:GridViewDataColumn UniqueName="Matricule" Width="*" DataMemberBinding="{Binding Matricule}" Header="Matricule"/>
+                <telerik:GridViewDataColumn EnableDistinctValuesFiltering="True" Width="auto" TextAlignment="Center" DataMemberBinding="{Binding Index}" Header="Num"/>
+                <telerik:GridViewDataColumn EnableDistinctValuesFiltering="True" UniqueName="Firstname" OptimizeDistinctFilterQuery="True" Width="*" DataMemberBinding="{Binding Firstname}" Header="First name"/>
+                <telerik:GridViewDataColumn EnableDistinctValuesFiltering="True" UniqueName="Lastname" Width="*" DataMemberBinding="{Binding Lastname}" Header="Last name"/>
+                <telerik:GridViewDataColumn EnableDistinctValuesFiltering="True" UniqueName="Matricule" Width="*" DataMemberBinding="{Binding Matricule}" Header="Matricule"/>
             </telerik:RadGridView.Columns>
 
             
@@ -92,38 +101,77 @@
                             <TextBlock Text="{Binding Matricule}" />
                         </WrapPanel>
                         <WrapPanel Orientation="Horizontal" Margin="10">
-                            <telerik:RadButton BorderBrush="Red" Foreground="White"
+                            <TextBlock FontWeight="Bold" Text="PersistChange: " />
+                            <TextBlock Text="{Binding PersistChange}" />
+                        </WrapPanel>
+                        <WrapPanel Orientation="Horizontal" Margin="10">
+                            <telerik:RadButton BorderThickness="0" Foreground="White"
+                                               Command="telerik:RadGridViewCommands.Delete"
+                                               CommandParameter="{Binding}" CommandTarget="{Binding ElementName=gridViewStudent}"
                                                Background="Red" Content="Delete" Margin="0,0,5,0"/>
                         </WrapPanel>
                     </StackPanel>
                 </DataTemplate>
             </telerik:RadGridView.RowDetailsTemplate>
         </telerik:RadGridView>
+        
         <!-- Bottom Buttons ("Save", "Upload") -->
-        <StackPanel Grid.Row="1"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    Margin="5">
+        <Grid
+            Margin="5,0,5,5"
+            Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-            <!-- Import Button -->
-            <customControls:ImportButton ToolTip="Import csv" MinWidth="50"
+            <StackPanel Grid.Column="0"
+                            Orientation="Horizontal"
+                        VerticalAlignment="Center">
+
+                <TextBlock FontWeight="Bold"
+                           Foreground="Green"
+                           Text="{Binding LoadingText}" />
+
+            </StackPanel>
+
+            <StackPanel  Orientation="Horizontal"
+                         VerticalAlignment="Center"
+                         Grid.Column="1"
+                    HorizontalAlignment="Right">
+
+                <!-- Import Button -->
+                <customControls:ImportButton ToolTip="Import csv"
+                                                 MinWidth="50"
                                          Content="Import csv file">
 
-                <telerik:EventToCommandBehavior.EventBindings>
-                    <telerik:EventBinding Command="{Binding ImportClickedCommand, Mode=OneTime}"
+                    <telerik:EventToCommandBehavior.EventBindings>
+                        <telerik:EventBinding Command="{Binding ImportClickedCommand, Mode=OneTime}"
                                       EventName="Clicked"
                                       RaiseOnHandledEvents="True" 
                         PassEventArgsToCommand="True" />
 
-                </telerik:EventToCommandBehavior.EventBindings>
+                    </telerik:EventToCommandBehavior.EventBindings>
 
-            </customControls:ImportButton>
+                </customControls:ImportButton>
 
-            <telerik:RadButton Margin="5,0,0,0" Name="ok" Command="{Binding SaveCommand, Mode=OneTime}"
+                <!--<telerik:RadButton Margin="5,0,0,0" Name="export"
+                                    Command="{Binding ExportCommand, Source={StaticResource context}}"
+                                               CommandParameter="{Binding}"
+                                   CommandTarget="{Binding ElementName=gridViewStudent}"
+                               Content="Export"
+                               MinWidth="50" IsEnabled="{Binding IsDataChanged}"/>-->
+                
+                <telerik:RadButton Margin="5,0,0,0" Name="save"
+                                       Command="{Binding SaveCommand, Mode=OneTime}"
                                Content="Save"
                                MinWidth="50" IsEnabled="{Binding IsDataChanged}"/>
 
+                <telerik:RadButton Margin="5,0,0,0" Name="reset"
+                                       Command="{Binding ResetListCommand, Mode=OneTime}"
+                               Content="Reset"
+                               MinWidth="50" IsEnabled="{Binding IsDataChanged}"/>
 
-        </StackPanel>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

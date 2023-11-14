@@ -9,6 +9,7 @@ using EG.DemoPCBE99925.ManageCourseService.Business.Logic.Validators;
 using EG.DemoPCBE99925.ManageCourseService.Domain;
 using EG.DemoPCBE99925.ManageCourseService.IBusiness;
 using EG.DemoPCBE99925.ManageCourseService.IDatabase.Logic;
+using EG.DemoPCBE99925.ManageCourseService.IDatabase.Logic.Help;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,20 @@ public class StudentBL : IStudentBL
         }
     }
 
+    /// <summary>
+    /// To test virtualization in WPF
+    /// </summary>
+    /// <param name="graph"></param>
+    /// <returns></returns>
+    public async Task<IListResult<Student>> GetAllLazyAsync(Graph<Student> graph, int take, int skip, CancellationToken cancellationToken)
+    {
+        var result =  await _studentDL.GetAllLazyAsync(graph, take, skip, cancellationToken).ConfigureAwait(true);
+
+        foreach (var entity in result.Results)
+            (await ApplyRulesAsync(entity).ConfigureAwait(false)).LogAndThrowIfNecessary(_logger);
+
+        return result;
+    }
 
     public async IAsyncEnumerable<Student> GetAllAsync(Graph<Student> graph, [EnumeratorCancellation] CancellationToken cancellationToken)
 	{

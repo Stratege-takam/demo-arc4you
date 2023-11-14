@@ -31,16 +31,16 @@
 		<PackageReference Include="Arc4u.Standard.OAuth2.Msal" Version="6.1.18.1" />
 		<PackageReference Include="Arc4u.Standard.OAuth2.Client" Version="6.1.18.1" />
 		<PackageReference Include="Arc4u.Standard.Diagnostics.Serilog" Version="6.1.18.1" />
-		<PackageReference Include="Arc4u.Prism.DI.Wpf" Version="7.2.6006.1-preview03" />
+		<PackageReference Include="Arc4u.Prism.DI.Wpf" Version="7.2.6118.1" />
 		<PackageReference Include="Arc4u.Standard.Dependency.ComponentModel" Version="6.1.18.1" />
 		<PackageReference Include="Arc4u.Standard.gRPC" Version="6.1.18.1" />
-		<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="5.0.*" />
+		<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.0.18" />
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.*" />
 		<PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
 		<PackageReference Include="Serilog.Extensions.Logging" Version="3.1.*" />
 		<PackageReference Include="Serilog.Sinks.Async" Version="1.5.*" />
-		<PackageReference Include="Telerik.Windows.Controls.GridView.for.Wpf.Xaml" Version="2022.1.222" />
-		<PackageReference Include="Telerik.Windows.Controls.Navigation.for.Wpf.Xaml" Version="2022.1.222" />
+		<PackageReference Include="Telerik.Windows.Controls.GridView.for.Wpf.Xaml" Version="2023.3.1010" />
+		<PackageReference Include="Telerik.Windows.Controls.Navigation.for.Wpf.Xaml" Version="2023.3.1010" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
 		<PackageReference Include="System.Linq.Async" Version="6.0.1" />
 		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.44.0" />

@@ -2,8 +2,10 @@ using Arc4u;
 using Arc4u.Dependency.Attribute;
 using Arc4u.EfCore;
 using Arc4u.Threading;
+using EG.DemoPCBE99925.ManageCourseService.Database.Logic.Help;
 using EG.DemoPCBE99925.ManageCourseService.Domain;
 using EG.DemoPCBE99925.ManageCourseService.IDatabase.Logic;
+using EG.DemoPCBE99925.ManageCourseService.IDatabase.Logic.Help;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -59,6 +61,22 @@ public class  StudentDL : IStudentDL
             {
                 yield return entity;
             }
+    }
+
+    /// <summary>
+    /// To test virtualization in WPF
+    /// </summary>
+    /// <param name="graph"></param>
+    /// <returns></returns>
+    public async Task<IListResult<Student>> GetAllLazyAsync(Graph<Student> graph, int take, int skip, CancellationToken cancellationToken)
+    {
+        var count = await _databaseContext.Students.CountAsync(cancellationToken).ConfigureAwait(false);
+
+        var response = await graph.ApplySetReferences(_databaseContext.Students.Skip(skip).Take(take))
+                 .ToListAsync(cancellationToken)
+                 .ConfigureAwait(false);
+
+        return new ListResult<Student>() { Count = count, Results = response };
     }
 
     public async Task SaveAsync(Student entity, CancellationToken cancellationToken)

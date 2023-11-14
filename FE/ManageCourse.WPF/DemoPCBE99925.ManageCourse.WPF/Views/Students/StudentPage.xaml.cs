@@ -14,4 +14,19 @@ public partial class StudentPage : UserControl
     {
         InitializeComponent();
     }
+
+    private void gridViewStudent_CellValidated(object sender, Telerik.Windows.Controls.GridViewCellValidatedEventArgs e)
+    {
+
+    }
+
+    private void gridViewStudent_CellValidated_1(object sender, Telerik.Windows.Controls.GridViewCellValidatedEventArgs e)
+    {
+
+    }
+
+    private void gridViewStudent_CellValidating(object sender, Telerik.Windows.Controls.GridViewCellValidatingEventArgs e)
+    {
+
+    }
 }

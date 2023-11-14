@@ -86,6 +86,21 @@ public class StudentController : ControllerBase
 		return Ok(mapper.Map<IEnumerable<StudentDto>>(entities));
 	}
 
+     /// <summary>
+	/// Fetch all the entities of type Student. To test virtualization in WPF
+	/// </summary>
+	/// <response code="200">The list of Student entities is found.</response>
+	/// <returns>The collection of StudentDto.</returns>
+	[Authorize(nameof(Access.AccessApplication))]
+	[ProducesResponseType(StatusCodes.Status404NotFound)]
+	[ProducesResponseType(typeof(ListResultStudentDto), StatusCodes.Status200OK)]
+	[HttpGet("~/managecourseservice/facade/students/lazy/{skip}/{take}")]
+	public async Task<IActionResult> GetAllLazyAsync([FromServices] IMapper mapper, int take, int skip, CancellationToken cancellation)
+	{
+        var entry = await _studentBL.GetAllLazyAsync(new Graph<Domain.Student>(), take, skip, cancellation).ConfigureAwait(false);
+		return Ok((mapper.Map<ListResultStudentDto>(entry)));
+	}
+
 
 
 
@@ -102,4 +117,21 @@ public class StudentController : ControllerBase
 		await _studentBL.SaveAsync(domainEntity, cancellation).ConfigureAwait(false);
 		return Ok();
 	}
+
+    /// <summary>
+	/// Save entity Student.
+	/// </summary>
+	/// <response code="200">The Student is saved.</response>
+	[Authorize(nameof(Access.AccessApplication))]
+    [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
+    [HttpPut("Many")]
+    public async Task<IActionResult> SaveManyAsync(
+        [FromServices] IMapper mapper,
+        [FromBody] ICollection<StudentDto> entities,
+        CancellationToken cancellation)
+    {
+        var domainEntities = mapper.Map<ICollection<Domain.Student>>(entities);
+        await _studentBL.SaveAsync(domainEntities, cancellation).ConfigureAwait(false);
+        return Ok();
+    }
 }

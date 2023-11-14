@@ -20,7 +20,7 @@
     <PackageReference Include="Arc4u.Standard.Configuration.Decryptor" Version="6.1.18.1" />
     <PackageReference Include="Arc4u.Standard.gRPC" Version="6.1.18.1" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.55.0" />
-    <PackageReference Include="Dapr.AspNetCore" Version="1.11.0" />
+    <PackageReference Include="Dapr.AspNetCore" Version="1.12.0" />
     <PackageReference Include="Arc4u.Standard" Version="6.1.18.1" />
     <PackageReference Include="Arc4u.Standard.Authorization" Version="6.1.18.1" />
     <PackageReference Include="Arc4u.Standard.Caching.Memory" Version="6.1.18.1" />

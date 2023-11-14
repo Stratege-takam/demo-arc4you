@@ -1,4 +1,6 @@
 using AutoMapper;
+using EG.DemoPCBE99925.ManageCourseService.Database.Logic.Help;
+using EG.DemoPCBE99925.ManageCourseService.Domain;
 using EG.DemoPCBE99925.ManageCourseService.Facade.Dtos;
 
 namespace EG.DemoPCBE99925.ManageCourseService.Facade;
@@ -15,6 +17,7 @@ public class MappingProfile : Profile
 	{
 		CreateMap<Domain.Participant, ParticipantDto>().ReverseMap();
 		CreateMap<Domain.Student, StudentDto>().ReverseMap();
+		CreateMap<ListResult<Student>, ListResultStudentDto>().ReverseMap();
   	 CreateMap<Domain.Course, CourseDto>().ReverseMap();
         CreateMap<Domain.Course, GetCourseDto>()
             .ForMember(d => d.CanDelete, opt => opt.MapFrom(src => !(src.CoursePeople != null && src.CoursePeople.Any())))
