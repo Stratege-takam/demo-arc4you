@@ -25,8 +25,7 @@
                         ItemsSource="{Binding Students}"
                         CanUserResizeColumns="False"
                         AutoGenerateColumns="False"
-                             CellValidated="gridViewStudent_CellValidated"
-                             CellValidating="gridViewStudent_CellValidating"
+                           
                         SelectedItem="{Binding ElementName=collectionNavigator, Path=CurrentItem, Mode=TwoWay}"
                         GroupRenderMode="Flat"
                         NewRowPosition="Bottom"
@@ -38,8 +37,8 @@
 
             <telerik:EventToCommandBehavior.EventBindings>
 
-                <telerik:EventBinding Command="{Binding RowValidatingCommand, Mode=OneTime}"
-                                      EventName="RowValidating"
+                <telerik:EventBinding Command="{Binding CellValidatedCommand, Mode=OneTime}"
+                                      EventName="CellValidated"
                                       RaiseOnHandledEvents="True" 
                         PassEventArgsToCommand="True" />
                 

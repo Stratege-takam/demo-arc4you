@@ -33,7 +33,7 @@ public class StudentPageVM : VmBase<StudentRes, StudentPageVM>
 
     #region Properties
 
-    public const int TAKE = 1000;
+    public const int TAKE = 300;
     private ObservableCollection<StudentItemVM> _students;
 
     public ObservableCollection<StudentItemVM> Students
@@ -103,13 +103,13 @@ public class StudentPageVM : VmBase<StudentRes, StudentPageVM>
     public ICommand DistinctValuesLoadingCommand { get; set; }
     public ICommand ImportClickedCommand { get; set; }
     public ICommand ResetListCommand { get; set; }
-    public ICommand RowValidatingCommand { get; set; }
+    public ICommand CellValidatedCommand { get; set; }
     private void InitCommand()
     {
         DeletingCommand = new DelegateCommand<GridViewDeletingEventArgs>(OnDeletingCommandExecuted);
         ExportCommand = new DelegateCommand<GridViewElementExportedEventArgs>(OnExportedCommandExecuted);
         RowEditEndedCommand = new DelegateCommand<GridViewRowEditEndedEventArgs>(OnRowEditEndedCommandExecuted);
-        RowValidatingCommand = new DelegateCommand<GridViewRowValidatingEventArgs>(OnRowValidatingCommandExecuted);
+        CellValidatedCommand = new DelegateCommand<GridViewCellValidatedEventArgs>(OnCellValidatedCommandExecuted);
         AddingNewDataCommand = new DelegateCommand<GridViewAddingNewEventArgs>(OnAddingNewDataCommandExecuted);
         DistinctValuesLoadingCommand = new DelegateCommand<GridViewDistinctValuesLoadingEventArgs>(OnDistinctValuesLoadingCommandExecuted);
         ImportClickedCommand = new DelegateCommand<object>(ImportClickedCommandCommandExecuted);
@@ -139,34 +139,21 @@ public class StudentPageVM : VmBase<StudentRes, StudentPageVM>
 
     #region Methods bind command
 
-    private void OnRowValidatingCommandExecuted(GridViewRowValidatingEventArgs  e)
+    private void OnCellValidatedCommandExecuted(GridViewCellValidatedEventArgs e)
     {
-        if (e.EditOperationType != Telerik.Windows.Controls.GridView.GridViewEditOperationType.None)
+        if (e.ValidationResult.ErrorMessage != null)
         {
-           // RadWindow.Confirm("The row is not valid. Are you sure to cancel this your update?", OnConfirmCancelEditRadWindowClosed);
-
+            RadWindow.Confirm($" {e.ValidationResult.ErrorMessage} Are you sure to Cancel editing?", OnConfirmCancelEditRadWindowClosed);
         }
-        
-       /* if (messageBoxResult == MessageBoxResult.No)
-        {
-
-            this.clubsGrid.CancelEdit();
-        } */
     }
 
     private void OnConfirmCancelEditRadWindowClosed(object sender, WindowClosedEventArgs e)
     {
         //check whether the user confirmed 
-        bool shouldDelete = e.DialogResult.HasValue ? e.DialogResult.Value : false;
-        if (!shouldDelete)
+        bool confirm = e.DialogResult.HasValue ? e.DialogResult.Value : false;
+        if (confirm)
         {
-            Count = Students.Count;
-            CurrentCount--;
-            IsDataChanged = true;
-        }
-        else
-        {
-            CurrentDeleteEvent.Cancel = true;
+           // gridViewStudent.CancelEdit();
         }
     }
 
@@ -241,7 +228,7 @@ public class StudentPageVM : VmBase<StudentRes, StudentPageVM>
     {
         var obj = e.NewData as StudentItemVM;
 
-        if (obj.PersistChange == PersistChange.None)
+        if (obj != null  && obj.PersistChange == PersistChange.None)
         {
             var values = e.OldValues?.Values;
 
@@ -259,7 +246,7 @@ public class StudentPageVM : VmBase<StudentRes, StudentPageVM>
                 IsDataChanged = true;
             }
         }
-        else if(obj.PersistChange == PersistChange.Insert)
+        else if(obj != null &&  obj.PersistChange == PersistChange.Insert)
         {
             CurrentCount++;
             IsDataChanged = true;

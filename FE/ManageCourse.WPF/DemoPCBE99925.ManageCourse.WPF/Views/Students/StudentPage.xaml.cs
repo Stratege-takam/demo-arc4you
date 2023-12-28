@@ -1,4 +1,5 @@
 
+using System.Windows;
 using System.Windows.Controls;
 using Arc4u.Dependency.Attribute;
 using EG.DemoPCBE99925.ManageCourse.WPF.Model;
@@ -13,20 +14,8 @@ public partial class StudentPage : UserControl
     public StudentPage()
     {
         InitializeComponent();
+        //gridViewStudent.ValidationType = Telerik.Windows.Controls.GridViewValidationType.None;
+        
     }
 
-    private void gridViewStudent_CellValidated(object sender, Telerik.Windows.Controls.GridViewCellValidatedEventArgs e)
-    {
-
-    }
-
-    private void gridViewStudent_CellValidated_1(object sender, Telerik.Windows.Controls.GridViewCellValidatedEventArgs e)
-    {
-
-    }
-
-    private void gridViewStudent_CellValidating(object sender, Telerik.Windows.Controls.GridViewCellValidatingEventArgs e)
-    {
-
-    }
 }
